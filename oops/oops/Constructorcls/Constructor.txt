@@ -1,0 +1,296 @@
+﻿What is constructor in C# ?
+# It is a special method present inside a class responsible for initializing the
+  variables of that class.
+# The name of the constructor method is exactly the same name as the class in which
+  it was present.
+# suppose, if your class name is employee, then the name of the constructor method
+  is going to be employee.
+# The constructor method does not reeturn any value. that means it is a non-value 
+  returning method.
+# if we don't have a constructor, then we cannot create an instance of the class.
+
+POINTS TO REMEMBER WHILE WORKING WITH CONSTRUCTOR IN C# :
+#1 Implicitly Defined Constructors are parameter less and these constructors are 
+   also known as Default Constructors. This is because they are used to initialize
+   the variable with default values.
+#2 Implicitly Defined Constructors are public.
+#3 We can also define a constructor under the class and if we define it, we can 
+   call it an Explicit Constructor and an explicit constructor can be parameter
+   less and parameterized also.
+
+WE SHOULD NOT USE THE WORD IMPLICITLY WHILE CALLING THE CONSTRUCTOR IN C#, WHY?
+# if we are not defining any construtor explicitly, the compiler will provide
+  the constructor which is called implicitly constructor.
+
+DEFINING AND CALLING CONSTRUCTOR IN C# :
+# DEFINING : Defining a constructor means implementing a constructor in your class.
+  * we can define constructor in two type. Implicit and Explicit.
+  * Implicit means the compiler will define the constructor.
+  * Emplicit means we as a programmer define the ocnstructor.
+# CALLING : Whenever we are creating the instance, we are calling the constructor.
+  calling is Explicit.
+
+FREQUENTLY ASKED INTERVIEW QUESTIONS:
+WHAT IS A CONSTRUCTOR IN C# ?
+# we can define the constructor in C# are the special types of methods of a class
+  that are executed whenever we create an instance(object) of that class. the 
+  constructor are responisble for two things. One is the object initialization and
+  the other one is memory allocation. The role of the new keyword is to create the
+  object and the role of the constructor is to intialize the variables.
+
+WHAT ARE THE RULES TO FOLLOW WHILE WORKING WITH C# CONSTRUCTOR?
+#1 The constructor's name should be the same as the class name.
+#2 it should not contain a return type even void also.
+#3 as part of the constructor body return statement with a value is not allowed.
+
+WHAT DOES A CONSTRUCTOR HAVE IN C# ?
+#1 it can have all five accessiblity modfiers public,private,protected etc.
+#2 the constructor can be parameterless or parameterized.
+#3 it can have a throws clause which means we can throw an exception from the 
+   constructor.
+#4 the constructor can have logic, as part of logic it can have all C#.NET legal
+   statements except return statements with value.
+#5 We can place a return; in the constructor.
+
+CAN WE DEFINE A METHOD WITH THE SAME CLASS NAME IN C# ?
+# No, it is not allowed to define a method with the same class name in C#.
+  it will give you a complie-time error.
+
+TYPES OF CONSTRUCTORS IN C# 
+#1 DEFAULT OR PARAMETER LESS CONSTRUCTOR
+#2 PARAMETERIZED CONSTRUCTOR
+#3 COPY CONSTRUCTOR
+#4 STATIC CONSTRUCTOR
+#5 PRIVATE CONSTRUCTOR
+
+DEFAULT OR PARAMETERLESS CONSTRUCTORS
+# if a constructor method does not take any parameters, then we call that a Default
+  or parameter less constructor.
+  The default or parameterless Constructors are again classified into two types.
+  They are as follow:
+  *1 System-Defined Default Constructor
+  *2 User-Defined Default Constructor
+
+WHAT IS SYSTEM DEFINED DEFAULT OR PARAMETERLESS CONSTRUCTOR IN C# ?
+# if we are not defined any constructor explicitly in our program, then by default
+  the complier will provide one constructor at the time of compilation. That
+  constructor is called a default constructor and the default constructor is 
+  parameterless. The default constructor will assign default values to the data
+  members (non-static variables). As this constructor is created by the system
+  this is also called a systerm-defined default constructor.
+
+WHEN DO WE NEED TO PROVIDE THE CONSTRUCTOR EXPLICITLY?
+# if we want to execute some custom logic at the time of object creation, that
+  logic may be object initialization logic or some other useful logic, then as
+  developer, we must provide the constructor explicitly in c#.
+
+WHAT IS A USER-DEFINED DEFAULT CONSTRUCTOR IN C# ?
+
+# The constructor which is defined by the user without any parameter is called 
+  the user-defined default constructor. the constructor does not accept any 
+  argument but as part of the constructor body, you can write your own logic.
+# The drawback of the above user-defined default constructor is that each and
+  every instance of the class will be initialized with the same set of values.
+  that means it is not possible to initialize each instance of the class with 
+  different values.
+
+WHEN SHOULD WE DEFINE A PARAMETERIZED CONSTRUCTOR IN A CLASS ?
+# if we want to inilialize the object dynamically with the user-given values or 
+  if we want to initialize each instance of a class with a different set of values
+  then we need to be use the parameterized constructor in c#.
+  The advantange is that we can initialize each instance with different values.
+
+WHAT IS PARAMETERIZED CONSTRUCTOR IN C# ?
+# If a constructor is defined with parameters , we call it a parameterized
+  constructor.
+
+COPY CONSTRUCTOR IN C#
+# If we want to create multiple instances with the same values then we need to
+  use the copy constructor in c#. in a copy constructor the constructor takes
+  the same class as parameter to it.
+
+
+HOW MANY CONSTRUCTOR CAN BE DEFINED IN A CLASS IN C#?
+# we can define any number of constructor. But the most important point that you
+  need to remember is that each and every constructor must have a different 
+  signature.
+
+STATIC CONSTRUCTOR IN C# 
+# if a constructor is decalred explicitly by using the static modifier, then it
+  is called a static constructor in c#.
+
+POINTS TO REMEMBER WHILE WORKING WITH STATIC CONSTRUCTORS IN C#
+#1 if a class contains any static variables, then only implicit static constructors
+   come into the picture otherwise we must be defined them explicity.
+#2 Static Constructor are responsible for initializing static variables and
+   these constructors are never called explicitly. They are called implicitly
+   and moreover, these constructor are the first to execute in any class.
+
+
+POINTS TO REMEMBER ABOUT STATIC CONSTRUCTOR 
+#1 There can be only one static constructor in a class.
+#2 it can't be called explicitly, it is always called implicity.
+#3 The static constructor should be without any parameters.
+#4 it can only access the static members of the class. 
+#5 there should not be any access specifiers in the static constructor definition.
+#6 if a class is static then we cannot create the object for the static class.
+#7 it is called automatically to initialize the static members.
+#8 static constructor will be invoked only once at the time of class loading.
+
+CAN WE INITIALIZE NON-STATIC DATA MEMBERS WITHIN A STATIC CONSTRUCTOR IN C#?
+# It is not possible to inialize non-static data members within a static 
+  constructor, it raises  a compilation error.
+
+Can we initialize static data fields within a non-static constructor in C#?
+# Yes, we can initialize static data members within a non-static constructor
+
+What is a Private Constructor in C#?
+# it is also possible to create a constructor as private. The constructor whose 
+ accessibility is private is known as a private constructor. When a class 
+ contains a private constructor then we cannot create an object for the class 
+ outside of the class. So, private constructors are used to create an object 
+ for the class within the same class. 
+
+
+Points To Remember about C# Private Constructor:
+#1 Using Private Constructor in C# we can implement the singleton design pattern.
+#2 We need to use the private constructor in C# when the class contains only 
+   static members.
+#3 Using a private constructor is not possible to create an instance from 
+   outside the class.
+
+
+When the Static Constructor of a Class is Executed in C#?
+#1 If both the static constructor and Main method are present in a single 
+   class, then the program execution will start from the Main method, but 
+   before executing the Main method body, it will first execute the Static 
+   Constructor of the class.
+
+#2 When we call any static variables or static methods for the First time in 
+   a class, then it will execute the static constructor of that class.
+
+#3 When we create an instance of a class for the first time, then before 
+   executing the non-static constructor, it will first execute the static 
+   constructor of that class.
+
+
+Summary of Static and Non-Static Constructors:
+#1 A constructor is a special method inside a class used to initialize the 
+   data members. If we create the constructor using a static modifier then 
+   we call it a static constructor and the rest of all are non-static 
+   constructors only.
+
+#2 The static constructor is used to initialize the static data members and 
+   the non-static constructor is used to initialize the non-static data 
+   members of a class.
+
+#3 The static constructor is always invoked implicitly while the non-static 
+   constructor is always invoked explicitly.
+
+#4 If we have not defined any constructor explicitly, then the compiler will 
+   provide the implicit constructor in the following conditions.
+
+#5 For a static class, the compiler will provide a static constructor 
+   implicitly, but no non-static constructor.
+
+#6 For a non-static class, the compiler will provide a non-static constructor,
+   if the non-static class has any static member, then only the compiler will 
+   provide the static constructor.
+
+#7 Static constructors will execute only once during the life cycle of a class
+   and non-static constructors are executed 0 or n number times. If we have 
+   not created any object, then the constructor will execute 0 times and if 
+   we create n number of objects, then the constructor will execute n number 
+   of times.
+
+#8 In a class, we can have only one static constructor and i.e. too parameterless, 
+   and hence static constructor cannot be overloaded. But, in a class, we can 
+   define any number of non-static constructors and hence non-static 
+   constructors as overloaded.
+
+#9 A static constructor is executed when our class execution starts and it 
+   will execute only once and it will be the first block inside a class to be 
+   executed while non-static constructors are going to be executed when we 
+   create an instance of a class and for each instance of the class.
+
+
+What is a Private Constructor in C#?
+# when the constructor is created by using the Private Access Specifier, then 
+  it is called a Private Constructor. When a class contains a private 
+  constructor and if the class does not have any other Public Constructors, 
+  then you cannot create an object for the class outside of the class. But we 
+  can create objects for the class within the same class. 
+
+Private Constructor Restricting Inheritance in C#:
+# if you have a private constructor in a class, then that class cannot be 
+  inherited. This is also partially true. 
+# if your class has a private constructor as well as any other public 
+  constructor, then it is possible to inherit your class.
+# if your class has a private constructor as well as any other public 
+  constructor, then it is possible to inherit your class.
+# If the Parent class has only a private constructor and does not have any 
+  public constructors then Inheritance is not possible with outside classes.
+
+
+When to use Private Constructors in C#?
+# One of the use cases of the private constructors is to implement a 
+  singleton design pattern.
+
+
+What is Singleton Pattern in C#?
+# The Singleton Design Pattern ensures that only one instance of a particular 
+  class is going to be created and then provide simple global access to that 
+  instance for the entire application.
+
+
+How to Implement Singleton Design Pattern in C#?
+#1 You need to declare only a single constructor in your class and that 
+   constructor should be private and parameterless. This is required because 
+   it is not allowed the class to be instantiated from outside the class. It 
+   only instantiates from within the class.
+
+#2 The class should be declared sealed which will ensure that it cannot be 
+   inherited.
+
+#3 You need to create a private static variable that is going to hold a 
+   reference to the single created instance of the class.
+
+#4 You also need to create a public static property/method which will return 
+   the single-created instance of the singleton class. This method or property 
+   first checks if an instance of the singleton class is available or not. If 
+   the singleton instance is available, then it returns that singleton 
+   instance otherwise it will create an instance and then return that instance.
+
+
+What are Destructors in C#?
+# The Destructor is also a special type of method present in a class, just like 
+  a constructor, having the same name as the class name but prefixed with 
+  ~ tilde.
+# Destructors which are also called Finalizers in C# are used to perform any 
+  necessary final clean-up when a class instance is being collected by the 
+  garbage collector.
+# destructor method cannot have any parameters as well as cannot be applied 
+  with any modifiers. As the destructor is not parameterized, so we cannot 
+  overload the destructor.
+
+
+When is a Destructor method Called in C#?
+# A destructor method gets called automatically by the garbage collector when 
+  the object of the class is destroyed. So, the point that you need to 
+  remember is that the destructor methods are automatically called by the 
+  garbage collector.
+
+
+Pints to Remember while working with Destructors in C#
+#1 Destructors (or Finalizers) cannot be defined in structs. In C#, they are 
+   only used with only classes.
+
+#2 In a class, we can only define one Destructor (or Finalizer). That means 
+   Destructors cannot be overloaded in a class.
+
+#3 Destructors cannot be called Explicitly. They are invoked automatically by 
+   the garbage collector. At most what we can do is, we can request the 
+   Garbage collector to execute the Destructor by calling the GC.Collect() 
+   method.
+
+#4 A Destructor does not take any modifiers or does not have any parameters.

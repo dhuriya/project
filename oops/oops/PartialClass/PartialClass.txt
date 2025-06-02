@@ -1,0 +1,105 @@
+﻿What is Partial Class in C#?
+# Partial Class is the new feature that has been added in C# 2.0 
+  which allows us to define a class on multiple files i.e. we can 
+  physically split the content of the class into different files 
+  but even physically they are divided but logically it is one 
+  single unit only.
+# A class in which code can be written in two or more files is 
+  known as a partial class. To make any class partial we need to 
+  use the keyword partial.
+
+
+When do we need to use Partial Class in C#?
+There are several situations when splitting a class definition 
+is desirable
+@1 When working on large projects, splitting a class over 
+   separate files allows multiple programmers to work on it 
+   simultaneously.
+@2 When working with automatically generated source code, the 
+   code can be added to the class without having to recreate the 
+   source file. Visual Studio uses this approach when creating 
+   windows form, Web service wrapper code, and so on.
+
+
+Rules to follow while working with Partial Classes in C#:
+@1 All the parts that contain the class definition must use the 
+   partial keyword. Otherwise, we will get a compilation error 
+   stating Missing partial modifier. Another partial declaration 
+   of this type exists.
+
+@2 All the parts of the partial class must have the same access 
+   modifier. If we try to use different access modifiers in 
+   different parts of the partial class, then we will get a 
+   compilation error saying that Partial declarations have 
+   conflicting accessibility modifiers. 
+
+@3 If any of the parts are declared as abstract, then the entire 
+   type is considered as abstract or if any of the parts are 
+   declared as sealed, then the entire type is considered as 
+   sealed or if any of the parts inherit a class, then the 
+   entire type inherits that class. Here, you can see, one of 
+   the parts we declared as abstract, and hence the complete 
+   class becomes abstract and as we know we cannot create an 
+   instance of an abstract class. And here when we are trying to 
+   create an instance of the PartialEmployee class which is an 
+   abstract class, the compiler throws one compilation error.
+
+@4 C#.NET does not support multiple class inheritance that we 
+   already discussed in our Multiple Inheritance article become 
+   of the ambiguity problem. That means different parts of the 
+   partial class must not specify different base classes. If we 
+   specify different bases class, then we will get a compilation 
+   error saying Partial declarations must not specify different 
+   base classes.
+
+@5 But it is possible with Partial classes that the different 
+   parts of the partial class can specify different base 
+   interfaces and the final type should and must implement all 
+   the interface methods. 
+
+
+What are Partial Methods in C#?
+A partial class may contain a partial method. One part of the 
+class contains the signature of the method. An implementation of 
+the Partial Method can be defined in the same part or other 
+parts of the Partial Class. 
+
+Rules to Follow while working with Partial Methods in C#:
+@1 Partial methods in C# are private by default and we can use 
+   any access specifier explicitly, and if we try to use any 
+   access specifier explicitly like public, private, protected, 
+   etc, then we will get a compiler stating A partial method 
+   cannot have access modifiers or the virtual, abstract, 
+   override, new, sealed, or extern modifiers. 
+
+@2 Partial method declaration and implementation should not be 
+   at the same time. Its declaration should be at one place and 
+   its implementation must be at a different place either in the 
+   same part or in other parts of the partial class. If we 
+   include both declaration and implementation at the same time, 
+   then we will get a compiler error saying No defining 
+   declaration found for implementing declaration of partial 
+   method ‘PartialDemo.PartialClass.partialMethod()’. 
+
+@3 A partial method return type must be void. If we try to use 
+   any other return type like int, string, bool, etc. then we 
+   will get a compiler error saying Partial methods must have a 
+   void return type.
+
+@4 A partial method must and should be declared within a partial 
+   class or partial struct. A non-partial class or struct cannot 
+   include partial methods. If we try to define a partial method 
+   under a non-partial class or struct, then we will get a 
+   compile-time error saying A partial method must be declared 
+   within a partial class or partial struct. 
+
+@5 The signature of the partial method declaration must match 
+   the signature of the implementation else we will get a 
+   compilation error. 
+
+@6 A partial method can be implemented only once either in the 
+   same part or in other parts of the partial class. If we try 
+   to implement a partial method more than once, then we will 
+   get a compilation error saying A partial method may not have 
+   multiple implementing declarations. 
+

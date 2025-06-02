@@ -1,0 +1,59 @@
+﻿What is the Encapsulation Principle in C#?
+# Encapsulation Hides the internal state and functionality of an object and 
+  only allows access through a public set of functions.
+
+# The process of binding or grouping the State (i.e., Data Members) and 
+  Behaviour (i.e., Member Functions) together into a single unit (i.e., class, 
+  interface, struct, etc.) is called Encapsulation in C#.
+
+# The Encapsulation Principle ensures that the state and behavior of a unit 
+  (i.e., class, interface, struct, etc.) cannot be accessed directly from 
+  other units (i.e., class, interface, struct, etc.).
+
+
+Real-World Example of Encapsulation:
+# real-world example of encapsulation can be your school or office bag. The 
+  bag contains different stuff like a Pen, Pencil, Notebook, etc it. To get 
+  any stuff, you need to open that bag.
+# The biggest advantage of Encapsulation is Data Hiding. That means, by using 
+   Encapsulation, we can achieve Data Hiding. 
+
+What is Data Hiding in C#?
+# Data hiding or Information Hiding is a Process in which we hide internal data 
+  from outside the world. The purpose of data hiding is to protect the data 
+  from misuse by the outside world. Data hiding is also known as Data 
+  Encapsulation. Without the Encapsulation Principle, we cannot achieve data 
+  hiding.
+
+# the process of defining a class by hiding its internal data members from 
+  outside the class and accessing those internal data members only through 
+  publicly exposed methods (setter and getter methods) or properties with 
+  proper validations is called Encapsulation.
+
+How can we Implement Data Hiding or Data Encapsulation in C#?
+#1 By declaring the variables as private (to restrict their direct access from 
+   outside the class)
+#2 By defining one pair of public setter and getter methods or properties to 
+   access private variables from outside the class.
+
+Implementing Data Encapsulation or Data Hiding in C# using Setter and Getter 
+Methods:
+
+Implementing Data Encapsulation or Data Hiding in C# using Properties:
+
+
+Advantages of Encapsulation in C#:
+#1 Data protection: You can validate the data before storing it in the 
+   variable.
+#2 Achieving Data Hiding: The user will have no idea about the inner 
+   implementation of the class.
+#3 Security: The encapsulation Principle helps to secure our code since it 
+   ensures that other units(classes, interfaces, etc) can not access the data 
+   directly.
+#4 Flexibility: The encapsulation Principle in C# makes our code more flexible,
+   allowing the programmer to easily change or update the code.
+#5 Control: The encapsulation Principle gives more control over the data 
+   stored in the variables. For example, we can control the data by validating
+   whether the data is good enough to store in the variable.
+
+

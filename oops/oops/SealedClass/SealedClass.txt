@@ -1,0 +1,16 @@
+﻿Sealed Class in C#
+# when we define the class using the sealed modifier, then it is 
+  known as a sealed class and a sealed class cannot be inherited 
+  by any other classes.
+
+Points to Remember while working with Sealed Class in C#
+@1 A sealed class is completely the opposite of an abstract 
+   class.
+@2 The sealed class cannot contain any abstract methods.
+@3 It should be the bottom-most class within the inheritance 
+   hierarchy.
+@4 A sealed class can never be used as a base class.
+@5 The sealed class is specially used to avoid further 
+   inheritance.
+@6 The keyword sealed can be used with classes, instance methods, 
+   and properties.

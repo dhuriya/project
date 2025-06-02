@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F8C3820F-6768-49ED-A12F-060D9A5FD854}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>oops</RootNamespace>
+    <AssemblyName>oops</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstraction\Abstract.cs" />
+    <Compile Include="Abstraction\AXIX.cs" />
+    <Compile Include="Abstraction\BankFactory.cs" />
+    <Compile Include="Abstraction\IBank.cs" />
+    <Compile Include="Abstraction\SBI.cs" />
+    <Compile Include="AnonymousMethods\Anonymous.cs" />
+    <Compile Include="ClsCollection.cs" />
+    <Compile Include="Constructorcls\Constructor.cs" />
+    <Compile Include="Constructorcls\CopyConstructor.cs" />
+    <Compile Include="Constructorcls\ExplicitConstructor.cs" />
+    <Compile Include="Constructorcls\ImplicitlyConstructor.cs" />
+    <Compile Include="Constructorcls\ParameterizedConstructor.cs" />
+    <Compile Include="Constructorcls\PrivateConstructor.cs" />
+    <Compile Include="Constructorcls\Singleton.cs" />
+    <Compile Include="Constructorcls\StaticConstsructor.cs" />
+    <Compile Include="Constructorcls\UserDefineDefault.cs" />
+    <Compile Include="DSA\BitManupulation.cs" />
+    <Compile Include="DSA\ClsArray.cs" />
+    <Compile Include="DSA\clsSorting.cs" />
+    <Compile Include="Encapsulation\BankAccount.cs" />
+    <Compile Include="Encapsulation\CarSpeed.cs" />
+    <Compile Include="Encapsulation\CoffeeMachine.cs" />
+    <Compile Include="Encapsulation\DigitalWallet.cs" />
+    <Compile Include="Encapsulation\EncapsulationBank.cs" />
+    <Compile Include="Filehandling.cs" />
+    <Compile Include="GenericClass.cs" />
+    <Compile Include="Generic_Constraints\GenericClass.cs" />
+    <Compile Include="Inheritance\SingleInheritance.cs" />
+    <Compile Include="Interface\CurrentAccount.cs" />
+    <Compile Include="Interface\IBankAccount.cs" />
+    <Compile Include="Interface\ImplementaionClass.cs" />
+    <Compile Include="Interface\ImplementationClass1.cs" />
+    <Compile Include="Interface\ImplementationClass2.cs" />
+    <Compile Include="Interface\Interface1.cs" />
+    <Compile Include="Interface\Interface2.cs" />
+    <Compile Include="Interface\ITestInterface1.cs" />
+    <Compile Include="Interface\ITestInterface2.cs" />
+    <Compile Include="Interface\MultipleInheritanceTest.cs" />
+    <Compile Include="Interface\SavingAccount.cs" />
+    <Compile Include="MyGenricClass.cs" />
+    <Compile Include="Polymorphism\CompileTimePolymorphism.cs" />
+    <Compile Include="Polymorphism\DynamicPolymorphism.cs" />
+    <Compile Include="Polymorphism\DynamicPolymorphism2.cs" />
+    <Compile Include="Polymorphism\MethodOverloadingCls.cs" />
+    <Compile Include="Polymorphism\MethodOverridingCls.cs" />
+    <Compile Include="Polymorphism\OverridingExampleReal.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Question.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Abstraction\Abstraction.txt" />
+    <Content Include="AnonymousMethods\AnonymousMethods.txt" />
+    <Content Include="CollectionsTxt.txt" />
+    <Content Include="Constructorcls\Constructor.txt" />
+    <Content Include="Encapsulation\Encapsulation.txt" />
+    <Content Include="FileHandling.txt" />
+    <Content Include="Inheritance\Inheritance.txt" />
+    <Content Include="Interface\Interface.txt" />
+    <Content Include="LINQ\Linq.txt" />
+    <Content Include="Notes_Text\Access_Specifiers.txt" />
+    <Content Include="Notes_Text\Event_Delegates_Eventhandler.txt" />
+    <Content Include="Polymorphism\Polymorphism.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FilleExample\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

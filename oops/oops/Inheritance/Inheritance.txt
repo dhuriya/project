@@ -1,0 +1,262 @@
+﻿What is Inheritance in C#?
+# Inheritance in C# is a mechanism of consuming the members that are defined 
+  in one class from another class. See, we are aware that a class is a 
+  collection of members. The members defined in one class can be consumed by 
+  another class by establishing a parent/child relationship between the 
+  classes.
+
+Rule1:
+# In C#, the parent classes constructor must be accessible to the child 
+  class; otherwise, the inheritance would not be possible because when we 
+  create the child class object, first it goes and calls the parent class 
+  constructor so that the parent class variable will be initialized and we 
+  can consume them under the child class.
+Rule2:
+# In inheritance, the child class can access the parent class members, but 
+  the parent classes can never access any members that are purely defined in 
+  the child class.
+Rule3:
+# We can Initialize a Parent class variable by using the child class instance 
+  to make it a reference variable so that the reference will be consuming the 
+  memory of the child class instance. But in this case, also, we cannot call 
+  any pure child class members using the reference.
+
+what is a reference?
+# Reference is a pointer to an instance that does not have any memory 
+  allocation.
+
+Note: The point that you need to remember is memory allocation is done for 
+      instances, not for references in C#. References are just pointers to 
+	  instances.
+
+Rule4:
+# Every class that is defined by us or predefined in the libraries of the 
+  language has a default parent class, i.e., the Object class of the System 
+  namespace, so the members (Equals, GetHashCode, GetType, and ToString) of 
+  the Object class are accessible from anywhere.
+
+Note: Object class supports all classes in the .NET Framework class hierarchy 
+      and provides low-level services to derived classes. This is the ultimate
+	  base class of all classes in the .NET Framework; it is the root of the 
+	  type hierarchy.
+
+Rule5:
+# we don’t have support for multiple inheritances through classes. What we are
+  provided is only a Single Inheritance through classes. That means with 
+  classes, only one immediate parent class is allowed (i.e., Single, 
+  Multilevel, and Hierarchical supported), and more than one immediate parent 
+  class is not allowed in C# with classes (i.e., Multiple and Hybrid are not 
+  supported). In our next article, we will discuss this rule in detail.
+
+Types of Inheritance in C#
+#1 Single Inheritance
+#2 Multi-Level Inheritance
+#3 Hierarchical Inheritance
+#4 Hybrid Inheritance
+#5 Multiple Inheritance
+
+Single Inheritance:
+# When a class is inherited from a single base class then the inheritance is 
+  called single inheritance. 
+
+Multilevel Inheritance:
+# When a derived class is created from another derived class, then such a 
+  type of inheritance is called Multilevel Inheritance.
+
+Hierarchical Inheritance:
+# When more than one derived class is created from a single base class then 
+  it is called Hierarchical inheritance. 
+
+Multiple Inheritance:
+# When a derived class is created from more than one base class then such 
+  type of inheritance is called multiple inheritances.
+
+Hybrid Inheritance:
+# Hybrid Inheritance is the inheritance that is the combination of any Single,
+  Hierarchical, and Multilevel inheritances.
+
+Classification of Inheritance in C#
+# C#.NET classified the inheritance into two categories, such as
+
+#1 Implementation inheritance: Whenever a class is derived from another class 
+                               then it is known as implementation inheritance.
+#2 Interface inheritance: Whenever a class is derived from an interface then 
+                          it is known as interface inheritance.
+
+
+How to use Inheritance in Application Development?
+# Inheritance is something that comes into the picture, not in the middle of 
+  a project or middle of application development. This can also come in the 
+  middle of the project development but generally when we start application 
+  development, in the initial stages only we plan inheritance and implement 
+  it in our project.
+
+
+What is an Entity?
+# An Entity is something that is associated with a set of attributes. An 
+  Entity can be a living or non-living object. But anything that is 
+  associated with a set of attributes is called Entity.
+
+# Suppose, you are developing an application for a Bank. So, the Entity 
+  associated with the bank is a customer. A customer is an Entity. 
+
+# You are developing an application for a school; the Student will be the 
+  Entity. 
+
+# Suppose, you are developing an application for a business, then Employee is 
+  an entity.
+
+Application Development Process:
+# Step1: Identify the Entities that are associated with the application
+  Suppose, we are developing an application for a School. Then for this 
+  Student Application, who are the entities. The Student is an Entity. 
+  TeachingStaff is an Entity. NonTeachingStaff is another Entity. Like this, 
+  we can identify the entities. So, in our application, we have identified 
+  three entities.
+@ Entities: Student, TeachingStaff, NonTeachingStaff
+
+# Step2: Identify the attributes of each and every entity.
+  Entity: Student
+  Student Attributes: Id, Name, Address, Phone, Class, Marks, Grade, Fees
+
+  Entity: TeachingStaff
+  TeachingStaff Attributes: Id, Name, Address, Phone, Designation, Salary, 
+  Qualification, Subject
+
+  Entity: NonTeachingStaff
+  NonTeachingStaff Attributes: Id, Name, Address, Phone, Designation, Salary, 
+  DeptName, ManagerId
+
+# Step3: Identify the common attributes and put them in a hierarchical order
+
+# Step4: Defining the classes that are representing the entities in 
+  Hierarchical order
+
+
+How to Make use of Inheritance in Realtime Application Development?
+#1 Identify the entity associated with the application
+#2 Identify the attribute that is associated with the application.
+#3 Now separate the attribute of each entity in a hierarchical order without 
+   having any duplicates.
+#4 Convert those entities into classes.
+
+IsA and HasA Relationship in C# with Examples
+
+IsA Relationship (Inheritance):
+# The IsA relationship is achieved through inheritance. It represents a 
+  hierarchical relationship between a base class (parent) and derived classes 
+  (children). In an IsA relationship, the derived class is a specialized 
+  version of the base class.
+
+  Characteristics:
+  @ Inheritance: The derived class inherits properties and methods from the 
+    base class.
+  @ Polymorphism: The derived class can override or extend the functionalities
+    of the base class.
+  @ Substitutability: Objects of the derived class can be treated as base 
+    class objects.
+
+HasA Relationship (Composition):
+# The HasA relationship is used to denote usage or composition. It indicates 
+  that an object of one class “contains” or “is composed of” objects from 
+  another class. This relationship is less tightly coupled than inheritance.
+
+  Characteristics:
+  @ Composition: A class contains or is composed of objects from another 
+    class.
+  @ Independence: The contained object (e.g., Engine) can exist independently 
+    of the container (e.g., Car).
+  @ Encapsulation: The internal workings of the contained object are usually 
+    hidden from the outside class.
+  @ Flexibility and Reusability: Objects can be easily replaced or changed, 
+    providing more flexibility in code design.
+
+
+Specialization in C#
+#1 we have a class called Rectangle. Then, can we create the object of the 
+   Rectangle class? Yes, we can create objects of Rectangle and call the 
+   functions of the Rectangle class. Now, we have a class called Cuboid which 
+   is inherited from the Rectangle class. Now, for the Cuboid class also we 
+   can create objects and call the functions of Cuboid and Rectangle. These 
+   two things i.e. Rectangle and Cuboid really exist in the world. Can you 
+   show me a Rectangle? Yes, you can show me some shapes that are rectangular 
+   or paper that is rectangular. So, rectangles exist in the real world. And 
+   what about Cuboid? Yes, it also exists in the real world. Any box shape 
+   thing is a cuboid. So, these two things exist in the real world. Now, if I 
+   say, which one is existing first in our example? Then the answer will be 
+   Rectangle. And from the Rectangle class, we have derived the Cuboid class. 
+   So, the Rectangle class is already existing and from the Rectangle class, 
+   we have defined a new class with some extra features i.e. we have a 
+   specialized class that is Cuboid. This is a specialization in C#.
+
+#2 We have a class Innova, Innova car from Toyota company. Then there is 
+   another class called Fortuner. If you know about these then you should 
+   know that first Innova was launched by Toyota and then a new car called 
+   Fortuner was launched which is an extension of Innova. As a common man if 
+   you see Fortuner as an extension of Innova then it is having same seating 
+   capacity but with a lot of extra features compared to Innova. So, it means 
+   that the Fortuner car is an extension of the Innova car.
+   Innova is a base class and Fortuner is a derived class. Innova was already 
+   existing and Fortuner is the specialized form of Innova. This is 
+   specialization.
+   "Something is already existing and then we are deriving something from that
+   existing one by adding some extra features."
+
+
+
+Generalization in C#
+#1 we have 3 classes that are Square, Rectangle, and Circle. Then for all of 
+   these three classes, we are defining one class that is Shape. And Square, 
+   Rectangle, and Circle are inherited from the Shape class. 
+   So, among these classes which one is existing first? We know that all the 
+   shapes i.e. square, rectangle and circle really exist in the real world. 
+   So, we are calling them shapes.
+   Do you think Shape really exists in the real world? No. It is just a 
+   virtual term. If I asked you to show me some shapes, then you’ll be 
+   drawing a rectangle, a circle, a square, a Rhombus, etc. but you cannot 
+   show me just a shape. So, Shape is a term or generic term, or generalized 
+   term which does not exist in the real world.
+   These child classes which are already existing in the real world and to 
+   bring them on a common platform, we have given the word Shape which is a 
+   logical term or virtual term, it is not a real term, it does not really 
+   exist in the real world.
+   Can you find the area or perimeter of a rectangle? Yes. Can you find the 
+   area or perimeter of the square? Yes. Can you find the area or perimeter 
+   of the circle? Yes. Does every shape have an area and perimeter? Yes.
+   This is a common feature, so we have brought it into shape. Now can you 
+   calculate the area and perimeter of the Shape? No, you can’t. There are no 
+   dimensions for shape. It’s a generalized term.
+
+#2 Suppose you have Innova, BMW, and Audi cars. So, you can start, stop, 
+   accelerate, and change gears in any of these. So, what these are all? 
+   These all are cars. Innova, BMW, and Audi are physically available in the 
+   real world. All these are nothing but cars.
+   So, they all are inheriting from Cars. What can you do in a car? You can 
+   drive, start, stop, change gears, etc. all these features are available in 
+   these cars. Then what about Cars? Does it really exist? No, it is a 
+   general term. Just a general term that is the logical definition of a 
+   group of things.
+   So, we have given a superclass to a group of classes for refereeing 
+   something. It is just like if I am looking at Innova so I can say it is a 
+   car. So, for any 4-wheelers we use the term, Car.
+   We are using this term generalization for refereeing them. We don’t have 
+   to know the brand name or the product name perfectly. When it looks like a 
+   car, we can say that’s a car. So, in the real world or in daily life we 
+   define such general terms.
+
+Summary of Generalization and Specialization in C#
+@ the point that you need to remember is both generalization and 
+  specialization achieve using only inheritance.
+@ In specialization, the parent was existing and the child was defined later. 
+@ In generalization, the child class was existing then we define the base 
+  class.
+@ So, specialization is a top-down approach and generalization is a bottom-up 
+  approach.
+@ In specialization, the base class has something to give to the child class 
+  whereas, in generalization, the base class doesn’t have anything to give to 
+  their child classes. Just their purpose is to group them together so that 
+  we can easily manage all those things.
+@ The purpose of generalization is to achieve polymorphism and the purpose of 
+  specialization is to share its features with its child classes.
+@ there are two purposes of inheritance. One is to share features with child 
+  classes and the second one is to achieve polymorphism. 

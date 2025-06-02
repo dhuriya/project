@@ -1,0 +1,5 @@
+K:\Deepu Practice\oops\oops\bin\Debug\oops.exe
+K:\Deepu Practice\oops\oops\bin\Debug\oops.pdb
+K:\Deepu Practice\oops\oops\obj\x86\Debug\oops.exe
+K:\Deepu Practice\oops\oops\obj\x86\Debug\oops.pdb
+K:\Deepu Practice\oops\oops\obj\x86\Debug\oops.csprojResolveAssemblyReference.cache

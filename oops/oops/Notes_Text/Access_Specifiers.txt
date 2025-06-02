@@ -1,0 +1,130 @@
+﻿ What are Access Specifiers in C#?
+ # Every keyword that we use such as private, public, protected, virtual, 
+   sealed, partial, abstract, static, base, etc. is called Modifiers. Access 
+   Specifiers are special kinds of modifiers using which we can define the 
+   scope of a type and its members.
+# Access Specifiers are used to define the scope of the type 
+  (Class, Interface, Structs, Delegate, Enum, etc.) as well as the scope of 
+  their members (Variables, Properties, Constructors, and Methods). Scope 
+  means accessibility or visibility that is who can access them and who 
+  cannot access them are defined by the Access Specifiers. See, I have a 
+  class with a set of members, who can consume these members, and who cannot 
+  consume these members are defined by the access specifiers.
+
+
+Different Types of Access Specifiers in C#:
+#  C# supports 6 types of access specifiers. They are as follows
+@1 Private
+@2 Public
+@3 Protected
+@4 Internal
+@5 Protected Internal
+@6 Private Protected
+
+What are Assemblies in .NET Framework?
+# Assemblies are the building block of .NET Framework applications; they form 
+  the fundamental unit of deployment
+# the assembly is EXE and for the class library project, the assembly is DLL. 
+  We cannot run a DLL directly but we can run an EXE directly.
+
+
+Access Specifiers or Access Modifiers with the Type Members:
+# Access Specifiers or Access Modifiers defined the scope of the type members.
+  That is from where we can access them and from where we cannot access them.
+  
+   The different scope for the type members is as follows:
+   @1 With the Class
+   @2 Derived Class in Same Assembly
+   @3 Non-Derived Class in Same Assembly
+   @4 Derived Class in Other Assemblies
+   @5 Non-Derived Class in Other Assemblies
+
+
+Private Access Specifier or Modifier in C# with Examples:
+# When we declare a type member (variable, property, method, constructor, etc)
+  as private, then we can access that member with the class only. From outside 
+  the class, we cannot access them.
+
+The scope of the private member in C#.NET is as follows:
+# With the Class: YES
+# Derived Class in Same Assembly: NO
+# Non-Derived Class in Same Assembly: NO
+# Derived Class in Other Assemblies: NO
+# Non-Derived Class in Other Assemblies: NO
+
+
+Public Access Specifiers or Access Modifiers in C# with Examples:
+# When we declare a type member (variable, property, method, constructor, etc) 
+  as public, then we can access that member from anywhere. That means there is
+  no restriction for public members.
+
+The scope of the public member in C#.NET is as follows:
+# With the Class: YES
+# Derived Class in Same Assembly: YES
+# Non-Derived Class in Same Assembly: YES
+# Derived Class in Other Assemblies: YES
+# Non-Derived Class in Other Assemblies: YES
+
+
+Protected Access Specifier or Access Modifier in C# with Examples:
+# Protected Members in C# are available within the containing type as well as 
+  to the types that are derived from the containing type. That means protected
+  members are available within the parent class (i.e. the containing type) as 
+  well as to the child/derived classes (classes derived from the containing 
+  type). 
+
+The scope of the protected members in C#.NET is as follows:
+# With the Class: YES
+# Derived Class in Same Assembly: YES
+# Non-Derived Class in Same Assembly: NO
+# Derived Class in Other Assemblies: YES
+# Non-Derived Class in Other Assemblies: NO
+
+Internal Access Specifier or Access Modifier in C# with Examples:
+# Whenever a member is declared with Internal Access Specifier in C#, then it 
+  is available anywhere within the containing assembly. It’s a compile-time 
+  error to access an internal member from outside the containing assembly.
+
+The scope of the internal members in C#.NET is as follows
+# With the Class: YES
+# Derived Class in Same Assembly: YES
+# Non-Derived Class in Same Assembly: YES
+# Derived Class in Other Assemblies: NO
+# Non-Derived Class in Other Assemblies: NO
+
+
+Protected Internal Access Specifier or Access Modifier in C#:
+# Protected Internal Members in C# can be accessed anywhere within the same 
+  assembly i.e. in which it is declared or from within a derived class from 
+  another assembly. So, we can think, it is a combination of Protected and 
+  Internal access specifiers.
+
+The scope of the protected internal members in C#.NET is as follows:
+# With the Class: YES
+# Derived Class in Same Assembly: YES
+# Non-Derived Class in Same Assembly: YES
+# Derived Class in Other Assemblies: YES
+# Non-Derived Class in Other Assemblies: NO
+
+
+Private Protected Access Specifier or Access Modifier in C# with Examples:
+# The private protected members are accessible within the class and within 
+  the derived class of the same assembly but cannot be accessed from another 
+  assembly.
+
+The scope of the private protected members in C#.NET is as follows:
+# With the Class: YES
+# Derived Class in Same Assembly: YES
+# Non-Derived Class in Same Assembly: NO
+# Derived Class in Other Assemblies: NO
+# Non-Derived Class in Other Assemblies: NO
+
+Access Specifiers with Type in C#:
+# We can use all 6 access specifiers with type members in C# but type allows 
+  only two access specifiers i.e. Internal and Public. It is a compile-time 
+  error to use private, protected, protected internal, and private protected 
+  access specifiers with types.
+
+What are the default Access Specifiers in C# for a Class and Class Members?
+# If we don’t specify an access specifier in C# then for Class, the default 
+  access specifier is internal and for class members it is private.

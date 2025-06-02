@@ -1,0 +1,143 @@
+﻿What is an Event?
+Events are notifications play a central role in the .NET framework provide a 
+way to trigger notifications from ene users or from objects
+
+The Role Of Events ?
+Events signal the occurrence of an action/notification objects that raise events
+don't need to explicitly know the object that will handle the event
+Events pass EventArgs (event data)
+
+What is a Delegate Exactly in .NET Framework?
+we can say that a delegate is a glue or pipeline between an event raiser and 
+an event handler that allows our event and EventArgs to get over to the event 
+handler. So, we need to transfer data from Point A to Point B somehow and this 
+could be only possible because of the delegate
+
+What is an Event Handler?
+Event handler is responsible for receiving and processing data from a delegate
+Normally recevies two parameters:
+-Sender
+-EverArgs
+EventArgs responsible for encapsulating event data
+
+
+What are the Types of Delegates in C#?
+The Delegates in C# are classified into two types as
+@1 Single Cast Delegate
+@2 Multicast Delegate
+
+
+Where do we use Delegates in C#?
+@1 Event Handlers
+@2 Callbacks
+@3 Passing Methods as Method Parameters
+@4 LINQ
+@5 Multithreading
+
+How many ways we can call a method in C#?
+#1 We can call the method using the object of the class if it is a non-static 
+   method or we can call the method through the class name if it is a static 
+   method.
+#2 We can also call a method in C# by using delegates. Calling a C# method 
+   using delegate will be faster in execution as compared to the first 
+   process i.e. either by using an object or by using the class name.
+
+
+What is Multicast Delegate in C#?
+A Multicast Delegate in C# is a delegate that holds the references of more 
+than one handler function. When we invoke the multicast delegate, then all 
+the functions which are referenced by the delegate are going to be invoked. 
+If you want to call multiple methods using a delegate then all the method 
+signatures should be the same. 
+
+A multicast delegate is just an array of multiple pipelines or multiple 
+delegates. The delegates are going to be invoked in the same order as they 
+are placed in the invocation list.
+
+What are Generic Delegates in C#?
+The Generic Delegates in C# were introduced as part of .NET Framework 3.5 
+which doesn’t require defining the delegate instance in order to invoke the 
+methods. 
+
+Types of Generic Delegates in C#
+@1 Func
+@2 Action
+@3 Predicate
+
+What is Func Generic Delegate in C#?
+The Func Generic Delegate in C# is present in the System namespace. This 
+delegate takes one or more input parameters and returns one out parameter. 
+The last parameter is considered as the return value. The Func Generic 
+Delegate in C# can take up to 16 input parameters of different or the same 
+data types. It must have one return type. The return type is mandatory but 
+the input parameter is not mandatory.
+
+Note: Whenever your delegate returns some value, whether by taking any input 
+parameter or not, you need to use the Func Generic delegate in C#.
+
+What is Action Generic Delegate in C#?
+The Action Generic Delegate in C# is also present in the System namespace. It 
+takes one or more input parameters and returns nothing. This delegate can 
+take a maximum of 16 input parameters of the different or same data types.
+
+Note: Whenever your delegate does not return any value, whether by taking any 
+input parameter or not, then you need to use the Action Generic delegate in 
+C#.
+
+What is Predicate Generic Delegate in C#?
+The Predicate Generic Delegate in C# is also present in the System namespace. 
+This delegate is used to verify certain criteria of the method and returns 
+the output as Boolean, either True or False. It takes one input parameter and 
+always returns a Boolean value which is mandatory. This delegate can take a 
+maximum of 1 input parameter and always return the value of the Boolean type.
+
+Note: Whenever your delegate returns a Boolean value, by taking only one input 
+parameter, then you need to use the Predicate Generic delegate in C#.
+
+Points to Remember while working with C# Generic Delegates:
+@1 Func, Action, and Predicate are Generic Inbuilt delegates that are present 
+   in the System namespace which is introduced in C# 3.
+@2 All these three delegates can be used with the method, Anonymous Method, 
+   and Lambda Expressions in C#.
+@3 The Func delegates can contain a maximum of 16 input parameters and must 
+   have one return type and that will be the last parameter in the parameter 
+   list.
+@4 Action delegate can contain a maximum of 16 input parameters and does not 
+   have any return type.
+@5 The Predicate delegate should satisfy some criteria of a method and must 
+   have only one input parameter. By default, it is having one output 
+   parameter of return type and we don’t have to pass the output parameter to 
+   the Predicate.
+
+
+What is Anonymous Method in C#?
+The Anonymous Methods in C# are defined using the delegate keyword and can be 
+assigned to a variable of the delegate type. 
+
+
+What are the Advantages of Using Anonymous Methods in C#?
+Lesser typing words. Generally, anonymous methods are suggested when the code 
+volume is very less and if it is one-time use only.
+
+Anonymous Method Accessing Variables Defined Outside:
+Yes, we can access it.
+
+What are the Limitations of Anonymous Methods in C#?
+# An anonymous method in C# cannot contain any jump statement like goto, 
+  break or continue.
+# Anonymous Method in C# cannot access the ref or out parameter of an outer 
+  method.
+
+
+Points to Remember while working with the Anonymous Methods in C#:
+#1 The anonymous methods are defined using the delegate keyword
+#2 An anonymous method must be assigned to a delegate type.
+#3 This method can access outer variables or functions except for the outer 
+   function ref and out parameter.
+#4 An anonymous method can be passed as a parameter.
+#5 This method can be used as an event handler. We have already discussed 
+   this in our Events in C# article.
+
+What are Lambda Expressions in C#?
+The Lambda Expression in C# is the shorthand for writing the Anonymous 
+Function. 

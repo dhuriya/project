@@ -1,0 +1,627 @@
+﻿What is the difference between an Array and an Array List in C#?
+The ArrayList collection in C# is very much similar to the Arrays data type. 
+The major difference between them is the dynamic nature of the non-generic 
+collection ArrayList. For arrays, 
+Array:
+ @1 Fixed Length
+ @2 Cannot insert it into the middle
+ @3 Cannot delete from middle
+ @4 It is type-safe, so we can store only similar types of data based on the 
+    data type.
+ @5 Boxing and Unboxing are not required.
+
+ ArrayList:
+ @1 Variable Length
+ @2 Can insert an element into the middle of the collection
+ @3 Can delete elements from the middle of the collection
+ @4 It is not type-safe, so we can store any type of data.
+ @5 Boxing and Unboxing are required as it is operated on the object data type.
+
+ What are the Problems with Array and ArrayList Collection in C#?
+ In the case of Array and ArrayList in C#, we access the elements from the 
+ collection using the index position. The index position of the elements 
+ starts from zero (0) to the number of elements – 1. But, it is very 
+ difficult for us to remember the index position of the element in order to 
+ access the values.
+ For example, let us say we have an employee array that contains the name, 
+ address, mobile, dept no, email id, employee id, salary, location, etc. Now 
+ if I want to know the email id or dept number of the employee then it is 
+ very difficult for me to use the index position
+
+ What is a Hashtable in C#?
+ The Hashtable in C# is a Non-Generic Collection that stores the element in 
+ the form of “Key-Value Pairs”. The data in the Hashtable are organized 
+ based on the hash code of the key.
+
+ Hashtable Characteristics in C#
+ @1 The Hashtable Collection Class in C# stores the elements in the form of 
+    key-value pairs.
+ @2 Hashtable Class belongs to System.Collection namespace i.e. it is a 
+    Non-Generic Collection class.
+ @3 It implements the IDictionary interface.
+ @4 The Keys can be of any data type but they must be unique and not null.
+ @5 The Hashtable accepts both null and duplicate values.
+ @6 We can access the values by using the associated key.
+ @7 The capacity of a Hashtable is the number of elements that a Hashtable 
+    can hold.
+ @8 A hashtable is a non-generic collection, so we can store elements of the 
+    same type as well as of different types.
+
+Differences between ArrayList and Hashtable in C#:
+@1 Lookup: ArrayList can be only looked up via the index number which is 
+   generated internally. Hashtable can be looked up by a custom-defined key.
+@2 Performance: ArrayList is faster than hashtable because of extra tasks 
+   performed in hashtables i.e. hashing.
+@3 Scenario: If you want a key lookup use hashtable. If you just want to add 
+   and browser through a collection then use ArrayList.
+
+How to Create a Non-Generic Hashtable Collection in C#?
+The Non-Generic Hashtable class in C# provides 16 different types of 
+constructors that we can use to create a hashtable 
+
+
+How to Check the Availability of a key/value Pair in a Hashtable in C#?
+@1 Contains(object key): The Contains(object key) method of the Hashtable is 
+   used to check whether the Hashtable contains a specific key. 
+@2 ContainsKey(object key): The ContainsKey(object key) method of the 
+   Hashtable is used to check if a given key is present in the Hashtable or 
+   not. 
+@3 ContainsValue(object value): The ContainsValue(object value) Method of 
+   the Hashtable class is used to check if a value is present in the 
+   Hashtable or not.
+
+How to Remove Elements from a Non-Generic Hashtable Collection in C#?
+@1 Remove(object key): This method is used to remove the element with the 
+   specified key from the Hashtable
+@2 Clear(): This method is used to remove all elements from the Hashtable.
+
+How to Clone a Non-Generic Hashtable Collection in C#?
+@1 Clone(): This method is used to create and return a shallow copy of a 
+   Hashtable object.
+
+How to Copy a Hashtable to an Existing Array in C#?
+@1 CopyTo(Array array, int arrayIndex): The CopyTo method of the Non-Generic 
+   Hashtable Collection Class is used to copy hashtable elements to a 
+   one-dimensional Array object, starting at the specified index in the 
+   array.
+   * To copy only the keys in the Hashtable, use Hashtable.Keys.CopyTo.
+   * To copy only the values in the Hashtable, use Hashtable.Values.CopyTo.
+
+What is Stack in C# and how does it work?
+The Stack in C# is a Non-Generic collection class that works in the LIFO 
+(Last in First out) principle. So, we need to use the Stack Collection Class 
+in C#, when we want Last-In-First-Out access to the items of a collection. 
+That means the item which is added last to the collection will be the first 
+item to be removed from the collection. 
+
+Note: Stack is Defined as both generic and non-generic types of collection. 
+      The Generic Stack is defined in System.Collections.Generic namespace 
+	  whereas Non-Generic Stack is defined under System.Collections namespace. 
+
+How to Remove Elements from a Non-Generic Stack Collection in C#?
+@1 Pop(): This method is used to remove and return the object at the top of 
+          the Stack. It returns the Object (element) removed from the top of 
+		  the Stack.
+@2 Clear(): This method is used to remove all objects from the Stack.
+
+How to get the topmost element of a Stack in C#?
+@1 Pop(): This method is used to remove and return the object at the top of 
+          the Stack. It returns the Object (element) removed from the top of 
+		  the Stack. If there is no object (or element) present in the stack 
+		  and if you are trying to remove an item or object from the stack 
+		  using the pop() method then it will throw an exception i.e. 
+		  System.InvalidOperationException
+@2 Peek(): The peek() method is used to return the object from the top of 
+           the Stack without removing it. If there is no object (or element) 
+		   present in the stack and if you are trying to return an item 
+		   (object) from the stack using the peek() method then it will 
+		   throw an exception i.e. System.InvalidOperationException
+
+Characteristics of Non-Generic Stack Collection Class in C#:
+@1 The capacity of a Stack is the number of elements the Stack can hold. As 
+   we add elements to a Stack, the capacity of the stack is automatically 
+   increased.
+@2 If Count is less than the capacity of the stack, Push is an O(1) operation. 
+   If the capacity needs to be increased to accommodate the new element, 
+   Push becomes an O(n) operation, where n is Count. Pop is an O(1) 
+   operation.
+@3 The Stack Collection in C# allows both null and duplicate values.
+
+The following are important points that you need to remember while working 
+with Stack in C#.
+*1 In C#, stacks are used to store a collection of objects in a LIFO 
+   (Last in, First out) style, i.e., the element which added last will come 
+   out first.
+*2 By using the Push() method, we can add elements to a stack.
+*3 The Pop() method will remove and return the topmost element from the 
+   stack.
+*4 The Peek() method will return the last (top-most) inserted element of the 
+   stack, and it won’t delete the element from the stack.
+
+
+What is a Queue and How Does the Queue Collection Work in C#?
+The Non-Generic Queue Collection Class in C# works in the 
+FIFO(First-In-First-Out) principle. So, we need to use the Non-Generic Queue 
+Collection class in C#, when we need First-In-First-Out access to the items 
+of a collection.
+
+Note: Queue is defined as both Generic and Non-Generic types of Collections 
+      in C#. The Generic Queue Collection is defined in System.Collections.
+	  Generic namespace whereas Non-Generic Queue Collection is defined 
+	  under System.Collections namespace. 
+
+Characteristics of Non-Generic Queue Collection Class in C#:
+@1 The Enqueue method adds an element to the end of the Queue.
+@2 The Dequeue method removes the oldest element from the start of the Queue.
+@3 The Peek method returns the oldest element that is at the start of the 
+   Queue but does not remove it from the Queue.
+@4 The capacity of a Queue is the number of elements the queue can hold. As 
+   we add elements to a queue, the capacity of the queue is automatically 
+   increased.
+@5 The Non-Generic Queue Collection allows both null and duplicate values.
+
+How to Remove Elements from the Queue Collection in C#?
+@1 Dequeue(): This method is used to remove and return the object at the 
+              beginning of the Queue. It returns the object that is removed 
+			  from the beginning of the Queue.
+@2 Clear(): This method is used to remove all objects from the queue.
+
+How to get the First Element of the Queue Collection in C#?
+@1 Dequeue(): The Dequeue() method of the Queue class is used to Remove and 
+   return the object from the beginning of the Queue. If there is no object 
+   (or element) present in the Queue and if we are trying to remove an item 
+   or object from the Queue using the pop() method then it will throw an 
+   exception i.e. System.InvalidOperationException
+@2 Peek(): The peek() method of the Queue class is used to return the oldest 
+   object i.e. the object present at the start of the Queue without removing 
+   it. If there is no object (or element) present in the Queue and if we are 
+   trying to return an item (object) from the Queue using the peek() method 
+   then it will throw an exception i.e. System.InvalidOperationException
+
+What is SortedList in C#?
+The Non-Generic SortedList Collection Class in C# represents a collection of 
+key/value pairs that are sorted by the keys and are accessible by key and 
+by index. By default, it sorts the key/value pairs in ascending order. 
+
+Properties of Non-Generic SortedList Class in C#:
+@1 The Non-Generic SortedList Class in C# implements the IEnumerable, 
+   ICollection, IDictionary, and ICloneable interfaces.
+@2 We can access the element by its key or by its index in SortedList.
+@3 The Non-Generic SortedList object internally maintains two arrays to 
+   store the elements of the list, i.e, one array for the keys and another 
+   array for the associated values. Here, the key cannot be null, but the 
+   value can be null. And one more, it does not allow duplicate keys.
+@4 The capacity of the Non-Generic SortedList object is the number of 
+   key/value pairs it holds.
+@5 In the Non-Generic SortedList object in C#, we can store values of the 
+   same type and of the different types as it operates on the object data 
+   type.
+@6 In the same SortedList, it is not possible to store keys of different 
+   data types. If you try then the compiler will throw an exception.
+
+
+Advantages and Disadvantages of Non-Generic Collection in C#
+Disadvantages of using Non-Generic Collection Classes in C#:
+The Non-Generic Collection Classes such as ArrayList, Stack, Queue, Hashtable, 
+SortedList, etc operate on the object data type. As they operate on object 
+data type hence they are loosely typed. Loosely typed means you can store 
+any type of value in the collection. Because of this loosely typed nature, 
+we may get runtime errors.
+
+we create a Non-Generic Collection i.e. Numbers of the type ArrayList with 
+the initial size 2. Then we are storing two elements like 100 and 200. These 
+two items 100 and 200 are integers as well as value types.
+
+The Collection Classes belong to System.Collections namespace operates on 
+the object data type. The object data type in C# is a reference data type. 
+So the value that we store in the collection is converted to reference type. 
+So in our example, the values 100 and 200 are boxed and converted into the 
+reference type. In our example, we just stored two values. Consider a 
+scenario where we need to store 1000 integer values. Then all 1000 integers 
+need to be boxed, meaning they are converted into reference types and then 
+stored in the collection.
+
+Similarly, when we want to retrieve the items from the collection, then again 
+we need to convert the object type back to the integer type meaning 
+performing an unboxing. So this unnecessary boxing and unboxing happen 
+behind the scenes every time we add and retrieve value types to the 
+collection. So if you are operating on a large collection of value types then 
+it may degrade the performance of your application. So, always try to avoid 
+boxing and unboxing while developing your real-time application.
+
+Problems with Non-Generic Collection Classes in C#:
+we can say that the Non-Generic Collection Classes in C# are not type-safe 
+as they operate on object data types so they can store any type of value.
+@1 Array is type-safe
+@2 Array List, HashTable, Stack, SortedList, and Queue are not type-safe
+
+For example, if I want to store n no of integer values
+@1 I cannot go with an array as arrays are fixed in length. In this case, 
+   the length is unknown
+@2 I can go with an ArrayList or HashTable but if we go with an ArrayList or 
+   HashTable then there is a chance of storing other types of values as they 
+   are not type-safe as they operate on the object data type
+
+So the solution is Generic Collections in C#.
+
+# Array: Type-Safe but Fixed Length
+# Collections: Auto Resizing but not Type-Safe
+# Generic Collections: Type-Safe and Auto-Resizing
+
+
+What are Generic Collections in C#?
+The Generic Collections in C# are strongly typed. The strongly typed nature 
+allows these collection classes to store only one type of value into it. 
+This not only eliminates the type mismatch at runtime but also will get 
+better performance as they don’t require boxing and unboxing while they 
+store value type data. So, it is always a preferable and a good programming 
+choice to use the Generics Collection Classes in C# rather than using the 
+Non-Generic Collection Classes.
+
+
+Advantages of Generics in C#
+#1 It Increases the Reusability of the Code: For example, you can create a 
+   generic method to add two numbers. This method can be used to add two 
+   integers as well as two float numbers without any modification to the 
+   code.
+#2 Generics are Type-Safe: Generics are type safety, especially in the case 
+   of collections. When using generics, we need to define the type of objects 
+   to be passed to a collection. This helps the compiler to ensure that only 
+   those object types that are defined in the definition can be passed to 
+   the collection. We will get the compile-time error if we try to use a 
+   different type of data rather than the one, we specified in the 
+   definition.
+#3 Generic Provides Better Performance: It gives better performance compared 
+   to non-Generics because they reduce the need for boxing, unboxing, and 
+   typecasting of variables or objects.
+
+Summary of Generic List<T> Collection Class in C#:
+#1 The List<T> collection is different from the arrays. The List can be 
+   resized dynamically but arrays cannot resize dynamically.
+#2 The Generic List<T> Collection Class in C# can accept null values for 
+    reference types and it also accepts duplicate values.
+#3 When the element’s Count becomes equal to the Capacity of the list 
+   collection, then the capacity of the List increased automatically by 
+   reallocating the internal array. The existing elements will be copied to the new array before the addition of the new element.
+#4 The Generic List class is the generic equivalent of the Non-Generic 
+   ArrayList class.
+#5 The Generic List<T> class implements the IList<T> generic interface.
+#6 We can use both equality and ordering comparer with the generic List class.
+#6 The List<T> class elements are not sorted by default and elements are 
+   accessed by a zero-based index.
+#8 For very large List<T> objects, you can increase the maximum capacity to 2 
+   billion elements on a 64-bit system by setting the enabled attribute of 
+   the configuration element to true in the run-time environment.
+
+What is Comparison<T> Delegate in C#?
+The Comparison Delegate represents the method that compares two objects of the 
+same type.
+
+What is Dictionary<TKey, TValue> Class in C#?
+The Dictionary in C# is a Generic Collection that stores the element in the 
+form of Key-Value Pairs. The working of the Generic Dictionary is very much 
+similar to the working of the Non-Generic Hashtable collection.
+
+#1 In Generic Dictionary<TKey, TValue> Collection, the key cannot be null, but 
+   the value can be null if its type TValue is a reference type.
+#2 Every key in Generic Dictionary<TKey, TValue> Collection must be unique. 
+   Duplicate keys are not allowed. If you try to add a duplicate key then the 
+   compiler will throw an exception.
+#3 In Generic Dictionary<TKey, TValue> Collection, you can only store the same 
+   types of elements.
+#4 The capacity of a Dictionary collection is the number of elements that the 
+   Dictionary can hold.
+
+C# Generic Dictionary Collection Class Summary:
+#1 A dictionary is a collection of key-value pairs.
+#2 The Dictionary Generic Collection class is present in System.Collections.Generic 
+   namespace.
+#3 When creating a dictionary, we need to specify the type for the key as well 
+   as the type for the value.
+#4 The fastest way to find a value in a dictionary is by using the keys.
+#5 Keys in a dictionary must be unique.
+
+
+What is Generic Stack<T> in C#?
+The Generic Stack in C# is a collection class that works on the principle of 
+Last In First Out (LIFO) and this class is present in System.Collections.
+Generic namespace. The Generic Stack Collection is used when we need Last In 
+First Out (LIFO) access to items.
+
+What is the difference between the Pop() and Peek() methods?
+The Pop() method removes and returns the item at the top of the stack, whereas 
+the Peek() method returns the item from the top of the stack, without removing 
+it. This is the only difference between these two methods of Stack class in C#.
+
+Generic Stack vs Non-Generic Stack in C#
+#1 The Generic Stack<T> Collection Class is defined under System.Collections.
+   Generic namespace where the Non-Generic Stack Collection Class is defined 
+   under System.Collections namespace.
+#2 The Generic Stack<T> Class in C# can only store the same type of elements 
+   whereas the Non-Generic Stack Class can store the same or different types 
+   of elements as it operates on the object data type.
+#3 In Generic Stack<T>, we need to define the type of elements that we want to 
+   store in the stack. On the other hand, in a Non-Generic Stack, there is no 
+   need to define the type of elements that we want to store in the stack because 
+   it operates on object data type i.e. we can store any type of data.
+#4 The Generic Stack<T> is type-safe whereas the Non-Generic Stack is not 
+   type-safe. Boxing and Unboxing are not required in Generic Stack whereas 
+   Boxing and Unboxing are required in the Non-Generic Stack which will 
+   degrade the application performance.
+#5 Because of type mismatch, we may get runtime exceptions in a non-generic 
+   stack whereas in the case of the generic stack, if we are storing other 
+   types of elements, then we will get compile time error.
+
+C# Generic Stack<T> Collection Class Summary:
+#1 The Stack Collection is used to store a collection of the same type of 
+   elements in a LIFO (Last in, First out) style, i.e., the element which 
+   added last will come out first.
+#2 As Stack<T> is a Generic Collection, so it comes under System.Collection.
+   Generic namespace.
+#3 The Generic Stack<T> Collection stores elements of the specified type. It 
+   provides compile-time type checking and doesn’t perform boxing-unboxing 
+   because it is generic
+#4 By using the Push() method, we can add elements to a stack collection. 
+   Here, we cannot use collection-initializer syntax to add elements to a 
+   stack.
+#5 The Pop() method will remove and return the topmost element from the stack. 
+   It does not support an indexer.
+#6 The Peek() method will return the last (top-most) inserted element of the 
+   stack, and it won’t delete the element from the stack.
+#7 Stack Collection is very useful to store temporary data in the Last In 
+   First Out (LIFO) style, where you might want to delete an element after 
+   retrieving its value.
+#8 New elements are always added at the end of the Stack<T>.
+#9 Elements are removed from the end of the Stack<T>
+#10 Duplicate elements are allowed to be stored in a Stack.
+#11 As a Stack<T> maintains a LIFO collection of objects, so you may use 
+    Stack<T> when you need to access the information in reverse order.
+#12 To iterate over the elements of Stack<T>, we could use the for each loop.
+
+What is Generic Queue<T> in C#?
+The Generic Queue in C# is a collection class that works on the principle of 
+First In First Out (FIFO) and this class is present in System.Collections.
+Generic namespace. That means we need to go for Generic Queue Collection when 
+we need First In First Out (FIFO) access to items.
+
+What is the difference between the Dequeue() and Peek() methods?
+The Dequeue() method removes and returns the item at the beginning of the 
+queue, whereas the Peek() method returns the item at the beginning of the 
+queue, without removing it.
+
+Generic Queue vs Non-Generic Queue in C#
+#1 The Generic Queue<T> Collection Class is defined under System.Collections.
+   Generic namespace where the Non-Generic Queue Collection Class is defined 
+   under System.Collections namespace.
+#2 The Generic Queue<T> Class in C# can only store the same type of elements 
+   whereas the Non-Generic Queue Class can store the same or different types 
+   of elements as it operates on the object data type
+#3 In Generic Queue<T>, we need to define the type of elements that we want to 
+   store in the queue. On the other hand, in a Non-Generic Queue, there is no 
+   need to define the type of elements that we want to store in the queue 
+   because it operates on object data type i.e. we can store any type of data.
+#4 The Generic Queue<T> is type-safe whereas the Non-Generic Queue is not 
+   type-safe.
+
+C# Generic Queue<T> Collection Class Summary:
+#1 The Queue Collection is used to store a collection of the same type of 
+   elements in a FIFO (First in, First out) manner, i.e., the element added 
+   first will be removed first.
+#2 As Queue<T> is a Generic Collection, so it comes under System.Collection.
+   Generic namespace.
+#3 The Generic Queue<T> Collection stores elements of the specified type. It 
+   provides compile-time type checking and doesn’t perform boxing-unboxing 
+   because it is generic
+#4 By using the Enqueue() method, we can add elements to a queue collection. 
+   Here, we cannot use collection-initializer syntax to add elements to a 
+   queue.
+#5 The Dequeue() method will remove and return the first element from the 
+   beginning of the queue.
+#6 The Peek() method will return the first inserted element of the queue 
+   without removing it from the collection.
+#7 Queue Collection is very useful to store temporary data in the First In 
+   First Out (FIFO) style, where you might want to delete an element after 
+   retrieving its value.
+
+Difference between For Loop and Foreach Loop:
+The for loop in C# executes a statement or a block of statements as long as 
+the given condition is true. Whereas foreach loop executes a statement or a 
+block of statements for each element present in the array or collection and 
+there is no need to define the minimum or maximum limit.
+
+In for loop, it is possible to iterate the array elements in both forward and 
+backward directions, e.g from index 0 to 9 and from index 9 to 0. But in the 
+foreach loop, it is only possible to iterate an array in the forward 
+direction, backward direction is not possible.
+
+Points to Remember while working with Foreach Loop:
+#1 The foreach loop in C# iterates only in the forward direction. Backward 
+   direction is not possible
+#2 From the Performance point of view, the foreach loop takes more time as 
+   compared with for loop. Because internally it uses extra memory space.
+#3 The foreach loop use GetEnumarator() method of the IEnumerable interface. 
+   So, the foreach loop can be used with any class that has implemented the 
+   interface.
+#4 We Can exit the foreach loop in C# by using break, return, Goto and throw 
+   statements.
+
+What is HashSet<T> in C#?
+The Generic HashSet<T> Collection Class in C# can be used to store, remove or 
+view elements. It is an unordered collection of unique elements. The HashSet<T> 
+Collection is introduced in .NET Framework 3.5. It does not allow for the 
+addition of duplicate elements. So, it is recommended to use the HashSet 
+collection if you want to store only unique elements. This collection is of 
+the generic type collection and hence it belongs to System.Collections.Generic 
+namespace. The performance of the HashSet is much better in comparison to the 
+list collection in C#.
+
+What is IEquatable<T> Interface?
+This Interface provides one method called Equals and this method is used for 
+determining the equality of instances.
+
+Points to Remember about Enumerators
+#1 A For Each statement of the C# language hides the complexity of the 
+   enumerators. Therefore, it is recommended to use for each loop instead of directly manipulating the enumerator.
+#2 The Enumerators in C# can only be used to read the data in the collection, 
+   but they cannot be used to modify the underlying collection.
+#3 Current returns the same object until either MoveNext or Reset is called. 
+   MoveNext sets Current to the next element.
+#4 An enumerator remains valid as long as the collection remains unchanged. 
+   If changes are made to the collection, such as adding, modifying, or 
+   deleting elements, the enumerator is irrecoverably invalidated and its 
+   behavior is undefined.
+#5 This method is an O(1) operation.
+
+Generic HashSet<T> Collection Class Summary:
+#1 The Generic HashSet<T> Collection Class implements the ICollection<T>, 
+   IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, ISet<T>, 
+   IDeserializationCallback, ISerializable interfaces.
+#2 It is an unordered collection and hence we cannot sort the elements of 
+   HashSet as the order of the element is not defined
+#3 It does not allow the addition of duplicate elements i.e. the elements must 
+   be unique in HashSet.
+#4 The Generic HashSet<T> Collection provides many mathematical set operations, 
+   such as intersection, union, and difference.
+#5 The capacity of a HashSet collection is the number of elements it can hold.
+#6 The Generic HashSet <T> in C# is a dynamic collection. That means the size 
+   of the HashSet is automatically increased when new elements are added to 
+   the collection.
+#7 As the HashSet <T> is a Generic Collection, so we can only store the same 
+   type of elements.
+
+What is SortedList<TKey, TValue> in C#?
+The Generic SortedList<TKey, TValue> Collection Class in C# represents a 
+collection of key/value pairs that are sorted by the keys based on the 
+associated IComparer implementation. By default, it sorts the key/value 
+pairs in ascending order. For example, if the keys are of primitive data 
+types, then it sorted the collection in ascending order of keys, and if the 
+keys are of string type, then it will sort the element alphabetically.
+
+What are the differences between SortedList<TKey, TValue> and 
+SortedDictionary<TKey, TValue> in C#?
+#1 The SortedList<TKey, TValue> collection uses less memory than 
+   SortedDictionary<TKey, TValue> collection.
+#2 The SortedDictionary<TKey, TValue> collection has faster insertion and 
+   removal operations for unsorted data compared to the SortedList<TKey, TValue> collection.
+#3 If the elements are populated all at once from sorted data then 
+   SortedList<TKey, TValue> collection works faster than SortedDictionary<TKey, TValue> collection.
+#4 The SortedList supports efficient indexed retrieval of keys and values 
+   which is not supported by SortedDictionary.
+#5 SortedList<TKey, TValue> collection doesn’t allow inserting null and 
+   duplicate values for the keys. Every key in a SortedList must be unique 
+   otherwise it throws ArgumentException. 
+
+Generic SortedList<TKey, TValue> Collection Class Summary:
+#1 The Generic SortedList Collection is used to store a collection of 
+   key/value pairs sorted by key based on the associated IComparer<T> 
+   implementation.
+#2 The Generic SortedList Collection allows us to store duplicate values, but 
+   keys must be unique to identify the values in the sorted list. Further, 
+   the key cannot be null but the value can be null for a reference type.
+#3 You can access Generic SortedList Elements either by using keys or with 
+   for and for each loop. In the for-each loop, we need to use 
+   KeyValuePair<TKey, TValue> to get key/value pairs from SortedList.
+
+
+What is Generic SortedSet<T> Collection in C#?
+The Generic SortedSet<T> Collection Class in C# is used to store, remove or 
+view elements. SortedSet Collection store the elements in sorted order. 
+That means it stores the element in ascending order and also, and it does not 
+store duplicate elements.
+
+
+What is SortedDictionary<TKey, TValue> Collection Class in C#?
+The SortedDictionary<TKey, TValue> is a Generic Collection class in C# which is 
+used to store the key/value pairs in the sorted form and the sorting is done 
+based on the key. The SortedDictionary<TKey, TValue> class uses the concept of 
+the hashtable. As it is a Generic Collection, so, it belongs to 
+System.Collections.Generic namespace.
+
+Differences Between SortedDictionary<TKey, TValue> and SortedList<TKey, TValue> 
+in C#?
+#1 SortedList<TKey, TValue> uses less memory than SortedDictionary<TKey, TValue>
+#2 SortedDictionary<TKey, TValue> has faster insertion and removal operations 
+   for unsorted data: O(log n) as opposed to O(n) for SortedList<TKey, TValue>.
+#3 If the collection is populated all at once from sorted data, 
+   SortedList<TKey, TValue> is faster than SortedDictionary<TKey, TValue>.
+
+
+C# SortedDictionary<TKey, TValue> Collection Class Summary:
+#1 In SortedDictionary, the key must be unique (duplicate keys are not allowed) 
+   and the key cannot be null
+#2 In SortedDictionary, the value can be null when the type of the value is of 
+   reference type.
+#3 The operations of insertion of elements and removing the elements can be 
+   faster using SortedDictionary class.
+#4 The same type of key and value pairs can be stored using SortedDictionary 
+   class.
+#5 The total number of key and value pairs that the SortedDictionary class can 
+   hold is the capacity of the SortedDictionary class.
+#6 The sorting is done in ascending order by SortedDictionary class.
+#7 The SortedDictionary in C# is dynamic in nature which means the size of the 
+   SortedDictionary increases as per the need.
+
+What is LinkedList<T> in C#?
+A LinkedList is a linear data structure used for storing the elements in a 
+non-contiguous manner. The elements in a linked list are linked with each other 
+using pointers. Or in other words, LinkedList consists of nodes where each node 
+contains a data field and a reference(link) to the next node in the list. So, 
+each node contains two parts.
+
+Data− Each node of a linked list can store data.
+Address − Each node of a linked list contains an address to the next node, 
+called “Next”.
+
+Points to Remember while working with Linked List:
+#1 The LinkedList<T> belongs to the System.Collections.Generic namespace and 
+   implements ICollection, ICollection<T>, IEnumerable, IEnumerable<T>, 
+   ISerializable, and IDeserializationCallback interfaces.
+#2 LinkedList<T> is a general-purpose linked list. It supports enumerators.
+#3 You can remove nodes and reinsert them, either in the same list or in another 
+   list, which results in no additional objects allocated on the heap. 
+   Insertion and removal are O(1) operations.
+#4 Each node in a LinkedList<T> object is of the type LinkedListNode<T>.
+#5 The LinkedList class does not support chaining, splitting, cycles, or other 
+   features that can leave the list in an inconsistent state.
+#6 If the LinkedList is empty, the First and Last properties contain null.
+#7 The LinkedList is doubly linked, therefore, each node points forward to the 
+   Next node and backward to the previous node.
+#8 The capacity of a LinkedList is the number of elements the LinkedList can 
+   hold.
+#9 In LinkedList, it is allowed to store duplicate elements of the same type.
+
+
+Advantages of Linked List in C#
+#1 They are dynamic in nature and allocate memory as and when required.
+#2 Insertion and deletion are easy to implement.
+#3 Other data structures such as Stack and Queue can also be implemented 
+   easily using Linked List.
+#4 It has faster access time and can be expanded in constant time without 
+   memory overhead.
+#5 Since there is no need to define an initial size for a linked list, hence 
+   memory utilization is effective.
+#6 Backtracking is possible in doubly-linked lists.
+
+Why do we need Concurrent Collection in C#?
+In C# 1.0, the System.Collections framework was introduced and the collection 
+classes such as ArrayList, Hashtable, Stack, Queue, etc belong to the 
+System.Collections namespace. The problem with these collection classes is 
+that they are not type-safe. That is they store the elements in the form of 
+objects and because of this, we may get type mismatch exceptions, as well as 
+performance degradation because of boxing and unboxing.
+
+Next, in C# 2.0, the System.Collections.Generic Framework introduced and the 
+collection classes List<T>, Dictionary<TKey, TValue>, Stack<T>, Queue<T>, etc 
+are belongs to System.Collections.Generic namespace. These collection classes 
+are Type-Safe but not Thread Safe. Typesafe means whenever we are going to 
+declare any generic type collection, we need to specify the type that is going 
+to be held by the generic collection. And whenever we are going to retrieve 
+any item from the collection, we will get the actual type of item. That means 
+boxing and unboxing are not required.
+
+But Generic Collection Classes are not Thread Safe. So, as a developer, it is 
+our responsibility to provide thread safety. For example, let’s say we have a 
+dictionary collection. And that dictionary collection is shared by several 
+threads. Then we may face some concurrency issues when two or more threads try 
+to access the dictionary collection at the same point in time, like 
+adding/removing items from the same dictionary collection at the same time.

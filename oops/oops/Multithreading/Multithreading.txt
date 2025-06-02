@@ -1,0 +1,15 @@
+﻿What is Multitasking?
+Before understanding the concept of Multithreading in C#, let us first 
+understand multitasking. As the name says, multitasking means performing 
+multiple tasks simultaneously. Windows Operating System is a multitasking 
+operating system. It means it has the ability to run multiple applications at 
+the same time.
+
+What is Thread?
+Generally, a Thread is a lightweight process. In simple words, we can say 
+that a Thread is a unit of a process that is responsible for executing the 
+application code.
+
+Note: All the threading-related classes in C# belong to System.Threading 
+namespace.
+ 

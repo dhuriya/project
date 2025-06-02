@@ -1,0 +1,20 @@
+﻿What is a File?
+A file is a collection of data stored on a disk with a specific name, 
+extension, and directory path. When you open File using C# for reading and 
+writing purposes it becomes Stream.
+
+What is Stream?
+A stream is a sequence of bytes travelling from a source to a destination over 
+a communication path. There are two main streams: the Input Stream and the 
+Output Stream. The input stream is used for reading data from the file 
+(read operation) and the output stream is used for writing into the file 
+(write operation).
+
+What is FileStream Class in C#?
+The FileStream Class in C# provides a stream for file operations. It can be 
+used to perform both Synchronous and Asynchronous Read and Write operations. 
+With the help of FileStream Class, we can easily read and write data into 
+files.
+
+FileMode in C#:
+The FileMode specifies how the operating system should open a file. 
