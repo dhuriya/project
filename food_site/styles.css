@@ -1,0 +1,468 @@
+@import url('https://fonts.googleapis.com/css2?family=Emblema+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    display: flex;
+}
+header .left-box{
+    background-color: rgb(251, 91, 33);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 48px;
+}
+.left-box a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.left-box h1{
+    font-family: "Emblema One",sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 56px;
+    line-height: 67px;
+}
+.right-box{
+    width: 100%;
+    color: rgb(104, 106, 111);
+    font-family: "Poppins", sans-serif;
+}
+.right-box .right-top{
+    background-color: rgb(34, 36, 41);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.right-top .email, .phone{
+    display: flex;
+    align-items: center;
+    padding: 12px 50px;
+}
+.right-top .email i, .phone i{
+    color: rgb(251, 91, 33);;
+}
+.right-top p{
+    padding-left: 10px;
+}
+.right-box .right-bottom{
+    padding: 0px 18px;
+    background-color: rgb(17, 17, 17);
+}
+.right-box .right-bottom nav{
+    display: flex;
+    justify-content: space-between;
+}
+.right-bottom nav ul{
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+}
+.right-bottom nav ul li{
+    text-decoration:  none;
+    padding: 35px 0px;
+    margin-left: 30px;
+   
+}
+.right-bottom nav ul li a {
+    color:  rgb(189, 189, 191);
+    text-decoration: none;
+}
+.right-bottom .nav-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+.right-bottom .nav-icon a{
+    text-decoration: none;
+    color:  rgb(189, 189, 191);
+    padding: 10px 15px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    margin-left: 10px;
+    font-size: 14px;
+    transition: 0.4s ease;
+}
+.right-bottom .nav-icon a:hover{
+    background-color: rgb(189, 189, 191);
+    color: rgb(17, 17, 17);
+}
+.hero{
+    background-color: rgb(34, 36, 41);
+    padding: 3rem;
+}
+.hero-container .hero-heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+    padding: 0 15px;
+}
+.hero-container .hero-heading h1{
+    font-size: 100px;
+    font-family: "Emblema One",sans-serif;
+    color: rgb(189, 189, 191);
+}
+.hero-content{
+    display: flex;
+    justify-content: space-between;
+}
+.hero-content-one, .hero-content-tow, .hero-content-three {
+    margin-top: 40px;
+    padding: 15px;
+}
+.hero-content-one img{
+    width: 387px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+.hero-content-one p i{
+    padding-left: 10px;
+    font-size: 48px;
+    color: rgb(189, 189, 191);
+}
+.hero-content-one .text, .hero-content-three .text{
+    font-size: 16px;
+    text-align: justify;
+    color: rgb(189, 189, 191);
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 18px;
+}
+.hero-content-tow img{
+    width: 387px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    height: 100%;
+}
+.hero-content-three p i{
+    padding-left: 10px;
+    font-size: 48px;
+    color: rgb(189, 189, 191);
+}
+.hero-content-three img{
+    width: 387px;
+    border-radius: 10px;
+    margin-top: 18px;
+}
+.about{
+    padding: 3rem
+}
+.about-container{
+    display: flex;
+    max-width: 100%;
+    margin: 25px 0px;
+}
+.about-left{
+    position: relative;
+    padding: 20px;
+}
+.about-img{
+    position: absolute;
+    width: 160px;
+    height: 160px;
+}
+.about-chef-img{
+    border-radius: 50%;
+    position: relative;
+    width: 495px;
+    height: 662px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.about-right{
+    padding: 15px;
+}
+.section-title {
+    color: rgb(251, 91, 33);;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .5rem;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 18px;
+    font-size: 20px;
+}
+.about-right-text{
+    margin-bottom: 15px;
+}
+.about-right-text h1{
+    font-size: 64px;
+    font-family: "Emblema One",sans-serif;
+    font-weight: 400;
+    color: rgb(34, 36, 41);
+}
+.about-intro{
+    color: rgb(104, 106, 111);
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 15px;
+}
+.about-right-bttom{
+    display: flex;
+}
+.about-right-bttom .food-one, .food-tow{
+    padding: 25px;
+    border-radius: 10px;
+    background-color: rgb(244, 245, 248);
+}
+.about-right-bttom .food-one img, .about-right-bttom .food-tow img{
+    background-color: rgb(251, 91, 33);
+    border-radius: 50%;
+    width: 100px;
+}
+.about-right-bttom .food-one{
+    margin-right: 10px;
+}
+.about-right-bttom .food-one h4, .about-right-bttom .food-tow h4{
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(34, 36, 41);
+}
+.about-right-bttom .food-one p, .about-right-bttom .food-tow p{
+    color: rgb(104, 106, 111);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: justify;
+}
+.about-right-bttom .food-tow{
+    margin-left: 10px;
+}
+.fact{
+    background-color: rgb(34, 36, 41);
+    margin: 48px 0px;
+    padding: 48px;
+}
+.fact-container{
+    padding: 48px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.fact-one{
+    display: flex;
+}
+.fact-one .fact-star{
+    color:  rgb(251, 91, 33);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(17, 17, 17);
+    font-size: 16px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+.fact-year{
+   padding-left: 20px;
+}
+.fact-year h5{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+.fact-year h1{
+    color: rgb(189, 189, 191);
+    font-size: 48px;
+    font-weight: 400;
+    font-family: "Emblema One",sans-serif;
+}
+.features{
+    margin-bottom: 135px;
+    color: rgb(104, 106, 111);
+    position: relative;
+    margin-top: 3rem;
+    padding: 3rem;
+}
+.features-container{
+    display: flex;
+}
+
+.feature-card{
+    margin-top: 48px;
+    padding: 0 24px;
+}
+.features-container .feature-card .feature-item {
+    background: linear-gradient(#F4F5F8 50%, #222429);
+    padding: 48px;
+    text-align: center;
+    border-radius: 8px;
+    visibility: visible; animation-delay: 0.5s; animation-name: fadeIn;
+}
+.features-container .feature-card .feature-item img{
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    color: rgb(104, 106, 111);
+    height: 150px;
+    width:150px;
+    text-align: center;
+}
+.features-container .feature-card .feature-item h3{
+    color: rgb(34, 36, 41);
+    font-family: "Emblema One",sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin: 24px 0px;
+    text-align: center;
+}
+.features-container .feature-card .feature-item p{
+    color: rgb(244, 245, 248);
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+.features-container .feature-card .feature-item a{
+    color: rgb(251, 91, 33);
+     font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+}
+.features::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: calc(100% - 45px);
+    top: 135px;
+    left: 0;
+    background: #222429;
+    z-index: -1;
+}
+.features{
+    /* background: linear-gradient(to bottom, #fff, #e0e0e0); */
+    padding: 20px;
+    text-align: center;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+.discount{
+    margin-top: 48px;
+    font-family: "Poppins", sans-serif;
+    padding-right: 24px;
+    padding-left: 24px;
+    visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;
+    font-size: 16px;
+    font-weight: 400;
+}
+.discount h1{
+    font-family: "Emblema One", sans-serif;
+    font-size: 56px;
+    text-align: center;
+    margin-top: 24px;
+    font-weight: 400;
+    color: rgb(189, 189, 191);
+    margin-bottom: 24px;
+}
+.discount h1 span{
+    color: rgb(251, 91, 33);
+}
+.discount a{
+    background-color: rgb(251, 91, 33);
+    text-decoration: none;
+    font-family: "Emblema One", sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+     font-weight: 400;
+     padding: 16px 48px;
+     border-radius: 8px;
+     transition: 0.4s ease;
+}
+.discount a:hover {
+    color: #000;
+    background-color: #fc7442;
+    border-color: #fb6b37;
+}
+.menu{
+    padding: 48px 0px;
+}
+.menu-text{
+    margin: 0px 326px 48px 326px;
+    border: 1px solid red;
+    text-align: center;
+}
+.menu-text h5{
+    font-size: 20px;
+     font-weight: 400;
+     font-family: "Poppins", sans-serif;
+     color: rgb(251, 91, 33);
+     letter-spacing: 8px;
+     text-transform: uppercase;
+}
+.menu-text h1{
+    font-family: "Emblema One", sans-serif;
+    color: rgb(34, 36, 41);
+    font-size: 64px;
+      font-weight: 400;
+}
+.menu-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-item-link{
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgb(34, 36, 41);
+    text-align: center;
+    margin-bottom: 48px;
+    border-radius: 50rem;
+    padding: 7px 0px;
+}
+.menu-item-link li{
+    list-style: none;
+}
+.menu-item-link li a{
+    /* background-color: rgb(251, 91, 33); */
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+      font-size: 16px;
+     font-weight: 400;
+     padding: 8px 16px;
+     text-decoration: none;
+     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+     text-transform: uppercase;
+}
+.active{
+    background-color: rgb(251, 91, 33);
+    border-radius: 50rem;
+}
+@keyframes upDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px); /* adjust height as needed */
+    }
+  }
+  
+  .animate-up-down {
+    animation: upDown 1s infinite ease-in-out;
+  }
+  @keyframes Rotate{
+    100% {
+        transform: rotate(360deg);
+    }
+  }
+  .animate-rotate {
+    position: absolute;
+    animation: Rotate 8s linear infinite;
+}
+.fadeIn {
+    animation-name: fadeIn;
+}
+ @keyframes fadeIn{
+    0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+  }
