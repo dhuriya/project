@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Investment Onboarding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg-deep: #07090f;
+      --bg-card: #0d1117;
+      --bg-glass: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --accent: #00d4aa;
+      --accent-glow: rgba(0,212,170,0.25);
+      --accent2: #6c63ff;
+      --gold: #f0c040;
+      --text: #e8eaf0;
+      --muted: #6b7280;
+      --step-done: #00d4aa;
+      --step-active: #6c63ff;
+      --step-idle: #1e2330;
+      --radius: 20px;
+      --font: 'Sora', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,170,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    /* Header */
+    .form-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .form-header .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      backdrop-filter: blur(10px);
+    }
+    .form-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .form-header p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Step Indicator */
+    .stepper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 44px;
+      position: relative;
+    }
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 1;
+      max-width: 140px;
+    }
+    .step-connector {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin-top: 22px;
+      transition: background 0.5s;
+      position: relative;
+      overflow: hidden;
+    }
+    .step-connector::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.6s ease;
+    }
+    .step-connector.done::after { width: 100%; }
+
+    .step-circle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+      transition: all 0.4s ease;
+      border: 2px solid var(--border);
+      background: var(--step-idle);
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .step-circle.done {
+      background: linear-gradient(135deg, var(--accent), #00b890);
+      border-color: var(--accent);
+      color: #000;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .step-circle.active {
+      background: linear-gradient(135deg, var(--accent2), #8b85ff);
+      border-color: var(--accent2);
+      color: #fff;
+      box-shadow: 0 0 24px rgba(108,99,255,0.5);
+      transform: scale(1.12);
+    }
+    .step-label {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.4;
+      transition: color 0.3s;
+      letter-spacing: 0.3px;
+    }
+    .step-item.active .step-label { color: var(--text); }
+    .step-item.done .step-label { color: var(--accent); }
+
+    /* Card */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 44px 48px;
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+    }
+
+    @media (max-width: 600px) {
+      .form-card { padding: 28px 20px; }
+      .step-label { display: none; }
+    }
+
+    /* Section Title */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .section-icon {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .section-icon.purple { background: rgba(108,99,255,0.15); color: var(--accent2); border: 1px solid rgba(108,99,255,0.3); }
+    .section-icon.teal   { background: rgba(0,212,170,0.12); color: var(--accent); border: 1px solid rgba(0,212,170,0.3); }
+    .section-icon.gold   { background: rgba(240,192,64,0.12); color: var(--gold); border: 1px solid rgba(240,192,64,0.3); }
+    .section-icon.red    { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .section-icon.green  { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+
+    .section-meta h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-meta p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Form controls */
+    .form-label {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-control, .form-select {
+      background: var(--bg-glass) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 10px !important;
+      color: var(--text) !important;
+      font-family: var(--font) !important;
+      font-size: 14px !important;
+      padding: 12px 16px !important;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-control::placeholder { color: #3a4050 !important; }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--accent2) !important;
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.15) !important;
+      outline: none !important;
+    }
+    .form-select option { background: #1a1f2e; }
+
+    /* Radio / Checkbox custom */
+    .choice-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .choice-item input { display: none; }
+    .choice-item label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--muted);
+      transition: all 0.25s;
+      background: var(--bg-glass);
+    }
+    .choice-item input:checked + label {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,170,0.08);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .choice-item label .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      flex-shrink: 0;
+    }
+    .choice-item input:checked + label .dot {
+      background: var(--accent);
+    }
+
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: var(--bg-glass);
+    }
+    .upload-zone:hover {
+      border-color: var(--accent2);
+      background: rgba(108,99,255,0.05);
+    }
+    .upload-zone i { font-size: 28px; color: var(--accent2); margin-bottom: 10px; }
+    .upload-zone p { font-size: 13px; color: var(--muted); }
+    .upload-zone span { font-size: 12px; color: var(--accent2); font-weight: 500; cursor: pointer; }
+    .upload-zone input { display: none; }
+
+    /* Divider */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Navigation Buttons */
+    .form-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      gap: 12px;
+    }
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--font);
+      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-back:hover {
+      border-color: var(--accent2);
+      color: var(--text);
+    }
+    .btn-next {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent2), #8b85ff);
+      border: none;
+      color: #fff;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 32px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(108,99,255,0.35);
+      letter-spacing: 0.3px;
+    }
+    .btn-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(108,99,255,0.5);
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--accent), #00b890);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn-submit:hover {
+      box-shadow: 0 8px 28px rgba(0,212,170,0.5);
+    }
+
+    /* Progress bar */
+    .progress-bar-wrap {
+      margin-bottom: 32px;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .progress {
+      height: 5px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: visible;
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      border-radius: 100px;
+      transition: width 0.5s ease;
+      position: relative;
+    }
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      right: -1px; top: -3px;
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    /* Step Panels */
+    .step-panel { display: none; animation: fadeSlide 0.4s ease; }
+    .step-panel.active { display: block; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Success Panel */
+    .success-panel {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .success-ring {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #00b890);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 36px;
+      color: #000;
+      box-shadow: 0 0 40px var(--accent-glow), 0 0 80px rgba(0,212,170,0.15);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 40px var(--accent-glow); }
+      50% { box-shadow: 0 0 60px rgba(0,212,170,0.5); }
+    }
+    .success-panel h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px;
+      background: linear-gradient(135deg, #fff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .success-panel p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 360px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+    .txn-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 28px;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      min-width: 280px;
+    }
+    .txn-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      align-items: center;
+    }
+    .txn-row span:first-child { color: var(--muted); }
+    .txn-row span:last-child { color: var(--text); font-weight: 500; }
+    .txn-row .status-badge {
+      background: rgba(0,212,170,0.15);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Info pills */
+    .info-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(240,192,64,0.08);
+      border: 1px solid rgba(240,192,64,0.2);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 12.5px;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    /* Amount display */
+    .amount-display {
+      background: linear-gradient(135deg, rgba(108,99,255,0.1), rgba(0,212,170,0.05));
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .amount-display label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .amount-display .value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: var(--accent);
+      letter-spacing: -1px;
+    }
+    .amount-display .value span { font-size: 18px; color: var(--muted); margin-right: 4px; }
+  </style>
+</head>
+
+<body>
+<div class="wrapper">
+  <!-- Header -->
+  <div class="form-header">
+    <div class="badge-pill"><i class="fa-solid fa-shield-halved"></i> Secure Onboarding</div>
+    <h1>Investment Onboarding</h1>
+    <p>Complete your profile in 5 simple steps to start investing</p>
+  </div>
+
+  <!-- Stepper -->
+  <div class="stepper" id="stepper">
+    <div class="step-item active" data-step="1">
+      <div class="step-circle active" onclick="goToStep(1)">1</div>
+      <div class="step-label">Your Details &<br>Investment</div>
+    </div>
+    <div class="step-connector" id="conn-1"></div>
+    <div class="step-item" data-step="2">
+      <div class="step-circle" onclick="goToStep(2)">2</div>
+      <div class="step-label">KYC<br>Process</div>
+    </div>
+    <div class="step-connector" id="conn-2"></div>
+    <div class="step-item" data-step="3">
+      <div class="step-circle" onclick="goToStep(3)">3</div>
+      <div class="step-label">Bank &<br>Nominee</div>
+    </div>
+    <div class="step-connector" id="conn-3"></div>
+    <div class="step-item" data-step="4">
+      <div class="step-circle" onclick="goToStep(4)">4</div>
+      <div class="step-label">Payment<br>Request</div>
+    </div>
+    <div class="step-connector" id="conn-4"></div>
+    <div class="step-item" data-step="5">
+      <div class="step-circle" onclick="goToStep(5)">5</div>
+      <div class="step-label">Payment<br>Status</div>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="form-card">
+    <!-- Progress -->
+    <div class="progress-bar-wrap">
+      <div class="progress-meta">
+        <span id="progressLabel">Step 1 of 5 — Your Details & Investment</span>
+        <span id="progressPct">20%</span>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="progressBar" style="width:20%"></div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 1 ===== -->
+    <div class="step-panel active" id="panel-1">
+      <div class="section-title">
+        <div class="section-icon purple"><i class="fa-solid fa-user-tie"></i></div>
+        <div class="section-meta">
+          <h2>Your Details & Investment</h2>
+          <p>Personal information and investment preferences</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-control" placeholder="e.g. Rajesh"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-control" placeholder="e.g. Sharma"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" placeholder="you@example.com"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Mobile Number</label>
+          <input type="tel" class="form-control" placeholder="+91 98765 43210"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Date of Birth</label>
+          <input type="date" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">PAN Number</label>
+          <input type="text" class="form-control" placeholder="ABCDE1234F"/>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="mb-3">
+        <label class="form-label">Investment Type</label>
+        <div class="choice-group">
+          <div class="choice-item">
+            <input type="radio" name="inv-type" id="sip" checked/>
+            <label for="sip"><span class="dot"></span> SIP</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="inv-type" id="lumpsum"/>
+            <label for="lumpsum"><span class="dot"></span> Lumpsum</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="inv-type" id="both"/>
+            <label for="both"><span class="dot"></span> Both</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Investment Amount (₹)</label>
+          <input type="number" class="form-control" placeholder="e.g. 25,000"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Risk Appetite</label>
+          <select class="form-select">
+            <option value="">Select risk level</option>
+            <option>Conservative</option>
+            <option>Moderate</option>
+            <option>Aggressive</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2 ===== -->
+    <div class="step-panel" id="panel-2">
+      <div class="section-title">
+        <div class="section-icon teal"><i class="fa-solid fa-id-card"></i></div>
+        <div class="section-meta">
+          <h2>KYC Process</h2>
+          <p>Know Your Customer verification documents</p>
+        </div>
+      </div>
+
+      <div class="info-pill">
+        <i class="fa-solid fa-circle-info"></i>
+        All documents must be clear and valid. Supported: JPG, PNG, PDF (max 5MB)
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label">Identity Proof</label>
+          <select class="form-select mb-2">
+            <option>Aadhaar Card</option>
+            <option>Passport</option>
+            <option>Voter ID</option>
+            <option>Driving License</option>
+          </select>
+          <div class="upload-zone" onclick="this.querySelector('input').click()">
+            <i class="fa-solid fa-cloud-arrow-up d-block mb-1"></i>
+            <p>Drop file here or <span>Browse</span></p>
+            <input type="file" accept=".jpg,.png,.pdf"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Address Proof</label>
+          <select class="form-select mb-2">
+            <option>Aadhaar Card</option>
+            <option>Utility Bill</option>
+            <option>Bank Statement</option>
+            <option>Rent Agreement</option>
+          </select>
+          <div class="upload-zone" onclick="this.querySelector('input').click()">
+            <i class="fa-solid fa-cloud-arrow-up d-block mb-1"></i>
+            <p>Drop file here or <span>Browse</span></p>
+            <input type="file" accept=".jpg,.png,.pdf"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Passport Size Photo</label>
+          <div class="upload-zone" onclick="this.querySelector('input').click()">
+            <i class="fa-solid fa-camera d-block mb-1"></i>
+            <p>Upload your recent photo</p>
+            <input type="file" accept=".jpg,.png"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Signature</label>
+          <div class="upload-zone" onclick="this.querySelector('input').click()">
+            <i class="fa-solid fa-pen-nib d-block mb-1"></i>
+            <p>Upload scanned signature</p>
+            <input type="file" accept=".jpg,.png,.pdf"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Aadhaar Number</label>
+          <input type="text" class="form-control" placeholder="XXXX XXXX XXXX"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Occupation</label>
+          <select class="form-select">
+            <option>Salaried</option>
+            <option>Self-Employed</option>
+            <option>Business</option>
+            <option>Student</option>
+            <option>Retired</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3 ===== -->
+    <div class="step-panel" id="panel-3">
+      <div class="section-title">
+        <div class="section-icon gold"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="section-meta">
+          <h2>Bank & Nominee Details</h2>
+          <p>Your bank account and nominee information</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Bank Name</label>
+          <select class="form-select">
+            <option>Select Bank</option>
+            <option>HDFC Bank</option>
+            <option>ICICI Bank</option>
+            <option>SBI</option>
+            <option>Axis Bank</option>
+            <option>Kotak Mahindra</option>
+            <option>Yes Bank</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Account Type</label>
+          <div class="choice-group mt-1">
+            <div class="choice-item">
+              <input type="radio" name="acc-type" id="savings" checked/>
+              <label for="savings"><span class="dot"></span> Savings</label>
+            </div>
+            <div class="choice-item">
+              <input type="radio" name="acc-type" id="current"/>
+              <label for="current"><span class="dot"></span> Current</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Account Number</label>
+          <input type="text" class="form-control" placeholder="Enter account number"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Confirm Account Number</label>
+          <input type="text" class="form-control" placeholder="Re-enter account number"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">IFSC Code</label>
+          <input type="text" class="form-control" placeholder="e.g. HDFC0001234"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Branch Name</label>
+          <input type="text" class="form-control" placeholder="e.g. Connaught Place, Delhi"/>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-title" style="margin-bottom:20px">
+        <div class="section-icon teal" style="width:36px;height:36px;font-size:14px"><i class="fa-solid fa-person"></i></div>
+        <div class="section-meta">
+          <h2 style="font-size:16px">Nominee Information</h2>
+          <p>Will receive benefits in case of any eventuality</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Nominee Full Name</label>
+          <input type="text" class="form-control" placeholder="Enter full name"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Relationship</label>
+          <select class="form-select">
+            <option>Select Relationship</option>
+            <option>Spouse</option>
+            <option>Father</option>
+            <option>Mother</option>
+            <option>Son</option>
+            <option>Daughter</option>
+            <option>Sibling</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Nominee Date of Birth</label>
+          <input type="date" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Nominee Mobile</label>
+          <input type="tel" class="form-control" placeholder="+91 XXXXX XXXXX"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 4 ===== -->
+    <div class="step-panel" id="panel-4">
+      <div class="section-title">
+        <div class="section-icon red"><i class="fa-solid fa-credit-card"></i></div>
+        <div class="section-meta">
+          <h2>Payment Request</h2>
+          <p>Choose your payment method and complete the transaction</p>
+        </div>
+      </div>
+
+      <div class="amount-display mb-4">
+        <label>Total Investment Amount</label>
+        <div class="value mt-1"><span>₹</span>25,000</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">SIP — Monthly contribution</div>
+      </div>
+
+      <label class="form-label mb-3">Select Payment Method</label>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="choice-item w-100">
+            <input type="radio" name="pay-method" id="upi" checked/>
+            <label for="upi" style="width:100%; justify-content:center; flex-direction:column; text-align:center; gap:8px; padding:20px;">
+              <i class="fa-solid fa-mobile-screen-button" style="font-size:22px"></i>
+              UPI
+            </label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="choice-item w-100">
+            <input type="radio" name="pay-method" id="netbanking"/>
+            <label for="netbanking" style="width:100%; justify-content:center; flex-direction:column; text-align:center; gap:8px; padding:20px;">
+              <i class="fa-solid fa-building-columns" style="font-size:22px"></i>
+              Net Banking
+            </label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="choice-item w-100">
+            <input type="radio" name="pay-method" id="card"/>
+            <label for="card" style="width:100%; justify-content:center; flex-direction:column; text-align:center; gap:8px; padding:20px;">
+              <i class="fa-solid fa-credit-card" style="font-size:22px"></i>
+              Card
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">UPI ID</label>
+          <input type="text" class="form-control" placeholder="yourname@upi"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Payment Reference</label>
+          <input type="text" class="form-control" placeholder="Auto-generated" readonly style="opacity:0.5"/>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Remarks (Optional)</label>
+          <textarea class="form-control" rows="3" placeholder="Any additional notes for this payment..."></textarea>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);">
+        <i class="fa-solid fa-lock" style="color:var(--accent)"></i>
+        Payments are 256-bit SSL encrypted and PCI-DSS compliant. Your data is safe.
+      </div>
+    </div>
+
+    <!-- ===== STEP 5 ===== -->
+    <div class="step-panel" id="panel-5">
+      <div class="success-panel">
+        <div class="success-ring"><i class="fa-solid fa-check"></i></div>
+        <h2>Payment Successful!</h2>
+        <p>Your investment has been initiated. You will receive a confirmation on your registered email and mobile.</p>
+
+        <div class="txn-card mx-auto mb-4">
+          <div class="txn-row">
+            <span>Transaction ID</span>
+            <span>#INV-2024-00847</span>
+          </div>
+          <div class="txn-row">
+            <span>Amount Paid</span>
+            <span>₹ 25,000</span>
+          </div>
+          <div class="txn-row">
+            <span>Payment Method</span>
+            <span>UPI</span>
+          </div>
+          <div class="txn-row">
+            <span>Date & Time</span>
+            <span id="txnDate"></span>
+          </div>
+          <div class="txn-row">
+            <span>Status</span>
+            <span class="status-badge">Confirmed</span>
+          </div>
+        </div>
+
+        <button class="btn-next btn-submit" style="margin:0 auto;display:inline-flex" onclick="window.print()">
+          <i class="fa-solid fa-download"></i> Download Receipt
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="form-nav" id="formNav">
+      <button class="btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden">
+        <i class="fa-solid fa-arrow-left"></i> Back
+      </button>
+      <button class="btn-next" id="btnNext" onclick="nextStep()">
+        Continue <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let currentStep = 1;
+  const totalSteps = 5;
+
+  const stepLabels = [
+    'Your Details & Investment',
+    'KYC Process',
+    'Bank & Nominee Details',
+    'Payment Request',
+    'Payment Status'
+  ];
+
+  function updateUI() {
+    // Panels
+    document.querySelectorAll('.step-panel').forEach((p, i) => {
+      p.classList.toggle('active', i + 1 === currentStep);
+    });
+
+    // Stepper circles
+    document.querySelectorAll('.step-item').forEach((item, i) => {
+      const circle = item.querySelector('.step-circle');
+      const step = i + 1;
+      item.classList.remove('active', 'done');
+      circle.classList.remove('active', 'done');
+      if (step < currentStep) {
+        item.classList.add('done');
+        circle.classList.add('done');
+        circle.innerHTML = '<i class="fa-solid fa-check" style="font-size:13px"></i>';
+      } else if (step === currentStep) {
+        item.classList.add('active');
+        circle.classList.add('active');
+        circle.textContent = step;
+      } else {
+        circle.textContent = step;
+      }
+    });
+
+    // Connectors
+    for (let i = 1; i <= 4; i++) {
+      const conn = document.getElementById(`conn-${i}`);
+      conn.classList.toggle('done', i < currentStep);
+    }
+
+    // Progress
+    const pct = (currentStep / totalSteps) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = Math.round(pct) + '%';
+    document.getElementById('progressLabel').textContent = `Step ${currentStep} of ${totalSteps} — ${stepLabels[currentStep - 1]}`;
+
+    // Buttons
+    const btnBack = document.getElementById('btnBack');
+    const btnNext = document.getElementById('btnNext');
+    const formNav = document.getElementById('formNav');
+
+    btnBack.style.visibility = currentStep > 1 ? 'visible' : 'hidden';
+
+    if (currentStep === totalSteps) {
+      formNav.style.display = 'none';
+    } else if (currentStep === totalSteps - 1) {
+      btnNext.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Payment';
+      btnNext.className = 'btn-next btn-submit';
+    } else {
+      btnNext.innerHTML = 'Continue <i class="fa-solid fa-arrow-right"></i>';
+      btnNext.className = 'btn-next';
+      formNav.style.display = 'flex';
+    }
+  }
+
+  function nextStep() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateUI();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      updateUI();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function goToStep(step) {
+    if (step <= currentStep) {
+      currentStep = step;
+      updateUI();
+    }
+  }
+
+  // Set transaction date
+  const now = new Date();
+  document.getElementById('txnDate').textContent = now.toLocaleString('en-IN', {
+    day: '2-digit', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+
+  updateUI();
+</script>
+</body>
+</html>

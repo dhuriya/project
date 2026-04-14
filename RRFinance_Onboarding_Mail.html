@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RR Finance – Client Onboarding Confirmation</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        padding: 30px 15px;
+      }
+      .mail-wrap {
+        max-width: 860px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 1px solid #dde3ee;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      /* Header */
+      .hdr {
+        text-align: center;
+        background: #ffffff;
+        padding: 10px 15px 16px;
+      }
+      .hdr-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #003087;
+        letter-spacing: 1.5px;
+      }
+      .hdr-sub {
+        font-size: 14px;
+        color: #c8a951;
+        margin-top: 4px;
+        font-style: italic;
+      }
+      .hdr-badge {
+        display: inline-block;
+        background: #003087;
+        color: #fff;
+        font-size: 11px;
+        padding: 3px 12px;
+        border-radius: 4px;
+        margin-top: 8px;
+      }
+      .top-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #777;
+        padding: 8px 20px;
+        background: #f0f4fb;
+        border-bottom: 1px solid #dde3ee;
+      }
+
+      /* Body */
+      .body-pad {
+        padding: 0px 15px;
+      }
+      .doc-title {
+        background: #003087;
+        color: #fff;
+        text-align: center;
+        padding: 5px;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 6px;
+        margin-bottom: 6px;
+        letter-spacing: 0.5px;
+      }
+      .ref-line {
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 18px;
+        font-style: italic;
+      }
+      .to-block {
+        font-size: 13px;
+        color: #333;
+        line-height: 1.9;
+        margin-bottom: 12px;
+      }
+      .subject {
+        font-size: 13px;
+        font-weight: bold;
+        color: #003087;
+        margin-bottom: 12px;
+      }
+      .body-text {
+        font-size: 13px;
+        color: #333;
+        line-height: 1.7;
+        margin-bottom: 5px;
+      }
+
+      /* Section Title */
+      .sec-title {
+        font-size: 13px;
+        font-weight: bold;
+        color: #003087;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #c8a951;
+        margin: 22px 0 12px;
+      }
+      .sub-head {
+        font-size: 13px;
+        font-weight: bold;
+        color: #003087;
+        margin: 14px 0 6px;
+      }
+
+      /* Branch Table */
+      table.Branch {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      table.Branch td {
+        padding: 7px 5px;
+        border-bottom: 1px solid #dde3ee;
+        white-space: nowrap;
+      }
+      table.Branch td:first-child {
+        width: 38%;
+      }
+      table.Branch thead td {
+        background: #f0f4fb;
+        font-weight: bold;
+      }
+      table.Branch thead td:last-child {
+        background: #f0f4fb;
+        font-weight: bold;
+      }
+
+      /* Info Table */
+      table.info {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      table.info td {
+        padding: 7px 11px;
+        border: 1px solid #dde3ee;
+      }
+      table.info td:first-child {
+        background: #f0f4fb;
+        font-weight: bold;
+        width: 38%;
+        color: #333;
+      }
+      table.info td:last-child {
+        color: #555;
+      }
+
+      /* Product Table */
+      table.prod {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      table.prod th {
+        background: #003087;
+        color: #fff;
+        padding: 8px 9px;
+        text-align: left;
+        font-weight: bold;
+      }
+      table.prod td {
+        padding: 7px 9px;
+        border: 1px solid #dde3ee;
+        color: #333;
+      }
+      table.prod tr:nth-child(even) td {
+        background: #f7f9fd;
+      }
+      .note {
+        font-size: 11px;
+        color: #888;
+        font-style: italic;
+        margin-top: 5px;
+      }
+
+      /* T&C */
+      ol.tc {
+        font-size: 12px;
+        color: #333;
+        line-height: 1.85;
+        padding-left: 5px;
+      }
+      ol.tc li {
+        margin-bottom: 7px;
+      }
+      ol.tc li b {
+        color: #222;
+      }
+
+      /* Sign Block */
+      .sign-block {
+        margin-top: 18px;
+        font-size: 13px;
+        color: #333;
+        line-height: 2.1;
+      }
+      .sign-line {
+        display: inline-block;
+        border-bottom: 1px dashed #aaa;
+        width: 200px;
+        vertical-align: bottom;
+      }
+
+      /* Acknowledgement */
+      .ack {
+        background: #f0f4fb;
+        border: 1px solid #dde3ee;
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin-top: 18px;
+        font-size: 12px;
+        color: #333;
+      }
+      .ack-title {
+        font-weight: bold;
+        color: #003087;
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+
+      /* Footer */
+      .footer-strip {
+        text-align: center;
+        font-size: 11px;
+        color: #888;
+        border-top: 2px solid #c8a951;
+        padding: 10px 16px;
+        margin-top: 18px;
+        font-style: italic;
+        line-height: 1.8;
+        background: #fafbfd;
+      }
+      @media print {
+        body {
+          background: #fff;
+          padding: 0;
+        }
+        .mail-wrap {
+          border: none;
+          border-radius: 0;
+        }
+      }
+      .hdrlog {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid #003087;
+      }
+      .regards {
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mail-wrap">
+      <!-- Header -->
+      <div class="hdr">
+        <table
+          width="100%"
+          cellpadding="0"
+          cellspacing="0"
+          style="border-bottom: 2px solid #003087"
+        >
+          <tr>
+            <!-- Left Content -->
+            <td align="left" style="padding: 10px">
+              <img
+                src="https://rrfinance.com/onboarding_image/logo.PNG"
+                alt="RR Finance Logo"
+                style="height: 40px"
+              />
+            </td>
+
+            <!-- Right Content -->
+            <td align="right" style="padding: 10px">
+              <img
+                src="https://rrfinance.com/onboarding_image/39year.PNG"
+                alt="RR Finance Logo"
+                style="height: 50px"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="body-pad">
+        <!-- Document Title -->
+        <div class="doc-title">CLIENT ONBOARDING CONFIRMATION</div>
+
+        <!-- To Block -->
+        <div class="to-block">
+          <strong>To</strong>,<br />
+          [StrClientName]<br />
+          <!-- [Associate Firm / Company Name]<br /> -->
+          [City], [State]
+        </div>
+
+        <!-- Subject -->
+        <div class="subject">
+          Subject: Confirmation of Successful Client Onboarding on RR Finance
+          Platform
+        </div>
+
+        <!-- Opening Body -->
+        <p class="body-text">
+          Dear [StrClientName],<br />
+          We are pleased to inform you that your client has been successfully
+          onboarded on the RR Finance platform for investments. Please find
+          below the complete onboarding details for your reference and records.
+        </p>
+
+        <!-- ─────────────────────────────────────────── -->
+        <!-- SECTION 1: BASIC DETAILS                   -->
+        <!-- ─────────────────────────────────────────── -->
+        <div class="sec-title">Basic Details</div>
+
+        <div class="sub-head">A) Client Details</div>
+        <table class="info">
+          <tr>
+            <td>Client Full Name</td>
+            <td>[StrClientName]</td>
+          </tr>
+          <tr>
+            <td>PAN Number</td>
+            <td>[StrClientPan]</td>
+          </tr>
+          <tr>
+            <td>Date of Birth</td>
+            <td>[StrClientDob]</td>
+          </tr>
+          <tr>
+            <td>Mobile Number</td>
+            <td>[StrClientMobile]</td>
+          </tr>
+          <tr>
+            <td>Email Address</td>
+            <td>[StrClientEmail]</td>
+          </tr>
+          <tr>
+            <td>Residential Address</td>
+            <td>[StrClientAddress]</td>
+          </tr>
+          <tr>
+            <td>KYC Status</td>
+            <td>StrClientKycStatus</td>
+          </tr>
+          <tr>
+            <td>Bank Account No.</td>
+            <td>[StrClientAccNO]</td>
+          </tr>
+          <tr>
+            <td>Bank Name &amp; Branch</td>
+            <td>[StrClientBankName], [StrClientBranch]</td>
+          </tr>
+          <tr>
+            <td>IFSC Code</td>
+            <td>[StrClientIFSC]</td>
+          </tr>
+          <tr>
+            <td>Nominee Name</td>
+            <td>[StrClientNomiName]</td>
+          </tr>
+        </table>
+
+        <div class="sub-head">B) Associate / Distributor Details</div>
+        <table class="info">
+          <tr>
+            <td>Associate Name</td>
+            <td>[AssoName]</td>
+          </tr>
+          <tr>
+            <td>Associate ID / Code</td>
+            <td>[AssoCode]</td>
+          </tr>
+          <tr>
+            <td>AMFI ARN Number</td>
+            <td>[AssoARN]</td>
+          </tr>
+          <tr>
+            <td>EUIN Number</td>
+            <td>[AssoEUIN]</td>
+          </tr>
+          <tr>
+            <td>Contact Number</td>
+            <td>[AssoMobileNo]</td>
+          </tr>
+          <tr>
+            <td>Email Address</td>
+            <td>[AssoEmail]</td>
+          </tr>
+          <tr>
+            <td>Office Address</td>
+            <td>[OfficeAddress]</td>
+          </tr>
+          <tr>
+            <td>Onboarding Date</td>
+            <td>[OnboardingDate]</td>
+          </tr>
+        </table>
+
+        <!-- ─────────────────────────────────────────── -->
+        <!-- SECTION 2: PRODUCT LIST                    -->
+        <!-- ─────────────────────────────────────────── -->
+        <div class="sec-title">Product List</div>
+        <p class="body-text">
+          The following products have been selected / activated for the client
+          as part of this onboarding:
+        </p>
+
+        <!-- Main Container -->
+        <table
+          width="100%"
+          cellpadding="0"
+          cellspacing="0"
+          border="0"
+          style="border-collapse: collapse"
+        >
+          <!-- Row 1 -->
+          <tr>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: bottom"
+            >
+              <a
+                href="https://www.rrfinance.com/OurProducts/MutualFund/best-mf-schemes.aspx"
+              >
+                <img
+                  src="https://rrfinance.com/onboarding_image/mutual-fund.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: bottom"
+            >
+              <a href="https://www.rrfinance.com/OurProducts/Equity-IPO.aspx">
+                <img
+                  src="https://rrfinance.com/onboarding_image/Equity-IPO.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: bottom"
+            >
+              <a href="https://www.rrfinance.com/OurProducts/NCD.aspx">
+                <img
+                  src="https://rrfinance.com/onboarding_image/bond-ncd.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a
+                href="https://www.rrfinance.com/OurProducts/Invest_in_Capital_Gain_Bonds_Online.aspx"
+              >
+                <img
+                  src="https://rrfinance.com/onboarding_image/capital-gain-bond.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+          </tr>
+          <!-- Row 2 -->
+          <tr>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a
+                href="https://www.rrfinance.com/OurProducts/fixed-deposit.aspx"
+              >
+                <img
+                  src="https://rrfinance.com/onboarding_image/fixed-deposit.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a
+                href="https://www.rrfinance.com/unlisted-shares/Pre-IPO-Unlisted-Shares.aspx"
+              >
+                <img
+                  src="https://rrfinance.com/onboarding_image/Unlisted-share.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a
+                href="https://www.rrfinance.com/OurProducts/PMSFund/Default.aspx"
+              >
+                <img
+                  src="https://rrfinance.com/onboarding_image/PMS.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a
+                href="https://www.rrfinance.com/OurProducts/National-Pension-System-Landing-Page.aspx"
+              >
+                <img
+                  src="https://rrfinance.com/onboarding_image/national-pension-system.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a
+                href="https://www.rrfinance.com/OurProducts/RBI_Floating_Rate_Bonds.aspx"
+              >
+                <img
+                  src="https://rrfinance.com/onboarding_image/floating-rate-bonds.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a href="https://www.rrstock.in/">
+                <img
+                  src="https://rrfinance.com/onboarding_image/Stocks.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a href="https://www.rrpolicy.com/default.aspx">
+                <img
+                  src="https://rrfinance.com/onboarding_image/Insurance.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+            <td
+              width="25%"
+              align="center"
+              style="padding: 0; margin: 0; vertical-align: top"
+            >
+              <a href="https://www.rrpolicy.com/life-insurance.aspx">
+                <img
+                  src="https://rrfinance.com/onboarding_image/life-insurance.PNG"
+                  width="100%"
+                  style="display: block; border: 0; margin: 0; padding: 0"
+                />
+              </a>
+            </td>
+          </tr>
+        </table>
+        <p class="body-text">
+          Please find the branch-wise contact list for your reference. Kindly
+          save these details for coordination and communication purposes.
+        </p>
+        <table class="Branch">
+          <thead>
+            <tr>
+              <td>Branch</td>
+              <td>Mobile No.</td>
+              <td style="font-weight: bold">Email ID</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Head Office</td>
+              <td>+91-11-44441111</td>
+              <td>pamdrr@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Mumbai-Fort</td>
+              <td>+91-9004837979</td>
+              <td>amarnath@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Mumbai-borivali</td>
+              <td>+91-022-31628956</td>
+              <td>borivali@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Bangalore</td>
+              <td>+91-9164752270</td>
+              <td>bangalore.support@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Kolkata</td>
+              <td>+91-9331055408</td>
+              <td>subirsarkar@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Lucknow</td>
+              <td>+91-9335278439</td>
+              <td>chandrashekhar@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Jaipur</td>
+              <td>+91-92050 09529</td>
+              <td>rrjaipur@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Ahmedabad</td>
+              <td>+91-9898924399</td>
+              <td>parag.p@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Connaught Place</td>
+              <td>+011-43104907</td>
+              <td>pamdrr@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Faridabad</td>
+              <td>+91-129-4127361</td>
+              <td>pamdrr@rrfcl.com</td>
+            </tr>
+            <tr>
+              <td>Barakhamba Road</td>
+              <td>+91-9312940483</td>
+              <td>pamdrr@rrfcl.com</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ─────────────────────────────────────────── -->
+        <!-- SECTION 3: TERMS & CONDITIONS              -->
+        <!-- ─────────────────────────────────────────── -->
+
+        <div class="sec-title">Terms &amp; Conditions</div>
+        <p class="body-text">
+          By confirming this onboarding, the Associate and Client acknowledge
+          and agree to the following terms:
+        </p>
+
+        <ol class="tc">
+          <li>
+            RR would include <strong>RR Financial Consultants Ltd</strong>. and
+            its subsidiaries, group companies, affiliates and businesses
+            undertaken by all of them, its promoters, key personnel & employees.
+            These Companies are in the business of distribution of financial
+            products through its online platform and offline platform both. RR
+            requests you to carefully go through these terms & conditions
+            ('Terms & Conditions') to avail the access to the distribution
+            network of RR through its online technology platform. By registering
+            with RR, you irrevocably and unconditionally accept all the
+            obligations stipulated in the Terms & Conditions and agree to abide
+            by them. Accessing the distribution network of RR on its online
+            technology platform through its website being
+            <a href="http://www.rrbuddy.com">http://www.rrbuddy.com</a> ,
+            <a href="http://www.rrfinance.com">http://www.rrfinance.com</a>,
+            <a href="http://www.rrfcl.com">http://www.rrfcl.com</a>,
+            <a href="http://www.rrfinance.in">http://www.rrfinance.in</a>,
+            <a href="http://www.rrstock.in">http://www.rrstock.in</a>,
+            <a href="http://www.rrpolicy.in">http://www.rrpolicy.in</a>,
+            <a href="http://www.mybond.in">http://www.mybond.in</a>, ('RR
+            Websites') is also subject to the Terms & Conditions. These websites
+            uses ARN0032 and ARN79252 in the name of RR Investors Capital
+            Services Private Limited and RR Investor Retail Services Private
+            Limited.
+          </li>
+        </ol>
+
+        <!-- ─────────────────────────────────────────── -->
+        <!-- SECTION 4: COMPANY DETAILS                 -->
+        <!-- ─────────────────────────────────────────── -->
+        <div class="sec-title">1. REGISTRATION</div>
+
+        <p class="body-text" style="margin-top: 16px">
+          Access to the distribution network of RR for the transactions of
+          purchase, switch and redemption of mutual fund units will be granted
+          by RR only to customers who have a registered Investments Services
+          Account ('Registered Customers') with RR.
+        </p>
+        <p class="body-text" style="margin-top: 16px">
+          I/ We agree and acknowledge that the Services provided herein are
+          presently available in respect of select Mutual Funds only with whom
+          RR has entered into a separate arrangement. Registered Customers will
+          be able to only purchase, redeem and switch mutual fund units through
+          this service.
+        </p>
+        <p class="body-text" style="margin-top: 16px">
+          I/We agree that any and / or all information that may be provided by
+          me/us to RR from time to time, including but not limited to contact
+          information, address and tax-related information or any other
+          information required under existing or future KYC or other norms and
+          laws, may be shared by RR with the mutual funds/AMCs or their
+          respective authorized service providers, auditors, legal and tax
+          consultants in compliance with the extant legal provisions from time
+          to time. There may be an exit load applicable to certain mutual fund
+          schemes which is mentioned in the respective offer documents including
+          Scheme Information Document (SID) /Key Information Memorandum (KIM)
+          and addendums issued thereto from time to time (collectively referred
+          to as 'scheme related documents'). I/We shall read all the scheme
+          related documents before investing.
+          <a href="https://www.rrfinance.com/Policies/terms_use.aspx"
+            >Read more</a
+          >
+        </p>
+        <!-- Closing -->
+        <h4 class="sec-title">IMPORTANT GUIDELINES</h4>
+        <table
+          cellpadding="10"
+          cellspacing="0"
+          border="0"
+          bgcolor="#ffffff"
+          style="margin-top: 20px"
+        >
+          <tr>
+            <!-- LEFT COLUMN -->
+            <td
+              width="50%"
+              valign="top"
+              style="font-size: 14px; color: #333; line-height: 1.6"
+            >
+              <b
+                >1. For ensuring proper and timely credit of brokerage, kindly
+                follow the below mentioned instructions:</b
+              >
+
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li>
+                  Please mention the Code(s)/Registration details of RR on the
+                  application forms as per the following:
+                </li>
+                <li style="margin-top: 8px">Mutual Funds: <b>ARN-0032</b></li>
+
+                <li style="margin-top: 8px">
+                  Initial Public Offerings (IPOs): <b>23/12196-36</b>
+                </li>
+                <li style="margin-top: 8px">
+                  Fixed Deposit/Fixed Income Products: Codes may vary, please
+                  confirm with respective Relationship Manager/Branch before
+                  submitting the application form(s).
+                </li>
+                <li style="margin-top: 8px">
+                  Also mention your Associate Code on the application form and
+                  any communication sent to us, to enable us to track your
+                  transactions efficiently.
+                </li>
+              </ul>
+
+              <b>2. Bank Details</b>
+
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li>
+                  The bank detail mentioned in this letter is your default bank
+                  registered with us, through which your brokerage would be
+                  credited.
+                </li>
+                <li style="margin-top: 8px">
+                  In case of any change, please contact the branch/head office
+                  immediately and submit the revised particulars along with
+                  necessary proofs.
+                </li>
+              </ul>
+              <b>3. Brokerage Payments</b>
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li style="margin-top: 8px">
+                  Brokerage would be paid by way of Direct Credit.
+                </li>
+              </ul>
+              <b>4. Your Contact Details</b>
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li style="margin-top: 8px">
+                  All statements and communications would be sent to the email
+                  id mentioned by you in the form.
+                </li>
+                <li style="margin-top: 8px">
+                  Please ensure that you email id is regularly updated with us
+                  in order to avoid delivery failure of emails.In case of any
+                  change in the email id or contact number, kindly notify us via
+                  email registered in our records.
+                </li>
+                <li style="margin-top: 8px">
+                  In case of any change in the address, kindly visit our
+                  branch/head office and submit the necessary details along with
+                  the proofs.
+                </li>
+              </ul>
+            </td>
+
+            <!-- RIGHT COLUMN -->
+
+            <td
+              width="50%"
+              valign="top"
+              style="
+                font-size: 14px;
+                color: #333;
+                line-height: 1.6;
+                padding-left: 20px;
+              "
+            >
+              <b>5. Website Information & Access</b>
+
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li>Access & Password</li>
+
+                <li style="margin-top: 8px">
+                  The user id and password for login is mention in the mail.
+                </li>
+
+                <li style="margin-top: 8px">
+                  You would be required to change your password on first time
+                  login
+                </li>
+
+                <li style="margin-top: 12px"><b>Features & Offerings</b></li>
+
+                <li style="margin-top: 8px">
+                  As an Associate you can access the following through <br />
+                  our website:
+
+                  <a
+                    href="https://www.rrbuddy.com"
+                    style="color: #0d6efd; text-decoration: none"
+                  >
+                    https://www.rrbuddy.com
+                  </a>
+                </li>
+
+                <li style="margin-top: 0px" class="body-text">
+                  Portfolio view for clients
+                </li>
+                <li style="margin-top: 0px" class="body-text">
+                  Brokerage statements
+                </li>
+                <li style="margin-top: 0px" class="body-text">
+                  Earning reports
+                </li>
+                <li style="margin-top: 0px" class="body-text">
+                  Transaction statements of clients
+                </li>
+                <li style="margin-top: 0px" class="body-text">Circulars</li>
+                <li style="margin-top: 0px" class="body-text">Other Reports</li>
+                <li style="margin-top: 0px" class="body-text">
+                  <strong>IPO/NCD Bidding</strong> (could be obtained by
+                  providing Agreement of bidding)
+                </li>
+              </ul>
+
+              <b>6. Information & Updates</b>
+
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li>
+                  Marketing updates are sent via email, which includes brokerage
+                  rates, research reports & updates etc.
+                </li>
+              </ul>
+
+              <b>7. Queries and Feedback</b>
+
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li>
+                  For any information or query Associate can get in touch with
+                  respective Relationship Manager.
+                </li>
+                <li>
+                  Alternatively you could write to our support team on the below
+                  ids:
+                </li>
+              </ul>
+              <ul style="padding-left: 5px; margin-top: 10px" class="body-text">
+                <li>
+                  Managing Director:
+                  <a
+                    href="mailto:pamdrr@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >pamdrr@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  For Careers:
+                  <a
+                    href="mailto:recruitment@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >recruitment@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  Payment related queries:
+                  <a
+                    href="mailto:payment@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >payment@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  TDS related queries:
+                  <a
+                    href="mailto:tds@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >tds@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  Data updation/change:
+                  <a
+                    href="mailto:data@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >data@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  Mutual Fund queries:
+                  <a
+                    href="mailto:mf@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >mf@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  For Equity/Commodity:
+                  <a
+                    href="mailto:rrequity@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >rrequity@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  For Fixed Deposits:
+                  <a
+                    href="mailto:fd@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >fd@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  For IPOs:
+                  <a
+                    href="mailto:ipo@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >ipo@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  For Debt Market :
+                  <a
+                    href="mailto:isd@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                    >isd@rrfcl.com</a
+                  >
+                </li>
+                <li>
+                  For Insurance :
+                  <a
+                    href="mailto:isd@rrfcl.com"
+                    style="color: #0d6efd; text-decoration: none"
+                  >
+                    insurance@rrfcl.com</a
+                  >
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <div class="sec-title"></div>
+        <div class="regards">
+          <p class="body-text" style="margin-bottom: 0px">
+            With Regards, <br />
+            RR Buddy Team
+          </p>
+          <p class="body-text" style="margin-bottom: 0px">
+            Website :
+            <a href="http://www.rrbuddy.com">http://www.rrbuddy.com</a>
+          </p>
+          <p class="body-text">Support : 9350316010</p>
+        </div>
+      </div>
+      <!-- end body-pad -->
+    </div>
+    <!-- end mail-wrap -->
+  </body>
+</html>

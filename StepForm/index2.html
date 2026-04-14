@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Investment Onboarding</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+:root {
+  --sky: #0ea5e9;
+  --sky-light: #e0f4fd;
+  --sky-mid: #38bdf8;
+  --sky-dark: #0369a1;
+  --black: #0f172a;
+  --slate: #1e293b;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-700: #334155;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --display: 'Playfair Display', serif;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(14,165,233,0.10);
+  --shadow-lg: 0 8px 40px rgba(14,165,233,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--gray-100);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+/* ── Main Shell ── */
+.shell {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(15,23,42,0.12);
+  overflow: hidden;
+  display: flex;
+  min-height: 700px;
+}
+
+/* ── LEFT SIDEBAR ── */
+.sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  background: var(--black);
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.sidebar::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14,165,233,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.brand {
+  margin-bottom: 40px;
+}
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.brand-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+}
+.brand-name {
+  font-family: var(--display);
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+.brand-tagline {
+  font-size: 11px;
+  color: var(--gray-400);
+  letter-spacing: 0.5px;
+}
+
+/* Step nav */
+.step-nav { flex: 1; position: relative; z-index: 1; }
+.step-nav-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 0;
+  cursor: pointer;
+  position: relative;
+}
+.step-nav-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 52px;
+  width: 2px;
+  height: calc(100% - 16px);
+  background: rgba(255,255,255,0.08);
+  transition: background 0.4s;
+}
+.step-nav-item.done:not(:last-child)::after {
+  background: var(--sky);
+}
+
+.step-dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.10);
+  color: var(--gray-400);
+  transition: all 0.35s;
+}
+.step-nav-item.done .step-dot {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.step-nav-item.active .step-dot {
+  background: var(--sky);
+  border-color: var(--sky);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(14,165,233,0.25);
+}
+
+.step-info { padding-top: 2px; }
+.step-num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 2px;
+  transition: color 0.3s;
+}
+.step-nav-item.active .step-num { color: var(--sky-mid); }
+.step-nav-item.done .step-num { color: var(--green); }
+
+.step-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.3s;
+  line-height: 1.3;
+}
+.step-nav-item.active .step-title { color: #fff; }
+.step-nav-item.done .step-title { color: rgba(255,255,255,0.6); }
+
+/* Progress pill */
+.sidebar-progress {
+  margin-top: 32px;
+  padding: 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  position: relative;
+  z-index: 1;
+}
+.sp-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+}
+.sp-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.sp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sky-dark), var(--sky-mid));
+  border-radius: 100px;
+  transition: width 0.5s ease;
+}
+.sp-steps {
+  font-size: 11px;
+  color: var(--sky-mid);
+  font-weight: 600;
+  margin-top: 8px;
+  text-align: right;
+}
+
+/* ── RIGHT CONTENT ── */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Top bar */
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 18px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+}
+.topbar-sub {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 1px;
+}
+.secure-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid #bbf7d0;
+}
+
+/* Scroll area */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 36px;
+}
+.scroll-area::-webkit-scrollbar { width: 5px; }
+.scroll-area::-webkit-scrollbar-track { background: transparent; }
+.scroll-area::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 10px; }
+
+/* Two-column layout inside each step */
+.step-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Left summary card per step */
+.step-summary {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: sticky;
+  top: 0;
+}
+.ss-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+.ss-icon.sky   { background: var(--sky-light); color: var(--sky-dark); }
+.ss-icon.green { background: var(--green-light); color: var(--green); }
+.ss-icon.red   { background: var(--red-light); color: var(--red); }
+.ss-icon.black { background: #e2e8f0; color: var(--black); }
+.ss-icon.gold  { background: #fef9c3; color: #b45309; }
+
+.ss-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.ss-desc {
+  font-size: 11.5px;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+.ss-divider {
+  height: 1px;
+  background: var(--gray-200);
+  margin: 14px 0;
+}
+.ss-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 10px;
+}
+.ss-stat-label { font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.8px; }
+.ss-stat-value { font-size: 13px; font-weight: 600; color: var(--black); }
+.ss-stat-value.sky { color: var(--sky-dark); }
+.ss-stat-value.green { color: var(--green); }
+
+/* Step panel */
+.step-panel { display: none; animation: fadeIn 0.35s ease; }
+.step-panel.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Section heading */
+.form-section-head {
+  margin-bottom: 20px;
+}
+.form-section-head h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+.form-section-head p {
+  font-size: 12.5px;
+  color: var(--gray-500);
+}
+
+/* Divider */
+.form-divider {
+  height: 1px;
+  background: var(--gray-200);
+  margin: 22px 0;
+}
+
+/* Form controls */
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-700);
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.form-control, .form-select {
+  font-family: var(--font) !important;
+  font-size: 13.5px !important;
+  color: var(--black) !important;
+  background: var(--white) !important;
+  border: 1.5px solid var(--gray-200) !important;
+  border-radius: 10px !important;
+  padding: 11px 14px !important;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.form-control::placeholder { color: var(--gray-400) !important; }
+.form-control:focus, .form-select:focus {
+  border-color: var(--sky) !important;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12) !important;
+  outline: none !important;
+}
+textarea.form-control { resize: none; }
+
+/* Choice buttons */
+.choice-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.choice-item input { display: none; }
+.choice-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-500);
+  transition: all 0.2s;
+  background: var(--white);
+  user-select: none;
+}
+.choice-item input:checked + label {
+  border-color: var(--sky);
+  color: var(--sky-dark);
+  background: var(--sky-light);
+  font-weight: 600;
+}
+.choice-item label .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.choice-item input:checked + label .dot { background: var(--sky); }
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed var(--gray-200);
+  border-radius: 10px;
+  padding: 22px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: var(--gray-50);
+}
+.upload-zone:hover { border-color: var(--sky); background: var(--sky-light); }
+.upload-zone i { font-size: 22px; color: var(--sky); margin-bottom: 8px; display: block; }
+.upload-zone p { font-size: 12px; color: var(--gray-500); margin-bottom: 4px; }
+.upload-zone span { font-size: 12px; color: var(--sky-dark); font-weight: 600; }
+.upload-zone input { display: none; }
+
+/* Info alert */
+.info-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fefce8;
+  border: 1px solid #fde047;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #713f12;
+  margin-bottom: 20px;
+}
+.info-alert i { margin-top: 1px; flex-shrink: 0; }
+
+/* Pay method cards */
+.pay-cards { display: flex; gap: 12px; margin-bottom: 22px; }
+.pay-card-item input { display: none; }
+.pay-card-item label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-500);
+  transition: all 0.25s;
+  background: var(--white);
+  width: 100%;
+  min-width: 100px;
+}
+.pay-card-item label i { font-size: 22px; }
+.pay-card-item input:checked + label {
+  border-color: var(--sky);
+  color: var(--sky-dark);
+  background: var(--sky-light);
+  box-shadow: 0 2px 12px rgba(14,165,233,0.15);
+}
+
+/* Amount box */
+.amount-box {
+  background: linear-gradient(135deg, var(--black) 0%, var(--slate) 100%);
+  border-radius: 14px;
+  padding: 22px 24px;
+  color: #fff;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.amount-box::after {
+  content: '₹';
+  position: absolute;
+  right: -10px; top: -20px;
+  font-size: 120px;
+  font-family: var(--display);
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+}
+.amount-box label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+.amount-box .val {
+  font-family: var(--display);
+  font-size: 38px;
+  color: #fff;
+  margin: 4px 0;
+}
+.amount-box .val span { font-size: 18px; color: rgba(255,255,255,0.6); margin-right: 4px; }
+.amount-box .type-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(14,165,233,0.2);
+  border: 1px solid rgba(14,165,233,0.3);
+  border-radius: 100px;
+  padding: 3px 12px;
+  font-size: 11px;
+  color: var(--sky-mid);
+  font-weight: 600;
+}
+
+/* Security line */
+.secure-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gray-200);
+}
+.secure-line i { color: var(--green); }
+
+/* ── Bottom Nav Bar ── */
+.nav-bar {
+  border-top: 1px solid var(--gray-200);
+  padding: 18px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  flex-shrink: 0;
+}
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1.5px solid var(--gray-200);
+  color: var(--gray-500);
+  font-family: var(--font);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.btn-back:hover { border-color: var(--sky); color: var(--sky-dark); }
+
+.btn-next {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--sky);
+  border: none;
+  color: #fff;
+  font-family: var(--font);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 11px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 4px 16px rgba(14,165,233,0.35);
+  letter-spacing: 0.2px;
+}
+.btn-next:hover { background: var(--sky-dark); box-shadow: 0 6px 22px rgba(14,165,233,0.45); transform: translateY(-1px); }
+.btn-submit { background: var(--green); box-shadow: 0 4px 16px rgba(22,163,74,0.3); }
+.btn-submit:hover { background: #15803d; box-shadow: 0 6px 22px rgba(22,163,74,0.4); }
+
+.step-counter {
+  font-size: 12px;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+/* ── SUCCESS ── */
+.success-wrap {
+  text-align: center;
+  padding: 20px 0 10px;
+}
+.success-check {
+  width: 80px; height: 80px;
+  background: var(--green-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 32px;
+  color: var(--green);
+  border: 3px solid #86efac;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.success-wrap h2 {
+  font-family: var(--display);
+  font-size: 26px;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+.success-wrap p {
+  font-size: 13px;
+  color: var(--gray-500);
+  max-width: 340px;
+  margin: 0 auto 28px;
+  line-height: 1.7;
+}
+
+.txn-table {
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 14px;
+  overflow: hidden;
+  max-width: 440px;
+  margin: 0 auto 24px;
+  text-align: left;
+}
+.txn-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 20px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.txn-row:last-child { border-bottom: none; }
+.txn-row .k { color: var(--gray-500); }
+.txn-row .v { color: var(--black); font-weight: 600; }
+.status-pill {
+  background: var(--green-light);
+  color: var(--green);
+  border: 1px solid #86efac;
+  padding: 3px 12px;
+  border-radius: 100px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--black);
+  color: #fff;
+  border: none;
+  font-family: var(--font);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.btn-download:hover { background: var(--slate); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  body { padding: 0; }
+  .shell { flex-direction: column; border-radius: 0; min-height: 100vh; }
+  .sidebar { width: 100%; padding: 24px 20px 18px; }
+  .step-nav { display: flex; gap: 8px; overflow-x: auto; }
+  .step-nav-item { flex-direction: column; align-items: center; gap: 6px; min-width: 60px; padding: 0; }
+  .step-nav-item:not(:last-child)::after { display: none; }
+  .step-info { text-align: center; }
+  .step-title { font-size: 10px; }
+  .step-num { display: none; }
+  .sidebar-progress { display: none; }
+  .brand { margin-bottom: 20px; }
+  .scroll-area { padding: 20px 16px; }
+  .nav-bar { padding: 14px 16px; }
+  .topbar { padding: 14px 16px; }
+  .step-layout { grid-template-columns: 1fr; }
+  .step-summary { position: static; }
+  .pay-cards { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- ───── SIDEBAR ───── -->
+  <div class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <div class="brand-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <span class="brand-name">InvestPro</span>
+      </div>
+      <div class="brand-tagline">SECURE INVESTMENT PORTAL</div>
+    </div>
+
+    <div class="step-nav" id="stepNav">
+      <div class="step-nav-item active" data-step="1" onclick="goToStep(1)">
+        <div class="step-dot">1</div>
+        <div class="step-info">
+          <div class="step-num">Step 01</div>
+          <div class="step-title">Your Details &<br>Investment</div>
+        </div>
+      </div>
+      <div class="step-nav-item" data-step="2" onclick="goToStep(2)">
+        <div class="step-dot">2</div>
+        <div class="step-info">
+          <div class="step-num">Step 02</div>
+          <div class="step-title">KYC Process</div>
+        </div>
+      </div>
+      <div class="step-nav-item" data-step="3" onclick="goToStep(3)">
+        <div class="step-dot">3</div>
+        <div class="step-info">
+          <div class="step-num">Step 03</div>
+          <div class="step-title">Bank & Nominee<br>Details</div>
+        </div>
+      </div>
+      <div class="step-nav-item" data-step="4" onclick="goToStep(4)">
+        <div class="step-dot">4</div>
+        <div class="step-info">
+          <div class="step-num">Step 04</div>
+          <div class="step-title">Payment Request</div>
+        </div>
+      </div>
+      <div class="step-nav-item" data-step="5" onclick="goToStep(5)">
+        <div class="step-dot">5</div>
+        <div class="step-info">
+          <div class="step-num">Step 05</div>
+          <div class="step-title">Payment Status</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="sp-label"><span>Overall Progress</span><span id="spPct">20%</span></div>
+      <div class="sp-bar"><div class="sp-fill" id="spFill" style="width:20%"></div></div>
+      <div class="sp-steps" id="spSteps">Step 1 of 5</div>
+    </div>
+  </div>
+
+  <!-- ───── RIGHT CONTENT ───── -->
+  <div class="content">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="topbarTitle">Your Details & Investment</div>
+        <div class="topbar-sub" id="topbarSub">Fill in your personal and investment information</div>
+      </div>
+      <div class="secure-badge"><i class="fa-solid fa-lock"></i> SSL Secured</div>
+    </div>
+
+    <!-- Scroll area -->
+    <div class="scroll-area">
+
+      <!-- ══ STEP 1 ══ -->
+      <div class="step-panel active" id="panel-1">
+        <div class="step-layout">
+          <!-- Left summary -->
+          <div class="step-summary">
+            <div class="ss-icon sky"><i class="fa-solid fa-user-tie"></i></div>
+            <div class="ss-title">Personal &<br>Investment Info</div>
+            <div class="ss-desc">Provide your basic details and choose how you want to invest.</div>
+            <div class="ss-divider"></div>
+            <div class="ss-stat">
+              <span class="ss-stat-label">Est. Time</span>
+              <span class="ss-stat-value">~ 3 min</span>
+            </div>
+            <div class="ss-stat">
+              <span class="ss-stat-label">Required Fields</span>
+              <span class="ss-stat-value sky">8 fields</span>
+            </div>
+            <div class="ss-stat">
+              <span class="ss-stat-label">Security</span>
+              <span class="ss-stat-value green">256-bit SSL</span>
+            </div>
+          </div>
+
+          <!-- Right form -->
+          <div>
+            <div class="form-section-head">
+              <h3>Personal Information</h3>
+              <p>All fields marked are required</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" placeholder="e.g. Rajesh"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" placeholder="e.g. Sharma"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" placeholder="you@example.com"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Mobile Number</label>
+                <input type="tel" class="form-control" placeholder="+91 98765 43210"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-control"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">PAN Number</label>
+                <input type="text" class="form-control" placeholder="ABCDE1234F"/>
+              </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="form-section-head">
+              <h3>Investment Preferences</h3>
+              <p>Choose your investment type and amount</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label">Investment Type</label>
+                <div class="choice-group">
+                  <div class="choice-item"><input type="radio" name="inv" id="sip" checked/><label for="sip"><span class="dot"></span> SIP</label></div>
+                  <div class="choice-item"><input type="radio" name="inv" id="lump"/><label for="lump"><span class="dot"></span> Lumpsum</label></div>
+                  <div class="choice-item"><input type="radio" name="inv" id="both"/><label for="both"><span class="dot"></span> Both</label></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Investment Amount (₹)</label>
+                <input type="number" class="form-control" placeholder="e.g. 25000"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Risk Appetite</label>
+                <select class="form-select">
+                  <option value="">Select risk level</option>
+                  <option>Conservative</option>
+                  <option>Moderate</option>
+                  <option>Aggressive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 2 ══ -->
+      <div class="step-panel" id="panel-2">
+        <div class="step-layout">
+          <div class="step-summary">
+            <div class="ss-icon sky"><i class="fa-solid fa-id-card"></i></div>
+            <div class="ss-title">KYC Verification</div>
+            <div class="ss-desc">Upload valid government-issued documents for verification.</div>
+            <div class="ss-divider"></div>
+            <div class="ss-stat"><span class="ss-stat-label">Documents</span><span class="ss-stat-value">4 required</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Formats</span><span class="ss-stat-value">JPG, PNG, PDF</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Max Size</span><span class="ss-stat-value sky">5 MB each</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Verification</span><span class="ss-stat-value green">Auto KYC</span></div>
+          </div>
+
+          <div>
+            <div class="info-alert">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              Documents must be clearly visible. Blurred or expired documents will be rejected and may delay onboarding.
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Identity Proof Type</label>
+                <select class="form-select mb-2">
+                  <option>Aadhaar Card</option>
+                  <option>Passport</option>
+                  <option>Voter ID</option>
+                  <option>Driving License</option>
+                </select>
+                <div class="upload-zone" onclick="this.querySelector('input').click()">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <p>Drop here or <span>Browse</span></p>
+                  <input type="file" accept=".jpg,.png,.pdf"/>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Address Proof Type</label>
+                <select class="form-select mb-2">
+                  <option>Aadhaar Card</option>
+                  <option>Utility Bill</option>
+                  <option>Bank Statement</option>
+                  <option>Rent Agreement</option>
+                </select>
+                <div class="upload-zone" onclick="this.querySelector('input').click()">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <p>Drop here or <span>Browse</span></p>
+                  <input type="file" accept=".jpg,.png,.pdf"/>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Passport Photo</label>
+                <div class="upload-zone" onclick="this.querySelector('input').click()">
+                  <i class="fa-solid fa-camera"></i>
+                  <p>Recent passport size photo</p>
+                  <input type="file" accept=".jpg,.png"/>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Signature</label>
+                <div class="upload-zone" onclick="this.querySelector('input').click()">
+                  <i class="fa-solid fa-pen-nib"></i>
+                  <p>Scanned signature on white paper</p>
+                  <input type="file" accept=".jpg,.png,.pdf"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Aadhaar Number</label>
+                <input type="text" class="form-control" placeholder="XXXX XXXX XXXX"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Occupation</label>
+                <select class="form-select">
+                  <option>Salaried</option>
+                  <option>Self-Employed</option>
+                  <option>Business</option>
+                  <option>Student</option>
+                  <option>Retired</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 3 ══ -->
+      <div class="step-panel" id="panel-3">
+        <div class="step-layout">
+          <div class="step-summary">
+            <div class="ss-icon gold"><i class="fa-solid fa-building-columns"></i></div>
+            <div class="ss-title">Bank &<br>Nominee Details</div>
+            <div class="ss-desc">Link your bank account and add a nominee for your investments.</div>
+            <div class="ss-divider"></div>
+            <div class="ss-stat"><span class="ss-stat-label">Bank Fields</span><span class="ss-stat-value">6 required</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Nominee</span><span class="ss-stat-value sky">Mandatory</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Verification</span><span class="ss-stat-value green">Penny Drop</span></div>
+          </div>
+
+          <div>
+            <div class="form-section-head">
+              <h3>Bank Account Details</h3>
+              <p>Enter your primary bank account for transactions</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Bank Name</label>
+                <select class="form-select">
+                  <option>Select Bank</option>
+                  <option>HDFC Bank</option>
+                  <option>ICICI Bank</option>
+                  <option>SBI</option>
+                  <option>Axis Bank</option>
+                  <option>Kotak Mahindra</option>
+                  <option>Yes Bank</option>
+                  <option>Punjab National Bank</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Account Type</label>
+                <div class="choice-group mt-1">
+                  <div class="choice-item"><input type="radio" name="acc" id="sav" checked/><label for="sav"><span class="dot"></span> Savings</label></div>
+                  <div class="choice-item"><input type="radio" name="acc" id="cur"/><label for="cur"><span class="dot"></span> Current</label></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Account Number</label>
+                <input type="text" class="form-control" placeholder="Enter account number"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Confirm Account Number</label>
+                <input type="text" class="form-control" placeholder="Re-enter account number"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">IFSC Code</label>
+                <input type="text" class="form-control" placeholder="e.g. HDFC0001234"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Branch Name</label>
+                <input type="text" class="form-control" placeholder="e.g. Gurugram Main"/>
+              </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="form-section-head">
+              <h3>Nominee Information</h3>
+              <p>Nominee will receive benefits in case of any eventuality</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nominee Full Name</label>
+                <input type="text" class="form-control" placeholder="Enter full name"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Relationship</label>
+                <select class="form-select">
+                  <option>Select Relationship</option>
+                  <option>Spouse</option>
+                  <option>Father</option>
+                  <option>Mother</option>
+                  <option>Son</option>
+                  <option>Daughter</option>
+                  <option>Sibling</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-control"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Nominee Mobile</label>
+                <input type="tel" class="form-control" placeholder="+91 XXXXX XXXXX"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 4 ══ -->
+      <div class="step-panel" id="panel-4">
+        <div class="step-layout">
+          <div class="step-summary">
+            <div class="ss-icon red"><i class="fa-solid fa-credit-card"></i></div>
+            <div class="ss-title">Payment Request</div>
+            <div class="ss-desc">Choose a payment method and confirm your investment amount.</div>
+            <div class="ss-divider"></div>
+            <div class="ss-stat"><span class="ss-stat-label">Amount</span><span class="ss-stat-value sky">₹ 25,000</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Type</span><span class="ss-stat-value">SIP — Monthly</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Methods</span><span class="ss-stat-value">UPI / Net / Card</span></div>
+            <div class="ss-stat"><span class="ss-stat-label">Encryption</span><span class="ss-stat-value green">PCI-DSS</span></div>
+          </div>
+
+          <div>
+            <div class="amount-box">
+              <label>Total Investment Amount</label>
+              <div class="val"><span>₹</span>25,000</div>
+              <div class="type-tag"><i class="fa-solid fa-rotate"></i> SIP — Monthly</div>
+            </div>
+
+            <div class="form-section-head">
+              <h3>Select Payment Method</h3>
+              <p>Choose your preferred payment option</p>
+            </div>
+
+            <div class="pay-cards">
+              <div class="pay-card-item flex-fill">
+                <input type="radio" name="pay" id="upi" checked/>
+                <label for="upi"><i class="fa-solid fa-mobile-screen-button"></i> UPI</label>
+              </div>
+              <div class="pay-card-item flex-fill">
+                <input type="radio" name="pay" id="net"/>
+                <label for="net"><i class="fa-solid fa-building-columns"></i> Net Banking</label>
+              </div>
+              <div class="pay-card-item flex-fill">
+                <input type="radio" name="pay" id="card"/>
+                <label for="card"><i class="fa-regular fa-credit-card"></i> Card</label>
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">UPI ID</label>
+                <input type="text" class="form-control" placeholder="yourname@upi"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Reference No.</label>
+                <input type="text" class="form-control" placeholder="Auto-generated" readonly style="opacity:0.5;cursor:not-allowed"/>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Remarks (Optional)</label>
+                <textarea class="form-control" rows="3" placeholder="Any notes for this payment..."></textarea>
+              </div>
+            </div>
+
+            <div class="secure-line">
+              <i class="fa-solid fa-shield-halved"></i>
+              Your payment is protected with 256-bit SSL encryption and is PCI-DSS compliant.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 5 ══ -->
+      <div class="step-panel" id="panel-5">
+        <div class="success-wrap">
+          <div class="success-check"><i class="fa-solid fa-check"></i></div>
+          <h2>Payment Successful!</h2>
+          <p>Your investment has been initiated. A confirmation has been sent to your registered email and mobile number.</p>
+
+          <div class="txn-table">
+            <div class="txn-row"><span class="k">Transaction ID</span><span class="v">#INV-2024-00847</span></div>
+            <div class="txn-row"><span class="k">Amount Paid</span><span class="v" style="color:var(--sky-dark)">₹ 25,000</span></div>
+            <div class="txn-row"><span class="k">Payment Method</span><span class="v">UPI</span></div>
+            <div class="txn-row"><span class="k">Investment Type</span><span class="v">SIP — Monthly</span></div>
+            <div class="txn-row"><span class="k">Date & Time</span><span class="v" id="txnDate"></span></div>
+            <div class="txn-row"><span class="k">Status</span><span class="status-pill">✓ Confirmed</span></div>
+          </div>
+
+          <button class="btn-download">
+            <i class="fa-solid fa-download"></i> Download Receipt
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /scroll-area -->
+
+    <!-- Bottom Nav -->
+    <div class="nav-bar" id="navBar">
+      <button class="btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden">
+        <i class="fa-solid fa-arrow-left"></i> Back
+      </button>
+      <span class="step-counter" id="stepCounter">Step 1 of 5</span>
+      <button class="btn-next" id="btnNext" onclick="nextStep()">
+        Continue <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let current = 1;
+const total = 5;
+const labels = [
+  ['Your Details & Investment', 'Fill in your personal and investment information'],
+  ['KYC Process', 'Upload your verification documents'],
+  ['Bank & Nominee Details', 'Link your bank and add a nominee'],
+  ['Payment Request', 'Choose payment method and confirm'],
+  ['Payment Status', 'Transaction confirmation']
+];
+
+function updateUI() {
+  // panels
+  document.querySelectorAll('.step-panel').forEach((p, i) => p.classList.toggle('active', i + 1 === current));
+
+  // sidebar steps
+  document.querySelectorAll('.step-nav-item').forEach((item, i) => {
+    const s = i + 1;
+    const dot = item.querySelector('.step-dot');
+    item.classList.remove('active', 'done');
+    dot.classList.remove('active', 'done');
+    if (s < current) {
+      item.classList.add('done');
+      dot.innerHTML = '<i class="fa-solid fa-check" style="font-size:12px"></i>';
+    } else if (s === current) {
+      item.classList.add('active');
+      dot.textContent = s;
+    } else {
+      dot.textContent = s;
+    }
+  });
+
+  // progress
+  const pct = Math.round((current / total) * 100);
+  document.getElementById('spFill').style.width = pct + '%';
+  document.getElementById('spPct').textContent = pct + '%';
+  document.getElementById('spSteps').textContent = `Step ${current} of ${total}`;
+
+  // topbar
+  document.getElementById('topbarTitle').textContent = labels[current - 1][0];
+  document.getElementById('topbarSub').textContent = labels[current - 1][1];
+
+  // step counter
+  document.getElementById('stepCounter').textContent = `Step ${current} of ${total}`;
+
+  // buttons
+  const btnBack = document.getElementById('btnBack');
+  const btnNext = document.getElementById('btnNext');
+  const navBar  = document.getElementById('navBar');
+
+  btnBack.style.visibility = current > 1 ? 'visible' : 'hidden';
+
+  if (current === total) {
+    navBar.style.display = 'none';
+  } else {
+    navBar.style.display = 'flex';
+    if (current === total - 1) {
+      btnNext.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Payment';
+      btnNext.className = 'btn-next btn-submit';
+    } else {
+      btnNext.innerHTML = 'Continue <i class="fa-solid fa-arrow-right"></i>';
+      btnNext.className = 'btn-next';
+    }
+  }
+}
+
+function nextStep() { if (current < total) { current++; updateUI(); } }
+function prevStep() { if (current > 1) { current--; updateUI(); } }
+function goToStep(s) { if (s <= current) { current = s; updateUI(); } }
+
+// txn date
+const d = new Date();
+document.getElementById('txnDate').textContent = d.toLocaleString('en-IN', {
+  day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+});
+
+updateUI();
+</script>
+</body>
+</html>
