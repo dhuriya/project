@@ -1,0 +1,821 @@
+<!-- <%@ Master Language="C#" AutoEventWireup="true" CodeFile="userMasterPage.master.cs" Inherits="user_userMasterPage" %> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>WealthArc | Finance Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <style>
+        /* ---------- MODERN DASHBOARD THEME ---------- */
+        :root {
+            --bg-body: #f0f2f8;
+            --sidebar-bg: #ffffff;
+            --sidebar-border: #eef2f6;
+            --primary: #2463eb;
+            --primary-dark: #1a4fc7;
+            --primary-light: #eef3fe;
+            --secondary: #00b4aa;
+            --accent: #f5a623;
+            --success: #20c997;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --text-light: #94a3b8;
+            --card-bg: #ffffff;
+            --border-light: #e9edf2;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* ---------- SIDEBAR - CLEAN LIGHT THEME ---------- */
+        .dashboard-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 280px;
+            background: var(--sidebar-bg);
+            z-index: 1050;
+            transition: var(--transition);
+            overflow-y: auto;
+            border-right: 1px solid var(--sidebar-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .dashboard-sidebar::-webkit-scrollbar-track {
+            background: var(--border-light);
+        }
+
+        .dashboard-sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* Sidebar Header */
+        .sidebar-header {
+            padding: 28px 24px;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 24px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-text h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-dark);
+            letter-spacing: -0.3px;
+        }
+
+        .logo-text span {
+            font-size: 0.7rem;
+            color: var(--text-gray);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            list-style: none;
+            padding: 0 16px;
+        }
+
+        .nav-menu li {
+            margin-bottom: 6px;
+        }
+
+        .nav-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            border-radius: 14px;
+            color: var(--text-gray);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .nav-menu li a i {
+            width: 22px;
+            font-size: 1.1rem;
+        }
+
+        .nav-menu li a .menu-badge {
+            margin-left: auto;
+            background: var(--primary-light);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-menu li a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .nav-menu li.active a {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(36, 99, 235, 0.25);
+        }
+
+        .nav-menu li.active a i {
+            color: white;
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 16px 20px;
+            margin: 0 16px;
+            background: var(--primary-light);
+            border-radius: 16px;
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        .main-content {
+            margin-left: 280px;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: var(--card-bg);
+            padding: 0.9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1040;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mobile-menu-btn {
+            background: var(--primary-light);
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            color: var(--primary);
+            font-size: 1.2rem;
+            display: none;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .welcome-chip {
+            background: var(--primary-light);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .date-time {
+            background: var(--bg-body);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 8px 22px;
+            transition: var(--transition);
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: white;
+        }
+
+        /* Stats Cards Row */
+        .stats-row {
+            padding: 24px 28px 0 28px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Info Panel */
+        .info-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 16px 24px;
+            margin: 0 28px 24px 28px;
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-chip {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chip-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .chip-label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chip-value {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+
+        /* Content Area */
+        .content-container {
+            padding: 0 28px 28px 28px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .dashboard-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header-custom {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--card-bg);
+        }
+
+        /* Footer */
+        .dashboard-footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-light);
+            font-size: 0.75rem;
+            background: var(--card-bg);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .dashboard-sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .stats-row {
+                padding: 20px;
+            }
+            .info-panel {
+                margin: 0 16px 20px 16px;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .content-container {
+                padding: 0 16px 20px 16px;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: slideIn 0.4s ease forwards;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="sr" runat="server"></asp:ScriptManager>
+
+        <!-- LIGHT SIDEBAR -->
+        <div class="dashboard-sidebar" id="dashboardSidebar">
+            <div class="sidebar-header">
+                <div class="logo-wrapper">
+                    <div class="logo-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h3>WealthArc</h3>
+                        <span>Investment Platform</span>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li runat="server" id="li_dashboard">
+                    <a href="Dashboard.aspx">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                        <span class="menu-badge">Live</span>
+                    </a>
+                </li>
+                <li runat="server" id="li_Transaction">
+                    <a href="Transaction.aspx">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li runat="server" id="li_document">
+                    <a href="UploadDocuments.aspx">
+                        <i class="fas fa-file-upload"></i>
+                        <span>Documents</span>
+                    </a>
+                </li>
+                <li runat="server" id="li1">
+                    <a href="Track-Application.aspx">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Track Application</span>
+                    </a>
+                </li>
+                <li runat="server" id="li_Profile">
+                    <a href="profile.aspx">
+                        <i class="fas fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width: 40px; height: 40px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-headset" style="color: var(--primary);"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.8rem;">Need Help?</div>
+                        <div style="font-size: 0.7rem; color: var(--text-gray);">support@wealtharc.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content" id="mainContent">
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="mobile-menu-btn" id="sidebarToggleBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="welcome-chip">
+                        <i class="fas fa-hand-peace"></i> Welcome, <asp:Label runat="server" ID="lblname" Text="Investor"></asp:Label>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <div class="date-time">
+                        <i class="far fa-calendar-alt me-1"></i>
+                        <span id="lblSysDateTime"></span>
+                    </div>
+                    <asp:LinkButton runat="server" ID="btnlogout" OnClick="btn_logout" CssClass="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-row">
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="text-muted small">Total Portfolio</span>
+                                    <h3 class="mt-1 mb-0" style="font-weight: 700;">₹ 24.8L</h3>
+                                </div>
+                                <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-chart-line" style="color: var(--primary); font-size: 22px;"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-success"><i class="fas fa-arrow-up"></i> +12.5%</span>
+                                <span class="text-muted small ms-2">vs last month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="text-muted small">Active Investments</span>
+                                    <h3 class="mt-1 mb-0" style="font-weight: 700;">8</h3>
+                                </div>
+                                <div style="width: 48px; height: 48px; background: rgba(32, 201, 151, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-briefcase" style="color: var(--success); font-size: 22px;"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-muted small">4 Equity | 3 Debt | 1 Gold</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="text-muted small">YTD Returns</span>
+                                    <h3 class="mt-1 mb-0" style="font-weight: 700; color: var(--success);">+18.3%</h3>
+                                </div>
+                                <div style="width: 48px; height: 48px; background: rgba(245, 166, 35, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-trend-up" style="color: var(--accent); font-size: 22px;"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-success"><i class="fas fa-chart-line"></i> Above benchmark</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="text-muted small">Next Payout</span>
+                                    <h3 class="mt-1 mb-0" style="font-weight: 700;">₹ 12,500</h3>
+                                </div>
+                                <div style="width: 48px; height: 48px; background: rgba(36, 99, 235, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-calendar-check" style="color: var(--primary); font-size: 22px;"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-muted small">Due on 15 Dec 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="info-panel">
+                <div class="info-chip">
+                    <div class="chip-icon"><i class="fas fa-qrcode"></i></div>
+                    <div>
+                        <div class="chip-label">Reference Number</div>
+                        <div class="chip-value"><span id="lblFD_RefNo_InvestmentDetails" runat="server">WA-2412-001234</span></div>
+                    </div>
+                </div>
+                <div class="info-chip">
+                    <div class="chip-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div class="chip-label">Email ID</div>
+                        <div class="chip-value"><span id="fdBuyerEmail" runat="server">investor@wealtharc.com</span></div>
+                    </div>
+                </div>
+                <div class="info-chip">
+                    <div class="chip-icon"><i class="fas fa-user-circle"></i></div>
+                    <div>
+                        <div class="chip-label">Account Holder</div>
+                        <div class="chip-value"><span id="fdBuyerName" runat="server">Rajesh Sharma</span></div>
+                    </div>
+                </div>
+                <div class="info-chip">
+                    <div class="chip-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <div class="chip-label">Account Status</div>
+                        <div class="chip-value" style="color: var(--success);">Verified</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Content Area -->
+            <div class="content-container">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    <!-- Default Dashboard Widgets -->
+                    <div class="row g-4">
+                        <div class="col-lg-7">
+                            <div class="dashboard-card">
+                                <div class="card-header-custom d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fw-bold"><i class="fas fa-chart-line me-2" style="color: var(--primary);"></i>Portfolio Performance</h6>
+                                    <span class="badge" style="background: var(--primary-light); color: var(--primary);">Last 6 months</span>
+                                </div>
+                                <div class="p-4">
+                                    <canvas id="performanceChart" height="200" style="width: 100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="dashboard-card">
+                                <div class="card-header-custom">
+                                    <h6 class="mb-0 fw-bold"><i class="fas fa-chart-pie me-2" style="color: var(--accent);"></i>Asset Allocation</h6>
+                                </div>
+                                <div class="p-4">
+                                    <canvas id="allocationChart" height="180" style="width: 100%;"></canvas>
+                                    <div class="mt-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span><i class="fas fa-circle" style="color: var(--primary); font-size: 10px;"></i> Equity</span>
+                                            <span class="fw-bold">52%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span><i class="fas fa-circle" style="color: var(--secondary); font-size: 10px;"></i> Debt</span>
+                                            <span class="fw-bold">28%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span><i class="fas fa-circle" style="color: var(--accent); font-size: 10px;"></i> Gold</span>
+                                            <span class="fw-bold">12%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <span><i class="fas fa-circle" style="color: var(--success); font-size: 10px;"></i> Cash</span>
+                                            <span class="fw-bold">8%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="dashboard-card">
+                                <div class="card-header-custom">
+                                    <h6 class="mb-0 fw-bold"><i class="fas fa-clock me-2"></i>Recent Transactions</h6>
+                                </div>
+                                <div class="p-0">
+                                    <table class="table table-borderless mb-0" style="border-collapse: separate; border-spacing: 0;">
+                                        <thead style="background: var(--bg-body);">
+                                            <tr>
+                                                <th class="ps-4 py-3 small text-muted">Date</th>
+                                                <th class="py-3 small text-muted">Description</th>
+                                                <th class="py-3 small text-muted">Amount</th>
+                                                <th class="pe-4 py-3 small text-muted">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="ps-4 py-3">25 Nov 2024</td>
+                                                <td class="py-3">HDFC Balanced Fund</td>
+                                                <td class="py-3 fw-semibold">+ ₹ 25,000</td>
+                                                <td class="pe-4 py-3"><span class="badge" style="background: var(--success-light, #d1fae5); color: var(--success);">Completed</span></td>
+                                            </tr>
+                                            <tr style="background: var(--bg-body);">
+                                                <td class="ps-4 py-3">18 Nov 2024</td>
+                                                <td class="py-3">SBI Bluechip Fund</td>
+                                                <td class="py-3 fw-semibold">+ ₹ 50,000</td>
+                                                <td class="pe-4 py-3"><span class="badge" style="background: var(--success-light, #d1fae5); color: var(--success);">Completed</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ps-4 py-3">10 Nov 2024</td>
+                                                <td class="py-3">Dividend Payout</td>
+                                                <td class="py-3 fw-semibold" style="color: var(--success);">+ ₹ 3,250</td>
+                                                <td class="pe-4 py-3"><span class="badge" style="background: var(--success-light, #d1fae5); color: var(--success);">Credited</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <!-- Footer -->
+            <div class="dashboard-footer">
+                <i class="far fa-copyright"></i> 2025 WealthArc | SEBI Registered Investment Advisor
+                <span class="mx-2">•</span>
+                <i class="fas fa-lock"></i> Secure SSL
+                <span class="mx-2">•</span>
+                <i class="fas fa-phone-alt"></i> +91-22-4000-1234
+            </div>
+        </div>
+
+        <!-- Mobile Overlay -->
+        <div id="sidebarOverlay" style="position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(3px); z-index: 1045; display: none;"></div>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+        
+        <script type="text/javascript">
+            // Live Clock
+            function updateClock() {
+                const now = new Date();
+                const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+                document.getElementById('lblSysDateTime').innerHTML = now.toLocaleString('en-US', options);
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Sidebar Toggle
+            const sidebar = document.getElementById('dashboardSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const toggleBtn = document.getElementById('sidebarToggleBtn');
+
+            function closeSidebar() {
+                if (window.innerWidth <= 992) {
+                    sidebar.style.transform = 'translateX(-100%)';
+                    overlay.style.display = 'none';
+                }
+            }
+
+            function openSidebar() {
+                if (window.innerWidth <= 992) {
+                    sidebar.style.transform = 'translateX(0)';
+                    overlay.style.display = 'block';
+                }
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    const isOpen = sidebar.style.transform === 'translateX(0px)';
+                    if (isOpen) closeSidebar();
+                    else openSidebar();
+                });
+            }
+
+            overlay.addEventListener('click', closeSidebar);
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 992) {
+                    sidebar.style.transform = 'translateX(0)';
+                    overlay.style.display = 'none';
+                } else {
+                    sidebar.style.transform = 'translateX(-100%)';
+                }
+            });
+
+            // Charts Initialization
+            function initCharts() {
+                // Performance Chart
+                const perfCtx = document.getElementById('performanceChart');
+                if (perfCtx) {
+                    new Chart(perfCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+                            datasets: [{
+                                label: 'Portfolio (₹ Lakhs)',
+                                data: [18.2, 19.8, 20.5, 21.2, 22.8, 24.2],
+                                borderColor: '#2463eb',
+                                backgroundColor: 'rgba(36, 99, 235, 0.05)',
+                                borderWidth: 2.5,
+                                fill: true,
+                                tension: 0.4,
+                                pointBackgroundColor: '#2463eb',
+                                pointBorderColor: '#fff',
+                                pointRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                y: { grid: { color: '#e9edf2' }, ticks: { callback: (val) => `₹${val}L` } },
+                                x: { grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+
+                // Allocation Chart
+                const allocCtx = document.getElementById('allocationChart');
+                if (allocCtx) {
+                    new Chart(allocCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Equity', 'Debt', 'Gold', 'Cash'],
+                            datasets: [{
+                                data: [52, 28, 12, 8],
+                                backgroundColor: ['#2463eb', '#00b4aa', '#f5a623', '#20c997'],
+                                borderWidth: 0,
+                                borderRadius: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: { legend: { display: false } },
+                            cutout: '65%'
+                        }
+                    });
+                }
+            }
+            setTimeout(initCharts, 100);
+
+            // Active Menu Highlight
+            const currentPath = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-menu li a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && currentPath.includes(href.replace('.aspx', ''))) {
+                    link.parentElement.classList.add('active');
+                } else if ((currentPath === '' || currentPath === 'Dashboard.aspx') && href === 'Dashboard.aspx') {
+                    link.parentElement.classList.add('active');
+                }
+            });
+        </script>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolderScripts" runat="server"></asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

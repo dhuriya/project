@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ShriRam Finance — Investor Portal</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS — Emerald & Indigo
+═══════════════════════════════════════ */
+:root {
+  /* Backgrounds */
+  --ink:   #0b1120;
+  --ink2:  #020202;
+  --ink3:  #263354;
+
+  /* Emerald */
+  --em:    #059669;
+  --em2:   #10b981;
+  --em3:   #34d399;
+  --em-gl: rgba(5,150,105,.15);
+  --em-gl2:rgba(5,150,105,.08);
+
+  /* Slate light */
+  --sl:    #f8faff;
+  --sl2:   #eef2ff;
+  --sl3:   #e0e7ff;
+
+  /* Indigo accent */
+  --acc:   #6366f1;
+  --acc2:  #818cf8;
+  --acc-gl:rgba(99,102,241,.12);
+
+  /* Semantic */
+  --gold:  #f59e0b;
+  --gold-l:rgba(245,158,11,.1);
+  --red:   #ef4444;
+  --red-l: rgba(239,68,68,.1);
+  --sky:   #0ea5e9;
+  --sky-l: rgba(14,165,233,.1);
+
+  /* Text */
+  --t1: #0f172a;
+  --t2: #475569;
+  --t3: #94a3b8;
+
+  /* Borders */
+  --bd:  rgba(15,23,42,.08);
+  --bdl: rgba(99,102,241,.12);
+
+  /* Layout */
+  --sw:  256px;
+  --sc:  68px;
+  --th:  60px;
+
+  /* Fonts */
+  --fb: 'Inter', system-ui, sans-serif;
+  --fd: 'Playfair Display', serif;
+
+  /* Radius */
+  --r:   12px;
+  --rs:  8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: var(--fb);
+  background: var(--sl);
+  color: var(--t1);
+  overflow-x: hidden;
+  font-size: 13px;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--sl3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #c7d2fe; }
+
+/* ── SHELL ── */
+.shell { display: flex; height: 100vh; overflow: hidden; }
+
+/* ══════════════════════════════
+   SIDEBAR
+══════════════════════════════ */
+.sidebar {
+  width: var(--sw);
+  height: 100vh;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 50;
+  transition: width .3s cubic-bezier(.4,0,.2,1);
+  overflow: hidden;
+}
+.sidebar.collapsed { width: var(--sc); }
+
+  /* top shimmer */
+  .sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--em3), transparent);
+  }
+
+/* Brand */
+.sb-brand {
+  height: var(--th);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.sb-logo {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--em);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--em-gl);
+}
+.sb-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -.3px; }
+.sb-tag  { font-size: 9px; color: rgba(255,255,255,.3); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
+
+/* Toggle button */
+.sb-toggle {
+  position: absolute;
+  top: 50%; right: -12px;
+  transform: translateY(-50%);
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--em);
+  border: none;
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 9px;
+  z-index: 10;
+  box-shadow: 0 2px 8px var(--em-gl);
+  transition: background .2s;
+}
+.sb-toggle:hover { background: #047857; }
+
+/* Nav */
+.sb-nav { flex: 1; padding: 12px 8px; overflow-y: auto; overflow-x: hidden; }
+.sb-nav::-webkit-scrollbar { width: 2px; }
+.sb-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.08); }
+
+.nav-group { margin-bottom: 4px; }
+.nav-group-lbl {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,.22);
+  padding: 14px 10px 6px;
+  white-space: nowrap; overflow: hidden;
+  opacity: 1; transition: opacity .2s;
+}
+.sidebar.collapsed .nav-group-lbl { opacity: 0; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 9px 10px;
+  border-radius: var(--rs);
+  cursor: pointer;
+  font-size: 12.5px; font-weight: 500;
+  color: rgba(255,255,255,.42);
+  transition: all .2s;
+  white-space: nowrap; overflow: hidden;
+  position: relative; text-decoration: none;
+  margin-bottom: 1px;
+}
+.nav-item:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.88); }
+.nav-item.active {
+  background: rgba(5,150,105,.18);
+  color: var(--em3);
+  border: 1px solid rgba(52,211,153,.15);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 25%; bottom: 25%;
+  width: 2.5px;
+  background: var(--em);
+  border-radius: 0 2px 2px 0;
+}
+.nav-icon { width: 18px; text-align: center; font-size: 13px; flex-shrink: 0; }
+.nav-label { overflow: hidden; }
+.nav-badge {
+  margin-left: auto;
+  background: var(--em); color: #fff;
+  font-size: 9px; font-weight: 700;
+  padding: 1px 6px; border-radius: 100px;
+  flex-shrink: 0; transition: opacity .2s;
+}
+.sidebar.collapsed .nav-badge,
+.sidebar.collapsed .nav-label { opacity: 0; pointer-events: none; }
+/*.sidebar.collapsed .nav-item { justify-content: center; }*/   
+
+/* Footer */
+.sb-footer { padding: 12px 8px; border-top: 1px solid rgba(255,255,255,.06); flex-shrink: 0; }
+.user-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: var(--rs);
+  background: rgba(255,255,255,.05);
+  overflow: hidden; white-space: nowrap;
+}
+.user-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--em);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.user-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.85); line-height: 1.2; }
+.user-role { font-size: 10px; color: rgba(255,255,255,.28); }
+.user-logout { margin-left: auto; color: rgba(255,255,255,.28); font-size: 12px; cursor: pointer; flex-shrink: 0; transition: color .2s; }
+.user-logout:hover { color: var(--red); }
+.sidebar.collapsed .user-name,
+.sidebar.collapsed .user-role,
+.sidebar.collapsed .user-logout { opacity: 0; }
+
+/* Mobile overlay */
+.sb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 49; }
+.sb-overlay.show { display: block; }
+
+/* ══════════════════════════════
+   MAIN AREA
+══════════════════════════════ */
+.main-wrap { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--sl); }
+
+/* ── Topbar ── */
+.topbar {
+  height: var(--th);
+  background: #fff;
+  border-bottom: 1px solid var(--bd);
+  display: flex; align-items: center;
+  padding: 0 24px; gap: 12px;
+  flex-shrink: 0; z-index: 40;
+  box-shadow: 0 1px 0 var(--bd);
+}
+.tb-title { font-size: 17px; font-weight: 700; color: var(--t1); flex: 1; letter-spacing: -.3px; }
+.tb-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--sl2);
+  border: 1px solid var(--bdl);
+  border-radius: 8px; padding: 7px 12px; width: 190px;
+  transition: border-color .2s;
+}
+.tb-search:focus-within { border-color: var(--em); }
+.tb-search i { color: var(--t3); font-size: 11px; }
+.tb-search input { background: transparent; border: none; outline: none; color: var(--t1); font-family: var(--fb); font-size: 12px; width: 100%; }
+.tb-search input::placeholder { color: var(--t3); }
+.tb-btn {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--sl2); border: 1px solid var(--bdl);
+  color: var(--t2); cursor: pointer; font-size: 13px;
+  transition: all .2s; position: relative;
+}
+.tb-btn:hover { background: var(--sl3); color: var(--em); border-color: rgba(5,150,105,.3); }
+.tb-notif-dot {
+  position: absolute; top: 6px; right: 6px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--em); border: 1.5px solid #fff;
+}
+.tb-user {
+  display: flex; align-items: center; gap: 9px;
+  cursor: pointer; padding: 5px 10px;
+  border-radius: 8px; transition: background .2s;
+  border: 1px solid transparent;
+}
+.tb-user:hover { background: var(--sl2); border-color: var(--bdl); }
+.tb-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--em);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff;
+}
+.tb-clock { font-size: 10.5px; color: var(--t3); white-space: nowrap; }
+
+/* ── Breadcrumb ── */
+.bc-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--bd);
+  padding: 8px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.bc-nav { display: flex; align-items: center; gap: 5px; font-size: 11.5px; }
+.bc-link { color: var(--t3); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color .2s; }
+.bc-link:hover { color: var(--em); }
+.bc-link.active { color: var(--em); font-weight: 600; }
+.bc-sep { color: var(--t3); font-size: 9px; }
+
+/* ── Buttons ── */
+.btn-emerald {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--em); color: #fff;
+  font-family: var(--fb); font-size: 11.5px; font-weight: 600;
+  padding: 7px 16px; border-radius: 7px; border: none;
+  cursor: pointer; transition: all .2s;
+  box-shadow: 0 3px 10px var(--em-gl);
+  text-decoration: none;
+}
+.btn-emerald:hover { background: #047857; transform: translateY(-1px); box-shadow: 0 5px 16px var(--em-gl); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; color: var(--t2);
+  font-family: var(--fb); font-size: 11.5px; font-weight: 500;
+  padding: 7px 14px; border-radius: 7px;
+  border: 1px solid var(--bdl); cursor: pointer; transition: all .2s;
+}
+.btn-outline:hover { background: var(--sl2); color: var(--t1); border-color: #c7d2fe; }
+
+/* ── Page content ── */
+.page-content { flex: 1; overflow-y: auto; padding: 24px; background: var(--sl); }
+.page-content::-webkit-scrollbar { width: 4px; }
+.page-content::-webkit-scrollbar-thumb { background: var(--sl3); border-radius: 4px; }
+
+/* ══════════════════════════════
+   WELCOME BANNER
+══════════════════════════════ */
+.welcome-banner {
+  background: #fff;
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  position: relative; overflow: hidden;
+  margin-bottom: 20px;
+}
+.welcome-banner::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--em), var(--em3), var(--acc2));
+}
+.wb-glow {
+  position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: radial-gradient(circle, var(--em-gl2), transparent 70%);
+  pointer-events: none;
+}
+.wb-title { font-size: 20px; font-weight: 700; color: var(--t1); margin-bottom: 3px; letter-spacing: -.3px; }
+.wb-title .hi { color: var(--em); }
+.wb-sub { font-size: 12px; color: var(--t2); }
+.wb-pills { display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.wb-pill {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11.5px; color: var(--t3);
+  background: var(--sl2); padding: 4px 10px;
+  border-radius: 100px; border: 1px solid var(--bdl);
+}
+.wb-pill i { color: var(--em); font-size: 11px; }
+
+/* ══════════════════════════════
+   KPI CARDS
+══════════════════════════════ */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px; }
+
+.kpi-card {
+  background: #fff;
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  position: relative; overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+  cursor: default;
+}
+.kpi-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); transform: translateY(-2px); }
+
+/* colored bottom accent */
+.kpi-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+.kpi-card.em::after  { background: var(--em); }
+.kpi-card.acc::after { background: var(--acc); }
+.kpi-card.gld::after { background: var(--gold); }
+.kpi-card.sky::after { background: var(--sky); }
+
+.kpi-glow {
+  position: absolute; top: -20px; right: -20px;
+  width: 90px; height: 90px; border-radius: 50%;
+  opacity: .07; pointer-events: none;
+}
+.kpi-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; margin-bottom: 14px;
+}
+.kpi-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--t3); margin-bottom: 4px; }
+.kpi-value { font-size: 28px; font-weight: 700; color: var(--t1); line-height: 1; margin-bottom: 8px; }
+.kpi-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600;
+  padding: 3px 8px; border-radius: 100px;
+}
+.tag-up  { background: var(--em-gl); color: var(--em); }
+.tag-dn  { background: var(--red-l); color: var(--red); }
+.tag-neu { background: var(--gold-l); color: #b45309; }
+
+/* ══════════════════════════════
+   CARDS
+══════════════════════════════ */
+.card-white {
+  background: #fff;
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.card-pad { padding: 20px 22px; }
+
+.gold-sep {
+  height: 1px;
+  background: linear-gradient(90deg, var(--em), transparent);
+  opacity: .15;
+  margin: 0;
+}
+.amber-sep {
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: .2;
+  margin: 0;
+}
+
+/* ── Section heading ── */
+.sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.sec-head h3 { font-size: 15px; font-weight: 700; color: var(--t1); letter-spacing: -.2px; }
+.sec-head p { font-size: 11px; color: var(--t3); margin-top: 2px; }
+
+/* ══════════════════════════════
+   TRANSACTION CIRCLES
+══════════════════════════════ */
+.circle-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 20px; }
+.txn-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  position: relative; cursor: pointer;
+  transition: transform .25s;
+}
+.txn-circle:hover { transform: scale(1.06); }
+.txn-circle .tc-ring {
+  position: absolute; inset: -5px; border-radius: 50%;
+  border: 2px solid transparent; transition: border-color .3s;
+}
+.txn-circle:hover .tc-ring { border-color: currentColor; opacity: .3; }
+.tc-value { font-size: 34px; font-weight: 700; color: #fff; line-height: 1; }
+.tc-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,.7); letter-spacing: .5px; }
+.circle-link {
+  font-size: 12px; font-weight: 600; color: var(--em);
+  text-decoration: none; display: flex; align-items: center; gap: 5px; transition: gap .2s;
+}
+.circle-link:hover { gap: 9px; }
+
+/* ══════════════════════════════
+   QUICK ACCESS TILES
+══════════════════════════════ */
+.qa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.qa-tile {
+  background: #fff; border: 1px solid var(--bd);
+  border-radius: 10px; padding: 16px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer; text-align: center; transition: all .2s; text-decoration: none;
+}
+.qa-tile:hover { background: var(--sl2); border-color: rgba(5,150,105,.3); transform: translateY(-2px); }
+.qa-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+}
+.qa-label { font-size: 11px; font-weight: 600; color: var(--t2); }
+.qa-tile:hover .qa-label { color: var(--em); }
+
+/* ══════════════════════════════
+   GRIDVIEW / TABLE OVERRIDES
+══════════════════════════════ */
+.gv-wrap { overflow-x: auto; }
+
+/* These classes style ASP.NET GridView output */
+.gv-table,
+.gv-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.gv-table th,
+.gv-table table th {
+  background: var(--sl2) !important;
+  color: var(--t3) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 11px 14px !important;
+  border: none !important;
+  border-bottom: 1px solid var(--bd) !important;
+  white-space: nowrap;
+  text-align: left !important;
+}
+.gv-table td,
+.gv-table table td {
+  padding: 12px 14px !important;
+  color: var(--t1) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--bd) !important;
+  vertical-align: middle !important;
+}
+.gv-table tr:last-child td,
+.gv-table table tr:last-child td { border-bottom: none !important; }
+.gv-table tbody tr:hover td,
+.gv-table table tbody tr:hover td { background: var(--sl2) !important; }
+.gv-table .cursor-pointer { cursor: pointer; }
+
+/* ── Status badges ── */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 100px;
+  font-size: 10.5px; font-weight: 600;
+}
+.status-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; }
+.status-badge.success { background: var(--em-gl); color: var(--em); }
+.status-badge.success::before { background: var(--em); }
+.status-badge.pending { background: var(--gold-l); color: #b45309; }
+.status-badge.pending::before { background: var(--gold); }
+.status-badge.failed  { background: var(--red-l); color: var(--red); }
+.status-badge.failed::before  { background: var(--red); }
+.status-badge.kyc     { background: var(--sky-l); color: var(--sky); }
+.status-badge.kyc::before     { background: var(--sky); }
+
+/* ── FD Reference ID ── */
+.fd-ref { color: var(--em); font-weight: 700; font-family: 'Courier New', monospace; font-size: 12px; }
+.fd-ref-pd { color: #b45309; font-weight: 700; font-family: 'Courier New', monospace; font-size: 12px; }
+
+/* ── Amount ── */
+.amt-ok { color: var(--em); font-weight: 700; }
+.amt-pd { color: #b45309; font-weight: 700; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.kpi-card { animation: fadeUp .5s ease forwards; opacity: 0; }
+.kpi-card:nth-child(1) { animation-delay: .05s; }
+.kpi-card:nth-child(2) { animation-delay: .12s; }
+.kpi-card:nth-child(3) { animation-delay: .19s; }
+.kpi-card:nth-child(4) { animation-delay: .26s; }
+.welcome-banner { animation: fadeUp .3s ease forwards; opacity: 0; }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .sidebar { position: fixed; left: -256px; top: 0; bottom: 0; transition: left .3s cubic-bezier(.4,0,.2,1); z-index: 50; }
+  .sidebar.mobile-open { left: 0; width: var(--sw) !important; }
+  .tb-search, .tb-user { display: none !important; }
+  .page-content { padding: 16px; }
+  .topbar { padding: 0 16px; }
+  .bc-bar { padding: 8px 16px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .qa-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <button class="sb-toggle" id="sbToggle" title="Toggle sidebar">
+      <i class="fa-solid fa-chevron-left" id="sbIcon"></i>
+    </button>
+
+    <!-- Brand -->
+    <div class="sb-brand">
+      <div class="sb-logo"><i class="fa-solid fa-leaf"></i></div>
+      <div>
+        <div class="sb-name">ShriRam</div>
+        <div class="sb-tag">Investor Portal</div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sb-nav">
+      <div class="nav-group">
+        <div class="nav-group-lbl">Main</div>
+        <a class="nav-item active" href="#" id="li_dashboard">
+          <span class="nav-icon"><i class="fa-solid fa-table-cells"></i></span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a class="nav-item" href="#" id="li_Transaction">
+          <span class="nav-icon"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+          <span class="nav-label">My Transactions</span>
+        </a>
+        <a class="nav-item" href="#" id="li_document">
+          <span class="nav-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+          <span class="nav-label">Document Upload</span>
+        </a>
+        <a class="nav-item" href="#" id="li_track">
+          <span class="nav-icon"><i class="fa-solid fa-route"></i></span>
+          <span class="nav-label">Track Application</span>
+          <span class="nav-badge">2</span>
+        </a>
+        <a class="nav-item" href="#" id="li_Profile">
+          <span class="nav-icon"><i class="fa-solid fa-user-circle"></i></span>
+          <span class="nav-label">My Profile</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-lbl">Support</div>
+        <a class="nav-item" href="#">
+          <span class="nav-icon"><i class="fa-solid fa-headset"></i></span>
+          <span class="nav-label">Help & Support</span>
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon"><i class="fa-solid fa-file-lines"></i></span>
+          <span class="nav-label">Statements</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- User footer -->
+    <div class="sb-footer">
+      <div class="user-row">
+        <div class="user-avatar" id="sbAvatar">RS</div>
+        <div>
+          <%-- ASP.NET: <asp:Label ID="lblname" runat="server" Text="Investor"> --%>
+          <div class="user-name" id="lblname">Rajesh Sharma</div>
+          <div class="user-role">FD Investor</div>
+        </div>
+        <%-- ASP.NET: <asp:LinkButton ID="btnlogout" runat="server" OnClick="btn_logout"> --%>
+        <div class="user-logout" onclick="alert('Logout')" title="Logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sb-overlay" id="sbOverlay" onclick="closeMobile()"></div>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <div class="main-wrap">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="tb-btn d-md-none" onclick="openMobile()" style="border:none">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="tb-title" id="topbarTitle">Dashboard</div>
+      <div class="d-flex align-items-center gap-2">
+        
+      </div>
+
+      <div class="tb-user d-md-flex">
+        <div class="tb-avatar" id="tbAvatar"><i class="fa-solid fa-user"></i></div>
+        <div>
+          <!-- <%-- ASP.NET: <asp:Label ID="lblFD_RefNo_InvestmentDetails" runat="server"> --%> -->
+          <div style="font-size:12px;font-weight:600;color:var(--t1)" id="lblFD_RefNo_InvestmentDetails">Deepu</div>
+          <div style="font-size:10px;color:var(--t3)">deepu@rrfcl.com</div>
+          <div class="tb-clock d-none d-md-block" id="tbClock"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════ PAGE CONTENT ═══════════ -->
+    <main class="page-content">
+
+      <!-- WELCOME BANNER -->
+      <div class="welcome-banner">
+        <div class="wb-glow"></div>
+        <div class="wb-title">
+          Welcome back,
+          <span class="hi">
+            <!-- <%-- ASP.NET: <asp:Label ID="lblWelcomeName" runat="server"> --%> -->
+            DEEPU (#7985293358)
+          </span>
+        </div>
+        <div class="wb-sub">Here's an overview of your Fixed Deposit portfolio and recent activity.</div>
+      </div>
+
+      <!-- KPI CARDS -->
+      <div class="kpi-grid">
+
+        <div class="kpi-card em">
+          <div class="kpi-glow" style="background:var(--em)"></div>
+          <div class="kpi-icon" style="background:var(--em-gl);color:var(--em)">
+            <i class="fa-solid fa-piggy-bank"></i>
+          </div>
+          <div class="kpi-label">Total FDs</div>
+          <div class="kpi-value">
+            1 <!-- <%-- ASP.NET: <asp:Label ID="lblTotalFDs" runat="server" Text="—"> --%> -->
+            <span id="lblTotalFDs">—</span>
+          </div>
+          <span class="kpi-tag tag-neu"><i class="fa-solid fa-circle-info"></i> Congratulations...</span>
+        </div>
+        <div class="kpi-card gld">
+          <div class="kpi-glow" style="background:var(--gold)"></div>
+          <div class="kpi-icon" style="background:var(--gold-l);color:#b45309">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <div class="kpi-label">Pending</div>
+          <div class="kpi-value">
+            <!-- <%-- ASP.NET: <asp:Label ID="lblFailedTransaction" runat="server" Text="0"> --%> -->14
+            <span id="lblFailedTransaction">12</span>
+          </div>
+          <span class="kpi-tag tag-neu"><i class="fa-solid fa-clock"></i> In process</span>
+        </div>
+
+        <div class="kpi-card sky">
+          <div class="kpi-glow" style="background:var(--sky)"></div>
+          <div class="kpi-icon" style="background:var(--sky-l);color:var(--sky)">
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+          </div>
+          <div class="kpi-label">Total Invested</div>
+          <div class="kpi-value">
+            <!-- <%-- ASP.NET: <asp:Label ID="lblTotalAmount" runat="server" Text="—"> --%> --> 12
+            <span id="lblTotalAmount">—</span>
+          </div>
+          <span class="kpi-tag tag-up"><i class="fa-solid fa-arrow-trend-up"></i> Growing</span>
+        </div>
+
+      </div>
+      <!-- ════════════════════════════════════════
+           SUCCESSFUL TRANSACTIONS GRIDVIEW
+           ASP.NET: <asp:GridView ID="grdSuccessTtransaction" runat="server"
+                       AutoGenerateColumns="false" CssClass="gv-table"
+                       GridLines="None" ShowHeaderWhenEmpty="true">
+      ════════════════════════════════════════ -->
+      <div class="card-white mb-3">
+        <div style="padding:10px 22px 0">
+          <div class="sec-head">
+            <div>
+              <h3>
+                <i class="fa-solid fa-circle-check me-2"
+                   style="color:var(--em);font-size:14px"></i>
+                Successful Transactions
+              </h3>
+              <p>All completed Fixed Deposit investments</p>
+            </div>
+          </div>
+        </div>
+        <div class="gold-sep"></div>
+        <div class="gv-wrap" style="padding:0 0 16px">
+
+           <!-- ══ PASTE YOUR asp:GridView HERE ══
+               Replace the demo table below with your ASP.NET GridView:
+
+               <asp:GridView ID="grdSuccessTtransaction" runat="server"
+                   AutoGenerateColumns="false"
+                   CssClass="gv-table"
+                   GridLines="None"
+                   ShowHeaderWhenEmpty="true"
+                   EmptyDataText="No successful transactions found.">
+                 <Columns>
+                   <asp:TemplateField HeaderText="#">
+                     <ItemTemplate>
+                       <span style="color:var(--t3);font-weight:600"><%# Container.DisplayIndex + 1 %></span>
+                     </ItemTemplate>
+                   </asp:TemplateField>
+                   <asp:TemplateField HeaderText="FD Reference ID">
+                     <ItemTemplate>
+                       <span class="fd-ref">
+                         <asp:Label ID="lblSuccessRRFDID" runat="server" Text='<%#Eval("RR_FD_id")%>'></asp:Label>
+                       </span>
+                     </ItemTemplate>
+                   </asp:TemplateField>
+                   <asp:TemplateField HeaderText="Client Name">
+                     <ItemTemplate>
+                       <span style="font-weight:500">
+                         <asp:Label ID="lblSuccessClientName" runat="server" Text='<%#Eval("Client_Name")%>'></asp:Label>
+                       </span>
+                     </ItemTemplate>
+                   </asp:TemplateField>
+                   <asp:TemplateField HeaderText="Amount">
+                     <ItemTemplate>
+                       <span class="amt-ok">
+                         ₹ <asp:Label ID="lblSuccessAmount" runat="server" Text='<%#Eval("Amount")%>'></asp:Label>
+                       </span>
+                     </ItemTemplate>
+                   </asp:TemplateField>
+                   <asp:TemplateField HeaderText="Payment Mode">
+                     <ItemTemplate>
+                       <asp:Label ID="lblSuccessPaymentMode" runat="server" Text='<%#Eval("Payment_Mode")%>'></asp:Label>
+                     </ItemTemplate>
+                   </asp:TemplateField>
+                   <asp:TemplateField HeaderText="Status">
+                     <ItemTemplate>
+                       <span class="status-badge success">
+                         <asp:Label ID="lblSuccessStatus" runat="server" Text='<%#Eval("Status")%>'></asp:Label>
+                       </span>
+                     </ItemTemplate>
+                   </asp:TemplateField>
+                   <asp:TemplateField HeaderText="Action">
+                     <ItemTemplate>
+                       <button class="btn-outline" style="font-size:10px;padding:4px 10px">
+                         <i class="fa-solid fa-eye"></i> View
+                       </button>
+                     </ItemTemplate>
+                   </asp:TemplateField>
+                 </Columns>
+                 <RowStyle CssClass="cursor-pointer" />
+                 <EmptyDataRowStyle CssClass="text-center p-4" ForeColor="#94a3b8" />
+               </asp:GridView>
+          --%> -->
+
+          <!-- DEMO TABLE (remove when using ASP.NET GridView) -->
+          <table class="gv-table" style="width:100%;border-collapse:collapse;font-size:12.5px">
+            <thead>
+              <tr>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd);white-space:nowrap">#</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd);white-space:nowrap">FD Reference ID</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd);white-space:nowrap">Client Name</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd);white-space:nowrap">Amount</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd);white-space:nowrap">Payment Mode</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd);white-space:nowrap">Status</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd);white-space:nowrap">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t3);font-weight:600">1</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="fd-ref">#RR-2024-00847</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);font-weight:500">Rajesh Sharma</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="amt-ok">₹ 2,50,000</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t2)">Net Banking</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="status-badge success">Success</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><button class="btn-outline" style="font-size:10px;padding:4px 10px"><i class="fa-solid fa-eye"></i> View</button></td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t3);font-weight:600">2</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="fd-ref">#RR-2024-00831</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);font-weight:500">Priya Mehta</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="amt-ok">₹ 5,00,000</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t2)">UPI</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="status-badge success">Success</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><button class="btn-outline" style="font-size:10px;padding:4px 10px"><i class="fa-solid fa-eye"></i> View</button></td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t3);font-weight:600">3</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="fd-ref">#RR-2024-00819</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);font-weight:500">Arjun Singh</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="amt-ok">₹ 1,00,000</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t2)">NEFT</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="status-badge success">Success</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><button class="btn-outline" style="font-size:10px;padding:4px 10px"><i class="fa-solid fa-eye"></i> View</button></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           PENDING TRANSACTIONS GRIDVIEW
+           ASP.NET: <asp:GridView ID="grdFailedTtransaction" runat="server" ...>
+      ════════════════════════════════════════ -->
+      <div class="card-white">
+        <div style="padding:20px 22px 0">
+          <div class="sec-head">
+            <div>
+              <h3>
+                <i class="fa-solid fa-clock-rotate-left me-2"
+                   style="color:#b45309;font-size:14px"></i>
+                Pending Transactions
+              </h3>
+              <p>Fixed Deposits awaiting payment confirmation or completion</p>
+            </div>
+            <a href="Pending.aspx" class="btn-outline" style="font-size:11px;padding:6px 12px">
+              View All <i class="fa-solid fa-arrow-right ms-1" style="font-size:10px"></i>
+            </a>
+          </div>
+        </div>
+        <div class="amber-sep"></div>
+        <div class="gv-wrap" style="padding:0 0 16px">
+
+          <%--
+               <asp:GridView ID="grdFailedTtransaction" runat="server"
+                   AutoGenerateColumns="false"
+                   CssClass="gv-table"
+                   GridLines="None"
+                   ShowHeaderWhenEmpty="true"
+                   EmptyDataText="No pending transactions found.">
+                 <Columns>
+                   ... same columns as success grid ...
+                   Status badge: <span class="status-badge pending">
+                   Amount:       <span class="amt-pd">
+                   Action button: amber complete button
+                 </Columns>
+               </asp:GridView>
+          --%>
+
+          <!-- DEMO TABLE -->
+          <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+            <thead>
+              <tr>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd)">#</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd)">FD Reference ID</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd)">Client Name</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd)">Amount</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd)">Payment Mode</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd)">Status</th>
+                <th style="background:var(--sl2);color:var(--t3);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--bd)">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t3);font-weight:600">1</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="fd-ref-pd">#RR-2024-00855</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);font-weight:500">Meena Gupta</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="amt-pd">₹ 3,00,000</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd);color:var(--t2)">Net Banking</td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)"><span class="status-badge pending">Pending</span></td>
+                <td style="padding:12px 14px;border-bottom:1px solid var(--bd)">
+                  <button style="display:inline-flex;align-items:center;gap:5px;background:var(--gold-l);color:#b45309;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid rgba(245,158,11,.25);cursor:pointer;font-weight:600">
+                    <i class="fa-solid fa-arrow-right"></i> Complete
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px;color:var(--t3);font-weight:600">2</td>
+                <td style="padding:12px 14px"><span class="fd-ref-pd">#RR-2024-00862</span></td>
+                <td style="padding:12px 14px;font-weight:500">Suresh Patel</td>
+                <td style="padding:12px 14px"><span class="amt-pd">₹ 7,50,000</span></td>
+                <td style="padding:12px 14px;color:var(--t2)">RTGS</td>
+                <td style="padding:12px 14px"><span class="status-badge kyc">KYC Pending</span></td>
+                <td style="padding:12px 14px">
+                  <button style="display:inline-flex;align-items:center;gap:5px;background:var(--sky-l);color:var(--sky);font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid rgba(14,165,233,.25);cursor:pointer;font-weight:600">
+                    <i class="fa-solid fa-id-card"></i> Verify KYC
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </main><!-- /page-content -->
+  </div><!-- /main-wrap -->
+</div><!-- /shell -->
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// ── Sidebar collapse ──
+var sb = document.getElementById('sidebar');
+var sbIco = document.getElementById('sbIcon');
+var isCollapsed = false;
+
+document.getElementById('sbToggle').addEventListener('click', function() {
+  isCollapsed = !isCollapsed;
+  sb.classList.toggle('collapsed', isCollapsed);
+  sbIco.className = isCollapsed ? 'fa-solid fa-chevron-right' : 'fa-solid fa-chevron-left';
+  localStorage.setItem('sbCollapsed', isCollapsed);
+});
+
+// Restore state
+if (localStorage.getItem('sbCollapsed') === 'true') {
+  isCollapsed = true;
+  sb.classList.add('collapsed');
+  if (sbIco) sbIco.className = 'fa-solid fa-chevron-right';
+}
+
+function openMobile()  { sb.classList.add('mobile-open');    document.getElementById('sbOverlay').classList.add('show'); }
+function closeMobile() { sb.classList.remove('mobile-open'); document.getElementById('sbOverlay').classList.remove('show'); }
+
+// ── Active nav ──
+(function() {
+  var href = window.location.pathname.split('/').pop().toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(function(a) {
+    var ah = (a.getAttribute('href') || '').toLowerCase();
+    if (ah && href && ah.indexOf(href) > -1) {
+      a.classList.add('active');
+    }
+  });
+})();
+
+// ── Live clock ──
+function tick() {
+  var d = new Date();
+  var el = document.getElementById('tbClock');
+  if (el) el.textContent = d.toLocaleString('en-IN', {
+    day: '2-digit', month: 'short',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
+  var wbDate = document.getElementById('wbDate');
+  if (wbDate) wbDate.textContent = d.toLocaleDateString('en-IN', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+tick();
+setInterval(tick, 1000);
+
+// ── Sync circle counts from KPI labels ──
+(function() {
+  var sc = document.getElementById('lblSuccessTransaction');
+  var pc = document.getElementById('lblFailedTransaction');
+  var sc2 = document.getElementById('lblSuccessCircle');
+  var pc2 = document.getElementById('lblPendingCircle');
+  if (sc && sc2) sc2.textContent = sc.textContent || sc.innerText;
+  if (pc && pc2) pc2.textContent = pc.textContent || pc.innerText;
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,452 @@
+
+<style>
+  :root {
+    --ink:#0A1628; --ink-soft:#1F2D44; --gold:#B8924D; --gold-soft:#E8D9B8;
+    --paper:#F5F1E8; --paper-hover:#FAF6EA; --card:#FFFFFF; --border:#E8E1D0;
+    --muted:#6B7180; --success:#2F7A5B; --success-bg:#E3F0E9;
+    --danger:#B93A3A; --danger-bg:#F8E2E2; --warn-bg:#FBEEDC; --warn-fg:#8A5A1C;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans, system-ui, sans-serif); }
+
+  .demo-wrapper {
+    background: var(--paper);
+    border-radius: 16px;
+    padding: 24px;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .action-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: background 0.18s, box-shadow 0.18s, border-color 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .action-row::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    border-radius: 3px 0 0 3px;
+    opacity: 0;
+    transition: opacity 0.18s;
+  }
+  .action-row:hover {
+    background: var(--paper-hover);
+    border-color: var(--gold-soft);
+    box-shadow: 0 2px 12px rgba(184,146,77,0.10);
+  }
+  .action-row:hover::before { opacity: 1; }
+
+  .action-icon {
+    width: 42px; height: 42px;
+    background: var(--warn-bg);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    color: var(--gold);
+    border: 0.5px solid var(--gold-soft);
+  }
+
+  .action-info { flex: 1; }
+  .action-title {
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .action-sub { font-size: 12px; color: var(--muted); }
+
+  .action-count {
+    background: var(--warn-bg);
+    color: var(--warn-fg);
+    font-size: 12px; font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 0.5px solid var(--gold-soft);
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .action-chevron { color: var(--border); font-size: 12px; }
+
+  /* OVERLAY */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,22,40,0.55);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.22s ease;
+  }
+  .overlay.active { display: flex; }
+
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+  @keyframes slideUp { from { opacity:0; transform: translateY(24px) scale(0.97) } to { opacity:1; transform: translateY(0) scale(1) } }
+
+  .modal {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 0;
+    width: 420px;
+    max-width: calc(100vw - 32px);
+    border: 0.5px solid var(--border);
+    animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .modal-hero {
+    background: linear-gradient(135deg, #1F2D44 0%, #0A1628 100%);
+    padding: 32px 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .confetti-strip {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold) 0%, #E8D9B8 25%, var(--gold) 50%, #E8D9B8 75%, var(--gold) 100%);
+  }
+
+  .cake-icon {
+    width: 68px; height: 68px;
+    background: rgba(184,146,77,0.15);
+    border: 1.5px solid rgba(184,146,77,0.35);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    margin: 0 auto 14px;
+    position: relative;
+  }
+  .cake-glow {
+    position: absolute; inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,146,77,0.18) 0%, transparent 70%);
+  }
+
+  .modal-hero h2 {
+    font-size: 20px; font-weight: 500;
+    color: #F5F1E8;
+    margin-bottom: 6px;
+  }
+  .modal-hero p {
+    font-size: 13px;
+    color: rgba(232,217,184,0.7);
+  }
+
+  .client-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+    justify-content: center;
+  }
+
+  .chip {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(184,146,77,0.12);
+    border: 0.5px solid rgba(184,146,77,0.3);
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .chip .avatar {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 500; color: var(--ink);
+  }
+  .chip span { font-size: 12px; color: var(--gold-soft); }
+  .chip.selected {
+    background: rgba(184,146,77,0.28);
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(184,146,77,0.18);
+  }
+  .chip .check { font-size: 11px; color: var(--gold); opacity: 0; transition: opacity 0.15s; }
+  .chip.selected .check { opacity: 1; }
+
+  .modal-body { padding: 20px 24px; }
+
+  .form-label {
+    font-size: 11px; font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .msg-box {
+    width: 100%;
+    min-height: 100px;
+    background: var(--paper);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--ink);
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.15s;
+    outline: none;
+    line-height: 1.6;
+  }
+  .msg-box:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,77,0.12); }
+
+  .templates {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin: 10px 0 16px;
+  }
+  .tpl-btn {
+    background: var(--paper);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 11px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .tpl-btn:hover {
+    border-color: var(--gold-soft);
+    background: var(--warn-bg);
+    color: var(--gold);
+  }
+
+  .modal-footer {
+    display: flex; gap: 10px;
+    padding: 0 24px 22px;
+  }
+
+  .btn-cancel {
+    flex: 1;
+    padding: 11px;
+    border-radius: 12px;
+    border: 0.5px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .btn-cancel:hover { background: var(--paper); color: var(--ink); }
+
+  .btn-send {
+    flex: 2;
+    padding: 11px;
+    border-radius: 12px;
+    border: none;
+    background: var(--ink);
+    color: var(--gold-soft);
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-send::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(184,146,77,0.08) 0%, transparent 60%);
+  }
+  .btn-send:hover { background: var(--ink-soft); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(10,22,40,0.25); }
+  .btn-send:active { transform: translateY(0); }
+
+  .send-icon { font-size: 15px; }
+
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 40px 28px;
+  }
+  .success-state.active { display: block; }
+  .success-circle {
+    width: 64px; height: 64px;
+    background: var(--success-bg);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 16px;
+    border: 1.5px solid rgba(47,122,91,0.25);
+  }
+  .success-state h3 { font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .success-state p { font-size: 13px; color: var(--muted); }
+
+  .close-btn {
+    position: absolute; top: 14px; right: 16px;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(245,241,232,0.1);
+    border: 0.5px solid rgba(232,217,184,0.2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: rgba(232,217,184,0.7);
+    font-size: 16px;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+  .close-btn:hover { background: rgba(245,241,232,0.2); color: var(--gold-soft); }
+
+  .divider { height: 0.5px; background: var(--border); margin: 0 24px 16px; }
+</style>
+
+<div class="demo-wrapper">
+  <div class="section-label">Today's actions</div>
+
+  <div class="action-row" onclick="openModal()">
+    <div class="action-icon">🎁</div>
+    <div class="action-info">
+      <div class="action-title">Client birthday</div>
+      <div class="action-sub">12 clients celebrating today</div>
+    </div>
+    <div class="action-count">12</div>
+    <span class="action-chevron">›</span>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-hero">
+      <div class="confetti-strip"></div>
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <div class="cake-icon">
+        <div class="cake-glow"></div>
+        🎂
+      </div>
+      <h2>Birthday wishes</h2>
+    </div>
+
+    <div id="main-form">
+      <div class="modal-body">
+        <label class="form-label">Quick templates</label>
+        <div class="templates">
+          <button class="tpl-btn" onclick="setTemplate(0)">🎉 Classic wish</button>
+          <button class="tpl-btn" onclick="setTemplate(1)">🌟 Warm & personal</button>
+          <button class="tpl-btn" onclick="setTemplate(2)">💼 Professional</button>
+        </div>
+        <label class="form-label">Your message</label>
+        <textarea class="msg-box" id="msgBox" placeholder="Write a heartfelt birthday message..."></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-send" onclick="sendWish()">
+          <span class="send-icon">✉</span> Send wishes
+        </button>
+      </div>
+    </div>
+
+    <div class="success-state" id="successState">
+      <div class="success-circle">✓</div>
+      <h3>Wishes sent!</h3>
+      <p>Birthday messages delivered to <span id="sentCount"></span> clients</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const clients = [
+  { name: 'Riya Sharma', initials: 'RS' },
+  { name: 'Arjun Mehta', initials: 'AM' },
+  { name: 'Priya Nair', initials: 'PN' },
+  { name: 'Karan Joshi', initials: 'KJ' },
+  { name: 'Sneha Iyer', initials: 'SI' },
+  { name: 'Dev Patel', initials: 'DP' },
+  { name: 'Ananya Roy', initials: 'AR' },
+  { name: 'Rahul Gupta', initials: 'RG' },
+  { name: 'Pooja Verma', initials: 'PV' },
+  { name: 'Vikram Das', initials: 'VD' },
+  { name: 'Meera Pillai', initials: 'MP' },
+  { name: 'Aditya Shah', initials: 'AS' },
+];
+
+const templates = [
+  "Wishing you a wonderful birthday! May this special day bring you joy and happiness. Looking forward to continuing our journey together. 🎂",
+  "Happy Birthday! 🌟 It's always a pleasure working with you. Hope your day is as amazing as the work you inspire. Cheers to another great year ahead!",
+  "Dear client, on behalf of our team, we extend our warmest birthday wishes to you. May this year bring you success and fulfilment in all your endeavours.",
+];
+
+let selected = new Set(clients.map((_, i) => i));
+
+function buildChips() {
+  const container = document.getElementById('chips');
+  container.innerHTML = '';
+  clients.forEach((c, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip' + (selected.has(i) ? ' selected' : '');
+    chip.innerHTML = `<div class="avatar">${c.initials}</div><span>${c.name.split(' ')[0]}</span><span class="check">✓</span>`;
+    chip.onclick = () => {
+      if (selected.has(i)) { if (selected.size > 1) selected.delete(i); }
+      else selected.add(i);
+      chip.classList.toggle('selected', selected.has(i));
+      chip.querySelector('.check').style.opacity = selected.has(i) ? '1' : '0';
+    };
+    container.appendChild(chip);
+  });
+}
+
+function openModal() {
+  buildChips();
+  document.getElementById('overlay').classList.add('active');
+  document.getElementById('successState').classList.remove('active');
+  document.getElementById('main-form').style.display = '';
+  document.getElementById('msgBox').value = templates[0];
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('overlay')) closeModal();
+}
+
+function setTemplate(i) {
+  document.getElementById('msgBox').value = templates[i];
+  document.getElementById('msgBox').focus();
+}
+
+function sendWish() {
+  const msg = document.getElementById('msgBox').value.trim();
+  if (!msg) { document.getElementById('msgBox').style.borderColor = '#B93A3A'; setTimeout(() => document.getElementById('msgBox').style.borderColor = '', 1200); return; }
+  document.getElementById('main-form').style.display = 'none';
+  document.getElementById('successState').querySelector('#sentCount').textContent = selected.size + (selected.size === 1 ? ' client' : ' clients');
+  document.getElementById('successState').classList.add('active');
+  setTimeout(closeModal, 2200);
+}
+</script>
