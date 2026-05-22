@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+   /* =============================================
+   MODERN BOND TABLE UI — CSS
+   Font imports: add these in your <head>
+   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+   ============================================= */
+
+:root {
+  --primary:     #1a1f36;
+  --accent:      #3b6ef8;
+  --accent-soft: #e8edff;
+  --green:       #0ea86a;
+  --green-soft:  #e2f7ee;
+  --amber:       #d97706;
+  --amber-soft:  #fef3c7;
+  --border:      rgba(0,0,0,.09);
+  --border-md:   rgba(0,0,0,.13);
+  --bg:          #f5f6fa;
+  --surface:     #ffffff;
+  --text:        #1a1f36;
+  --text-soft:   #6b7280;
+  --text-xs:     #9ca3af;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --shadow-sm:   0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:   0 4px 16px rgba(0,0,0,.08);
+  --font:        'DM Sans', sans-serif;
+  --mono:        'IBM Plex Mono', monospace;
+}
+
+/* ── SEARCH BAR ── */
+.search-bar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  font-family: var(--font);
+}
+
+.search-bar-card label.sb-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.search-bar-card .form-select,
+.search-bar-card .form-control {
+  font-family: var(--font);
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  height: 32px;
+  box-shadow: none;
+  transition: border-color .2s;
+}
+
+.search-bar-card .form-select:focus,
+.search-bar-card .form-control:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59,110,248,.12);
+}
+
+.type-pill-wrap {
+  display: flex;
+  gap: 4px;
+  border: 1px solid var(--border-md);
+  border-radius: 20px;
+  padding: 2px;
+  background: var(--bg);
+}
+
+.type-pill {
+  font-family: var(--font);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.type-pill.active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-search-modern {
+  font-family: var(--font);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 18px;
+  height: 32px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  letter-spacing: .3px;
+  transition: background .2s, transform .1s;
+}
+
+.btn-search-modern:hover { background: var(--accent); }
+.btn-search-modern:active { transform: scale(.98); }
+
+/* ── TABLE WRAPPER ── */
+.tbl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  font-family: var(--font);
+  position: relative;
+}
+
+.tbl-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 12%; right: 12%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 99px;
+}
+
+.tbl-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: #fafbff;
+}
+
+.tbl-topbar .count-text {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.tbl-topbar .count-text strong { color: var(--text); font-weight: 600; }
+
+.live-dot {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.live-dot::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .35; }
+}
+
+/* ── TABLE ── */
+.tbl-responsive { overflow-x: auto; }
+
+table.modern-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: var(--font);
+}
+
+table.modern-tbl colgroup col:nth-child(1) { width: 44px; }
+table.modern-tbl colgroup col:nth-child(2) { width: 240px; }
+table.modern-tbl colgroup col:nth-child(3) { width: 100px; }
+table.modern-tbl colgroup col:nth-child(4) { width: 90px; }
+table.modern-tbl colgroup col:nth-child(5) { width: 90px; }
+table.modern-tbl colgroup col:nth-child(6) { width: 130px; }
+table.modern-tbl colgroup col:nth-child(7) { width: 80px; }
+
+table.modern-tbl thead tr {
+  background: #f7f8fc;
+}
+
+table.modern-tbl th {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--text-soft);
+  padding: 11px 8px;
+  border-bottom: 1px solid var(--border-md);
+  white-space: nowrap;
+  text-align: left;
+}
+
+table.modern-tbl th:nth-child(1) { text-align: center; }
+table.modern-tbl th:nth-child(4),
+table.modern-tbl th:nth-child(5) { text-align: right; }
+table.modern-tbl th:nth-child(6),
+table.modern-tbl th:nth-child(7) { text-align: center; }
+
+table.modern-tbl tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+
+table.modern-tbl tbody tr:last-child { border-bottom: none; }
+
+table.modern-tbl tbody tr:nth-child(even) { background: #fafbff; }
+
+table.modern-tbl tbody tr:hover { background: #eef2ff; }
+
+table.modern-tbl td {
+  padding: 9px 8px;
+  font-size: 12.5px;
+  color: var(--text);
+  vertical-align: middle;
+}
+
+table.modern-tbl td:nth-child(1) {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-xs);
+  font-weight: 600;
+}
+
+table.modern-tbl td:nth-child(4),
+table.modern-tbl td:nth-child(5) { text-align: right; }
+
+table.modern-tbl td:nth-child(6),
+table.modern-tbl td:nth-child(7) { text-align: center; }
+
+/* ── COMPANY CELL ── */
+.company-cell {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.logo-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border-md);
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 3px;
+}
+
+.logo-initials {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.company-info { min-width: 0; }
+
+.isin-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 4px;
+  padding: 1px 6px;
+  display: inline-block;
+  margin-bottom: 3px;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.sec-desc {
+  font-size: 11.5px;
+  color: var(--text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 185px;
+  line-height: 1.3;
+}
+
+/* ── VALUE CELLS ── */
+.price-val {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.yield-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--green-soft);
+  border-radius: 20px;
+  padding: 2px 9px;
+  white-space: nowrap;
+  font-family: var(--mono);
+}
+
+.date-cell {
+  font-size: 11px;
+  color: var(--text-xs);
+  font-family: var(--mono);
+  text-align: center;
+}
+
+/* ── INLINE CALCULATOR ── */
+.calc-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.calc-row .qty-input {
+  width: 48px;
+  font-size: 11.5px;
+  font-family: var(--mono);
+  padding: 4px 5px;
+  text-align: center;
+  border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+}
+
+.calc-row .qty-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59,110,248,.1);
+}
+
+.calc-row .eq {
+  font-size: 11px;
+  color: var(--text-xs);
+  flex-shrink: 0;
+}
+
+.calc-row .result-input {
+  width: 58px;
+  font-size: 11px;
+  font-family: var(--mono);
+  padding: 4px 5px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #f7f8fc;
+  color: var(--text-soft);
+  pointer-events: none;
+}
+
+/* ── ACTION BUTTON ── */
+.btn-update {
+  font-family: var(--font);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border: 1.5px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+
+.btn-update:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── PAGINATION ── */
+.tbl-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 11px 16px;
+  border-top: 1px solid var(--border);
+  background: #f7f8fc;
+}
+
+.tbl-pager a,
+.tbl-pager span,
+tr.GridPager a,
+tr.GridPager span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm) !important;
+  font-size: 11.5px !important;
+  font-family: var(--mono) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  margin: 0 1px !important;
+  border: 1px solid var(--border-md) !important;
+  color: var(--text-soft) !important;
+  background: var(--surface) !important;
+  transition: all .2s !important;
+}
+
+.tbl-pager a:hover,
+tr.GridPager a:hover {
+  background: var(--accent-soft) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+.tbl-pager span,
+tr.GridPager span {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+}
+
+tr.GridPager td { padding: 11px !important; border: none !important; }
+tr.GridPager { background: #f7f8fc !important; border-top: 1px solid var(--border) !important; }
+
+/* ── GRIDVIEW OVERRIDES (ASP.NET) ── */
+table[id$="GridView1"] { width: 100% !important; border-collapse: collapse !important; table-layout: fixed !important; font-family: var(--font) !important; }
+table[id$="GridView1"] tr:first-child { background: #f7f8fc !important; }
+table[id$="GridView1"] th { font-size: 10.5px !important; font-weight: 700 !important; letter-spacing: .6px !important; text-transform: uppercase !important; color: var(--text-soft) !important; padding: 11px 8px !important; border: none !important; border-bottom: 1px solid var(--border-md) !important; background: transparent !important; text-align: left !important; white-space: nowrap; }
+table[id$="GridView1"] td { padding: 9px 8px !important; color: var(--text) !important; vertical-align: middle !important; border: none !important; border-bottom: 1px solid var(--border) !important; font-size: 12.5px !important; }
+table[id$="GridView1"] tr:hover { background: #eef2ff !important; }
+table[id$="GridView1"] tr:nth-child(even) { background: #fafbff !important; }
+table[id$="GridView1"] tr:nth-child(even):hover { background: #eef2ff !important; }
+
+@media (max-width: 768px) {
+  .tbl-responsive { overflow-x: scroll !important; }
+  .search-bar-card { gap: 7px; }
+  table.modern-tbl, table[id$="GridView1"] { table-layout: auto !important; }
+}
+  </style>
+</head>
+
+<body>
+ <div class="search-bar-card">
+    <label class="sb-label">Search by</label>
+
+    <asp:DropDownList ID="ddlsearchby" runat="server"
+        CssClass="form-select"
+        AutoPostBack="true"
+        OnSelectedIndexChanged="ddlsearchby_IndexChanged"
+        style="width:110px">
+        <asp:ListItem Text="-- Select --" Value=""></asp:ListItem>
+        <asp:ListItem Text="ISIN"         Value="I"></asp:ListItem>
+        <asp:ListItem Text="Name"         Value="N"></asp:ListItem>
+    </asp:DropDownList>
+
+    <%-- ISIN input --%>
+    <div>
+        <asp:TextBox ID="txtisin" runat="server" MaxLength="12"
+            CssClass="form-control"
+            placeholder="Enter ISIN number…"
+            style="width:160px" />
+        <asp:RequiredFieldValidator ID="rfvISIN" runat="server"
+            ControlToValidate="txtisin"
+            ErrorMessage="Enter ISIN"
+            ForeColor="Red" Enabled="false"
+            Display="Dynamic" ValidationGroup="search" />
+    </div>
+
+    <%-- Name input --%>
+    <div>
+        <asp:TextBox ID="txtname" runat="server"
+            CssClass="form-control" Visible="false"
+            placeholder="Enter issuer name…"
+            style="width:160px" />
+        <asp:RequiredFieldValidator ID="rfvName" runat="server"
+            ControlToValidate="txtname"
+            ErrorMessage="Enter Name"
+            ForeColor="Red" Enabled="false"
+            Display="Dynamic" ValidationGroup="search" />
+    </div>
+
+    <%-- Online / Offline pill toggle --%>
+    <div class="type-pill-wrap">
+        <asp:LinkButton ID="btnOnline"  runat="server" CssClass="type-pill active"
+            OnClick="btnOnline_Click"  Text="Online"  />
+        <asp:LinkButton ID="btnOffline" runat="server" CssClass="type-pill"
+            OnClick="btnOffline_Click" Text="Offline" />
+        <%-- keep a hidden field to carry the value to code-behind --%>
+        <asp:HiddenField ID="hdnType" runat="server" Value="Y" />
+    </div>
+
+    <asp:Button ID="btnSearch" runat="server"
+        Text="Search"
+        CssClass="btn-search-modern"
+        ValidationGroup="search"
+        OnClick="btnSearch_Click" />
+</div>
+
+<%-- ── TABLE CARD ── --%>
+<div class="tbl-card">
+
+    <div class="tbl-topbar">
+        <span class="count-text">
+            Showing <strong>
+                <asp:Label ID="lblCount" runat="server" Text="0" />
+            </strong> securities
+        </span>
+        <span class="live-dot">Live prices</span>
+    </div>
+
+    <div class="tbl-responsive">
+        <asp:GridView ID="GridView1" runat="server"
+            CssClass="modern-tbl"
+            AutoGenerateColumns="false"
+            AllowPaging="true"
+            PageSize="10"
+            OnPageIndexChanging="GridView1_PageIndexChanging"
+            OnRowCommand="GridView1_RowCommand"
+            style="width:100%;border-collapse:collapse;table-layout:fixed">
+
+            <Columns>
+
+                <%-- S.No --%>
+                <asp:TemplateField HeaderText="#">
+                    <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
+                </asp:TemplateField>
+
+                <%-- Issuer / Security --%>
+                <asp:TemplateField HeaderText="Issuer / Security">
+                    <ItemTemplate>
+                        <div class="company-cell">
+                            <div class="logo-box">
+                                <asp:Image ID="imgLogo" runat="server"
+                                    ImageUrl='<%# "~/logo/" + Eval("ISIN") + ".png" %>'
+                                    AlternateText='<%# Eval("ISIN") %>'
+                                    CssClass="company-logo"
+                                    onerror="this.style.display='none';this.parentNode.querySelector('.logo-initials').style.display='block'" />
+                                <span class="logo-initials" style="display:none">
+                                    <%# Eval("ISIN").ToString().Length >= 5
+                                        ? Eval("ISIN").ToString().Substring(2,2).ToUpper()
+                                        : "??" %>
+                                </span>
+                            </div>
+                            <div class="company-info">
+                                <span class="isin-badge"><%# Eval("ISIN") %></span>
+                                <div class="sec-desc" title='<%# Eval("SECURITY_DESCRIPTION") %>'>
+                                    <%# Eval("SECURITY_DESCRIPTION") %>
+                                </div>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <%-- Last Update Date --%>
+                <asp:TemplateField HeaderText="Last Updated">
+                    <ItemTemplate>
+                        <span class="date-cell">
+                            <%# Eval("LAST_UPDATE_DATE") != DBNull.Value
+                                ? Convert.ToDateTime(Eval("LAST_UPDATE_DATE")).ToString("dd MMM yyyy")
+                                : "—" %>
+                        </span>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <%-- Offer Price --%>
+                <asp:TemplateField HeaderText="Offer Price">
+                    <ItemStyle HorizontalAlign="Right" />
+                    <ItemTemplate>
+                        <span class="price-val">
+                            ₹<asp:Label ID="lblStock" runat="server" Text='<%# Bind("OFFER_PRICE") %>' />
+                        </span>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <%-- Offer Yield --%>
+                <asp:TemplateField HeaderText="Offer Yield">
+                    <ItemStyle HorizontalAlign="Right" />
+                    <ItemTemplate>
+                        <span class="yield-pill">
+                            <asp:Label ID="lblYield" runat="server"
+                                Text='<%# Eval("OFFER_YIELD", "{0}%") %>' />
+                        </span>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <%-- Updated Offer Price & Yield (inline calculator) --%>
+                <asp:TemplateField HeaderText="Update Price &amp; Yield">
+                    <ItemTemplate>
+                        <div class="calc-row">
+                            <asp:TextBox ID="txt_stockqty" runat="server"
+                                CssClass="qty-input"
+                                MaxLength="6"
+                                onkeypress="return event.charCode>=48&&event.charCode<=57"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'');calcRow(this)" />
+                            <span class="eq">=</span>
+                            <asp:TextBox ID="TextBox1" runat="server"
+                                ReadOnly="true"
+                                CssClass="result-input" />
+                        </div>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <%-- Action --%>
+                <asp:TemplateField HeaderText="Action">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbtnview" runat="server"
+                            CssClass="btn-update"
+                            CommandName="UpdateStock"
+                            CommandArgument='<%# Eval("ISIN") %>'
+                            Text="Update" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+            </Columns>
+
+            <PagerStyle CssClass="GridPager" HorizontalAlign="Center" />
+            <PagerSettings Mode="NumericFirstLast"
+                PageButtonCount="10"
+                FirstPageText="« First"
+                LastPageText="Last »" />
+
+            <RowStyle ForeColor="#1a1f36" />
+            <HeaderStyle CssClass="tbl-header-row" />
+
+        </asp:GridView>
+    </div>
+</div>
+<script>
+    // Inline qty × offer-price calculator
+    function calcRow(input) {
+        var row = input.closest('tr');
+        // read offer price from the lblStock label in the same row
+        var priceLabel = row.querySelector('span.price-val');
+        if (!priceLabel) return;
+        var priceText = priceLabel.innerText.replace(/[^0-9.]/g, '');
+        var price = parseFloat(priceText) || 0;
+        var qty = parseInt(input.value) || 0;
+        var resultBox = row.querySelector('.result-input');
+        if (resultBox) {
+            resultBox.value = qty > 0
+                ? (qty * price).toLocaleString('en-IN', { maximumFractionDigits: 0 })
+                : '';
+        }
+    }
+
+    // Online / Offline pill toggle (visual only — value carried by hdnType)
+    document.addEventListener('DOMContentLoaded', function () {
+        var pills = document.querySelectorAll('.type-pill-wrap .type-pill');
+        var hdn = document.getElementById('<%= hdnType.ClientID %>');
+        pills.forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                // LinkButton posts back — just update visual before postback
+                pills.forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                if (hdn) hdn.value = btn.innerText.trim() === 'Online' ? 'Y' : 'N';
+            });
+        });
+    });
+</script>
+
+</body>
+
+
+</html>
