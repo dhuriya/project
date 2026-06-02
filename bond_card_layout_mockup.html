@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bond Securities Listing</title>
+
+<!-- Tabler Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+:root {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f5f7fa;
+  --color-background-info: #e3f2fd;
+  --color-background-success: #e8f5e9;
+  --color-background-warning: #fff8e1;
+  --color-background-danger: #ffebee;
+
+  --color-border-secondary: #d0d5dd;
+  --color-border-tertiary: #e4e7ec;
+
+  --color-text-primary: #101828;
+  --color-text-secondary: #667085;
+  --color-text-tertiary: #98a2b3;
+  --color-text-info: #1565c0;
+  --color-text-success: #2e7d32;
+  --color-text-warning: #ed6c02;
+  --color-text-danger: #d32f2f;
+
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f8fafc;
+  padding: 20px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.scheme-card {
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 12px 16px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
+.logo-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-background-info);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text-info);
+  flex-shrink: 0;
+}
+
+.scheme-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 240px;
+  flex: 2;
+}
+
+.name-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.isin-badge {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+  padding: 3px 8px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.sec-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sep {
+  border-left: 1px solid var(--color-border-tertiary);
+  height: 42px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  min-width: 90px;
+}
+
+.col-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.col-val {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 3px;
+}
+
+.yield-pill {
+  background: var(--color-background-success);
+  color: var(--color-text-success);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+.calc-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.calc-row input {
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 6px 8px;
+  font-size: 13px;
+  width: 80px;
+}
+
+.result {
+  border: 1px solid var(--color-border-tertiary);
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 6px 8px;
+  font-size: 13px;
+  width: 70px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.eq {
+  color: var(--color-text-tertiary);
+}
+
+.btn-request {
+  background: #fff;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-request:hover {
+  background: var(--color-background-secondary);
+}
+
+.status-ok {
+  color: var(--color-text-success);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sno {
+  width: 24px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+  .scheme-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sep {
+    display: none;
+  }
+
+  .col {
+    align-items: flex-start;
+    padding: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2 class="sr-only">Bond securities listing in horizontal card layout</h2>
+
+<div>
+
+  <!-- Card 1 -->
+  <div class="scheme-card">
+    <span class="sno">1</span>
+
+    <div class="scheme-name">
+      <div class="logo-box">IN</div>
+      <div class="name-info">
+        <span class="isin-badge">INE002A08534</span>
+        <span class="sec-name">RELIANCE INDUSTRIES LTD NCD 2027</span>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Face Value</span>
+      <span class="col-val">₹1,000</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Last Updated</span>
+      <span class="col-val" style="font-size:12px">25 May 2026</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Curr. Price</span>
+      <span class="col-val">₹1,045</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Curr. Yield</span>
+      <span class="yield-pill">7.85%</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col" style="min-width:180px;">
+      <span class="col-label">Update Price & Yield</span>
+      <div class="calc-row">
+        <input type="text" placeholder="Price">
+        <span class="eq">=</span>
+        <div class="result">Yield</div>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Status</span>
+      <span class="status-ok">
+        <i class="ti ti-check"></i> Active
+      </span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <button class="btn-request">Request</button>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="scheme-card">
+    <span class="sno">2</span>
+
+    <div class="scheme-name">
+      <div class="logo-box" style="background:#fff8e1;color:#ed6c02;">HD</div>
+      <div class="name-info">
+        <span class="isin-badge">INE001A07986</span>
+        <span class="sec-name">HDFC BANK LTD BOND 2029</span>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Face Value</span>
+      <span class="col-val">₹1,000</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Last Updated</span>
+      <span class="col-val" style="font-size:12px">24 May 2026</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Curr. Price</span>
+      <span class="col-val">₹998</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Curr. Yield</span>
+      <span class="yield-pill">8.20%</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <button class="btn-request">Request</button>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="scheme-card">
+    <span class="sno">3</span>
+
+    <div class="scheme-name">
+      <div class="logo-box" style="background:#ffebee;color:#d32f2f;">SB</div>
+      <div class="name-info">
+        <span class="isin-badge">INE062A08058</span>
+        <span class="sec-name">SBI BONDS 2031</span>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Face Value</span>
+      <span class="col-val">₹5,000</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Last Updated</span>
+      <span class="col-val" style="font-size:12px">23 May 2026</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Curr. Price</span>
+      <span class="col-val">₹5,120</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Curr. Yield</span>
+      <span class="yield-pill">7.40%</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <span class="col-label">Status</span>
+      <span class="status-ok">
+        <i class="ti ti-check"></i> Active
+      </span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="col">
+      <button class="btn-request">Request</button>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

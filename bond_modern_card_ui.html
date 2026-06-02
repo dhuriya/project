@@ -1,0 +1,151 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{padding:12px 0;display:flex;flex-direction:column;gap:10px;}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 18px;display:flex;align-items:center;gap:0;transition:border-color 0.15s;}
+.card:hover{border-color:var(--color-border-secondary);}
+.avatar{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;letter-spacing:0.5px;}
+.av-blue{background:#E6F1FB;color:#0C447C;}
+.av-amber{background:#FAEEDA;color:#633806;}
+.av-teal{background:#E1F5EE;color:#085041;}
+.issuer{display:flex;align-items:center;gap:12px;width:220px;flex-shrink:0;}
+.issuer-text{display:flex;flex-direction:column;gap:3px;min-width:0;}
+.isin{font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:0.3px;}
+.sec-name{font-size:13px;font-weight:500;color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:155px;}
+.divider{width:0.5px;background:var(--color-border-tertiary);height:36px;flex-shrink:0;margin:0 14px;}
+.stat{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:72px;}
+.stat-label{font-size:11px;color:var(--color-text-secondary);white-space:nowrap;}
+.stat-val{font-size:14px;font-weight:500;color:var(--color-text-primary);}
+.yield-pill{background:#E1F5EE;color:#085041;padding:3px 10px;border-radius:20px;font-size:13px;font-weight:500;}
+.calc{display:flex;align-items:center;gap:6px;min-width:170px;}
+.calc input{width:72px;height:30px;border:0.5px solid var(--color-border-secondary);border-radius:8px;padding:0 8px;font-size:12px;background:var(--color-background-primary);color:var(--color-text-primary);outline:none;}
+.calc input:focus{border-color:#378ADD;}
+.calc .eq{font-size:12px;color:var(--color-text-tertiary);}
+.calc .res{width:62px;height:30px;border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:0 8px;font-size:12px;background:var(--color-background-secondary);color:var(--color-text-secondary);display:flex;align-items:center;}
+.status-dot{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--color-text-secondary);min-width:56px;justify-content:center;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--color-background-secondary);flex-shrink:0;}
+.dot-green{background:#1D9E75;}
+.btn-req{height:30px;padding:0 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;font-size:12px;font-weight:500;color:var(--color-text-primary);cursor:pointer;white-space:nowrap;transition:background 0.12s;}
+.btn-req:hover{background:var(--color-background-secondary);}
+.sno{font-size:12px;color:var(--color-text-tertiary);width:18px;text-align:center;flex-shrink:0;margin-right:8px;}
+.right-group{display:flex;align-items:center;gap:0;margin-left:auto;}
+</style>
+
+<h2 class="sr-only">Bond securities list with price and yield update cards</h2>
+
+<div class="wrap">
+
+<div class="card">
+  <span class="sno">1</span>
+  <div class="issuer">
+    <div class="avatar av-blue">IN</div>
+    <div class="issuer-text">
+      <span class="isin">INE002A08534</span>
+      <span class="sec-name" title="Reliance Industries NCD 2027">Reliance Industries NCD 2027</span>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Face value</span><span class="stat-val">₹1,000</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Last updated</span><span class="stat-val" style="font-size:12px;">25 May 2026</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Curr. price</span><span class="stat-val">₹1,045</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Curr. yield</span><span class="yield-pill">7.85%</span></div>
+  <div class="right-group">
+    <div class="divider"></div>
+    <div class="stat" style="align-items:flex-start;min-width:180px;">
+      <span class="stat-label" style="margin-bottom:2px;">Update price &amp; yield</span>
+      <div class="calc">
+        <input type="text" placeholder="Price" oninput="calcYield(this)" data-coupon="78.5" data-fv="1000" />
+        <span class="eq">=</span>
+        <div class="res" id="y1">Yield</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="status-dot"><div class="dot dot-green"></div>Active</div>
+    <div class="divider"></div>
+    <button class="btn-req">Request</button>
+  </div>
+</div>
+
+<div class="card">
+  <span class="sno">2</span>
+  <div class="issuer">
+    <div class="avatar av-amber">HD</div>
+    <div class="issuer-text">
+      <span class="isin">INE001A07986</span>
+      <span class="sec-name" title="HDFC Bank Bond 2029">HDFC Bank Bond 2029</span>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Face value</span><span class="stat-val">₹1,000</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Last updated</span><span class="stat-val" style="font-size:12px;">24 May 2026</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Curr. price</span><span class="stat-val">₹998</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Curr. yield</span><span class="yield-pill">8.20%</span></div>
+  <div class="right-group">
+    <div class="divider"></div>
+    <div class="stat" style="align-items:flex-start;min-width:180px;">
+      <span class="stat-label" style="margin-bottom:2px;">Update price &amp; yield</span>
+      <div class="calc">
+        <input type="text" placeholder="Price" oninput="calcYield(this)" data-coupon="82" data-fv="1000" />
+        <span class="eq">=</span>
+        <div class="res" id="y2">Yield</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="status-dot"><div class="dot"></div>—</div>
+    <div class="divider"></div>
+    <button class="btn-req">Request</button>
+  </div>
+</div>
+
+<div class="card">
+  <span class="sno">3</span>
+  <div class="issuer">
+    <div class="avatar av-teal">SB</div>
+    <div class="issuer-text">
+      <span class="isin">INE062A08058</span>
+      <span class="sec-name" title="SBI Bonds 2031">SBI Bonds 2031</span>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Face value</span><span class="stat-val">₹5,000</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Last updated</span><span class="stat-val" style="font-size:12px;">23 May 2026</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Curr. price</span><span class="stat-val">₹5,120</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-label">Curr. yield</span><span class="yield-pill">7.40%</span></div>
+  <div class="right-group">
+    <div class="divider"></div>
+    <div class="stat" style="align-items:flex-start;min-width:180px;">
+      <span class="stat-label" style="margin-bottom:2px;">Update price &amp; yield</span>
+      <div class="calc">
+        <input type="text" placeholder="Price" oninput="calcYield(this)" data-coupon="370" data-fv="5000" />
+        <span class="eq">=</span>
+        <div class="res" id="y3">Yield</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="status-dot"><div class="dot dot-green"></div>Active</div>
+    <div class="divider"></div>
+    <button class="btn-req">Request</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+function calcYield(input){
+  const price=parseFloat(input.value);
+  const coupon=parseFloat(input.dataset.coupon);
+  const res=input.closest('.calc').querySelector('.res');
+  if(!price||price<=0){res.textContent='Yield';return;}
+  const y=((coupon/price)*100).toFixed(2)+'%';
+  res.textContent=y;
+}
+</script>
