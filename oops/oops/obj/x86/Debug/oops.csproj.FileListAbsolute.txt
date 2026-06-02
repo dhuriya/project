@@ -3,3 +3,9 @@ K:\Deepu Practice\oops\oops\bin\Debug\oops.pdb
 K:\Deepu Practice\oops\oops\obj\x86\Debug\oops.exe
 K:\Deepu Practice\oops\oops\obj\x86\Debug\oops.pdb
 K:\Deepu Practice\oops\oops\obj\x86\Debug\oops.csprojResolveAssemblyReference.cache
+K:\Deepu Practice\project\oops\oops\bin\Debug\oops.exe
+K:\Deepu Practice\project\oops\oops\bin\Debug\oops.pdb
+K:\Deepu Practice\project\oops\oops\obj\x86\Debug\oops.csproj.AssemblyReference.cache
+K:\Deepu Practice\project\oops\oops\obj\x86\Debug\oops.csproj.CoreCompileInputs.cache
+K:\Deepu Practice\project\oops\oops\obj\x86\Debug\oops.exe
+K:\Deepu Practice\project\oops\oops\obj\x86\Debug\oops.pdb
